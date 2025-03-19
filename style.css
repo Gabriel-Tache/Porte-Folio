@@ -1,8 +1,8 @@
 /*
-=====================================================
-This code is developed by Shokat Javed at JV Codes
-Website: www.jvcodes.com
-=====================================================
+===============================================================
+This code is developed by Gabriel Taché.
+Website: https://gabriel-tache.github.io/Porte-Folio/index.html
+===============================================================
 */
 
 /* ----- Poppins font link ----- */
@@ -357,6 +357,7 @@ body.dark .project-box {
     border-radius: 55% 45% 55% 45%;
     overflow: hidden;
     animation: imgFloat 7s ease-in-out infinite;
+   
 }
 .image img{
     width: 380px;
@@ -828,6 +829,17 @@ body.dark .bottom-footer {
         height: 40px;
         gap: 4px;
      }
+
+    .about-info p{
+        font-size: 12px;
+        line-height: 1,2;
+    }
+    .about-info {
+        padding: 25px;
+    }
+    .footer_menu_list a {
+        margin-inline: 10px;
+    }
 }
 
 /* -- 480px - Responsive settings -- */
@@ -844,7 +856,12 @@ body.dark .bottom-footer {
     .input-field{
         width: 100%;
     }
+
 }
 .b {
     font-weight: bold;
+}
+.whatsapp-link , .mailto-link {
+    text-decoration: none; /* Empêche le soulignement du lien */
+    color: inherit; /* Lien prend la couleur de l'élément parent (ici l'icône) */
 }
