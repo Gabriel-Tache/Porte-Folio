@@ -34,7 +34,7 @@ function headerShadow() {
 
 /* -- Typing revealing effect -- */
 var typingEffect = new Typed(".typedText",{
-  strings : ["Web Designer","Developer","Coder",],
+  strings : ["Web Designer","Developer","Coder"],
   loop : true,
   typeSpeed : 100, 
   backSpeed : 80,
