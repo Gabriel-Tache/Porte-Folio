@@ -1,331 +1,425 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Links -->
-    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="https://gabriel-tache.github.io/PF-Final/Capture%20d'%C3%A9cran%202025-03-05%20144338.png" type="image/x-icon">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <title>Gabriel Taché</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Icon sets & styles -->
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="https://gabriel-tache.github.io/PF-Final/Capture%20d'%C3%A9cran%202025-03-05%20144338.png" type="image/x-icon">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+  <title>Gabriel Taché</title>
 </head>
 <body>
-    <div class="container">
-    <!-- -- Navigation Section -- -->
-      <nav id="header">
-        <div class="nav-logo">
-            <p class="nav-name">Gabriel Taché</p>
-            <span>.</span>
+  <div class="container">
+    <!-- NAV -->
+    <nav id="header">
+      <div class="nav-logo">
+        <p class="nav-name">Gabriel Taché</p>
+        <span>.</span>
+      </div>
+
+      <div class="nav-menu" id="myNavMenu">
+        <ul class="nav_menu_list">
+          <li class="nav_list"><a href="#home" class="nav-link active-link">Accueil</a><div class="circle"></div></li>
+          <li class="nav_list"><a href="#about" class="nav-link">À Propos</a><div class="circle"></div></li>
+          <li class="nav_list"><a href="#projects" class="nav-link">Projets</a><div class="circle"></div></li>
+          <li class="nav_list"><a href="#contact" class="nav-link">Contact</a><div class="circle"></div></li>
+        </ul>
+      </div>
+
+      <div class="nav-button">
+        <a href="https://gabriel-tache.github.io/Porte-Folio/CV-Cyber.pdf" target="_blank" rel="noopener">
+          <button class="btn">Mon CV <i class="uil uil-file-alt"></i></button>
+        </a>
+      </div>
+
+      <!-- Mode toggle (optionnel)
+      <div class="mode">
+        <div class="moon-sun" id="toggle-switch">
+          <i class="fa fa-moon" id="moon"></i>
+          <i class="fa fa-sun" id="sun"></i>
         </div>
-        <div class="nav-menu" id="myNavMenu">
-            <ul class="nav_menu_list">
-                <li class="nav_list">
-                    <a href="#home" class="nav-link active-link">Accueil</a>
-                    <div class="circle"></div>
-                </li>
-                <li class="nav_list">
-                    <a href="#about" class="nav-link">À Propos</a>
-                    <div class="circle"></div>
-                </li>
-                <li class="nav_list">
-                    <a href="#projects" class="nav-link">Projets</a>
-                    <div class="circle"></div>
-                </li>
-                <li class="nav_list">
-                    <a href="#contact" class="nav-link">Contact</a>
-                    <div class="circle"></div>
-                </li>
-            </ul>
-        </div>
-        <div class="nav-button">
-            <a href="https://gabriel-tache.github.io/Porte-Folio/CV-Gabriel.T.pdf" target="_blank">
-                <button class="btn">Mon CV <i class="uil uil-file-alt"></i></button>
-            </a>
-        </div>
-        
-        <!-- --
-        <div class="mode">
-            <div class="moon-sun" id="toggle-switch">
-                <i class="fa fa-moon" id="moon"></i>
-                <i class="fa fa-sun" id="sun"></i>
-            </div>
-        </div>
-        -- -->
-        <div class="nav-menu-btn">
-            <i class="uil uil-bars" onclick="myMenuFunction()"></i>
-        </div>
-      </nav>
-    <!-- -- Main -- -->
+      </div>
+      -->
+
+      <div class="nav-menu-btn">
+        <i class="uil uil-bars" onclick="myMenuFunction()"></i>
+      </div>
+    </nav>
+
+    <!-- MAIN -->
     <main class="wrapper">
-       <!-- -- Hero Section -- -->
-       <section class="featured-box" id="home">
+      <!-- HERO -->
+      <section class="featured-box" id="home">
         <div class="featured-text">
-          <div class="featured-text-card">
-              <span>Gabriel Taché</span>
-          </div>
-          <div class="featured-name">
-              <p>Je suis <span class="typedText"></span></p>
-          </div>
-          <div class="featured-text-info">
-              <p>Etudiant en informatique 
-              </p>
-          </div>
+          <div class="featured-text-card"><span>Gabriel Taché</span></div>
+          <div class="featured-name"><p>Je suis <span class="typedText"></span></p></div>
+          <div class="featured-text-info"><p>Etudiant en informatique</p></div>
+
           <div class="featured-text-btn">
-            <!-- -- <button class="btn blue-btn">Hire Me</button>-- -->
-              <a href="https://gabriel-tache.github.io/Porte-Folio/CV-Gabriel.T.pdf" target="_blank">
+            <a href="https://gabriel-tache.github.io/Porte-Folio/CV-Cyber.pdf" target="_blank" rel="noopener">
               <button class="btn">Mon CV <i class="uil uil-file-alt"></i></button>
-              </a>
-          </div>
-          <div class="social_icons">
-            <a href="https://wa.me/+330781884726" target="_blank" class="whatsapp-link">
-              <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-dasharray="64" stroke-dashoffset="64" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 3c0.5 0 2.5 4.5 2.5 5c0 1 -1.5 2 -2 3c-0.5 1 0.5 2 1.5 3c0.39 0.39 2 2 3 1.5c1 -0.5 2 -2 3 -2c0.5 0 5 2 5 2.5c0 2 -1.5 3.5 -3 4c-1.5 0.5 -2.5 0.5 -4.5 0c-2 -0.5 -3.5 -1 -6 -3.5c-2.5 -2.5 -3 -4 -3.5 -6c-0.5 -2 -0.5 -3 0 -4.5c0.5 -1.5 2 -3 4 -3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.6s" values="64;0"/></path></svg></div>
-              </a>
-              
-                <a href="https://www.linkedin.com/in/gabriel-taché-77284b351" target="_blank" class="whatsapp-link">
-                <div class="icon"><i class="uil uil-linkedin-alt"></i></div>
-              </a>
-            
-              
-              <a href="mailto:gabriel.tache.gt@gmail.com" class="mailto-link">
-              <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" viewBox="0 0 24 24"><path fill="currentColor" d="M4 20q-.825 0-1.412-.587T2 18V6q0-.825.588-1.412T4 4h16q.825 0 1.413.588T22 6v12q0 .825-.587 1.413T20 20zm8-7L4 8v10h16V8zm0-2l8-5H4zM4 8V6v12z"/></svg></div>
             </a>
-              <div class="icon"><i class="uil uil-github-alt"></i></div>
+          </div>
+
+          <div class="social_icons">
+            <a href="https://wa.me/+330781884726" target="_blank" rel="noopener" class="whatsapp-link">
+              <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" viewBox="0 0 24 24">
+                  <path fill="none" stroke="currentColor" stroke-dasharray="64" stroke-dashoffset="64" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 3c0.5 0 2.5 4.5 2.5 5c0 1 -1.5 2 -2 3c-0.5 1 0.5 2 1.5 3c0.39 0.39 2 2 3 1.5c1 -0.5 2 -2 3 -2c0.5 0 5 2 5 2.5c0 2 -1.5 3.5 -3 4c-1.5 0.5 -2.5 0.5 -4.5 0c-2 -0.5 -3.5 -1 -6 -3.5c-2.5 -2.5 -3 -4 -3.5 -6c-0.5 -2 -0.5 -3 0 -4.5c0.5 -1.5 2 -3 4 -3Z">
+                    <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.6s" values="64;0"/>
+                  </path>
+                </svg>
+              </div>
+            </a>
+
+            <a href="https://www.linkedin.com/in/gabriel-taché-77284b351" target="_blank" rel="noopener" class="whatsapp-link">
+              <div class="icon"><i class="uil uil-linkedin-alt"></i></div>
+            </a>
+            
+            <a href="https://mail.google.com/mail/?view=cm&to=gabriel.tache.gt@gmail.com"
+   target="_blank" rel="noopener" class="mailto-link">
+  <div class="icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M4 20q-.825 0-1.412-.587T2 18V6q0-.825.588-1.412T4 4h16q.825 0 1.413.588T22 6v12q0 .825-.587 1.413T20 20zm8-7L4 8v10h16V8zm0-2l8-5H4zM4 8V6v12z"/>
+      </svg>
+  </div>
+</a>
+
+                        <a href="https://github.com/Gabriel-Tache" target="_blank" rel="noopener" class="whatsapp-link">
+              <div class="icon"><i class="uil uil-github-alt"></i></i></div>
+            </a>
           </div>
         </div>
+
         <div class="featured-image">
           <div class="image">
-              <img src="https://gabriel-tache.github.io/Porte-Folio/Photo-CV.png" alt="avatar">
+            <img src="https://gabriel-tache.github.io/Porte-Folio/Photo-CV.png" alt="avatar">
           </div>
         </div>
-        <!-- --
-        <div class="scroll-icon-box">
-          <a href="#about" class="scroll-btn">
-              <i class="uil uil-mouse-alt"></i>
-              <p>Scroll Down</p>
-          </a>
-        </div>
-        -- -->
-     </section>
-       <!-- -- About Section -- -->
-       <section class="section" id="about">
-          <div class="top-header">
-            <h1>À Propos de Moi</h1>
-          </div>
-          <div class="row">
-            <div class="col">
-                <div class="about-info">
-                    <h3>Introduction</h3>
-                    <p>Je suis un étudiant passionné par l'<b>Informatique</b>, avec un fort intérêt pour la l'<b>IA</b> et la <b>Cybersécurité</b>.
-                        Je suis <b>Curieux</b>, <b>Rigoureux</b> et toujours en quête de <b>nouvelles connaissances</b>.
-                        Je <b>Recherche</b> actuellement une <b>Alternance</b> qui me permettra d’appliquer mes compétences 
-                          tout en développant mon expertise sur des <b>projets concrets</b>.
-                          Je suis très <b>Motivé</b> à m’investir au sein d’une <b>entreprise</b>, contribuer activement à ses <b>projets</b> afin de <b>monter en compétences</b>
-                            aux côtés de <b>professionnels</b> du secteur. 
-                    </p>
-                </div>
-            </div>
-            <div class="col">
-                <div class="about-info">
-                <!-- --  <img src="data:image/png;base64,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" alt="Illustration de la formation" class="about-image"> About Section -- -->
-                    <h3>Formation</h3>
-                    
-                    <p>Le Bachelor Informatique de l’<b>ECE</b> est une formation en trois ans qui prépare aux métiers de l'<b>Informatique</b>
-                        avec une approche alliant <b>théorie</b> et <b>pratique</b>. Cette formation met l’accent sur des <b>projets concrets</b>, et dans une immersion dans l’<b>écosystème digital</b>.
-                        <br>
-                        <br>
-                        J'y ai étudié divers domaines de l'<b>Informatique</b> comme : la <b>Cybersécurité</b>, les 
-                        <b>Systèmes</b> et <b>Réseaux Informatiques</b>, la <b>Data</b> et le <b>Cloud</b>, les <b>Bases de données</b> et le <b>Développement Informatique</b> avec l'utilisation de nombreux <b>langages de Programmation</b>.
+      </section>
 
-                    </p>
-                    
-                </div>
-            </div>
-            </div>
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-            <div class="top-header">
-                <h1>Compétences</h1>
-              </div>
-            <div class="col">
-                <div class="about-infos">
-                    <div class="about-info">
-                <div class="skills-box">
-                    <div class="skills-header">
-                        <h3>Front End</h3>
-                    </div>
-                
-                    <div class="skills-list">
-                        <span>HTML</span>
-                        <span>CSS</span>
-                        <span>JavaScript</span>
-                        <span>Bootstrap</span>
-                        
-                        
-                    </div>
-                </div>
-                </div>
-                <div class="about-info">
-                <div class="skills-box">
-                    <div class="skills-header">
-                        <h3>Back End</h3>
-                    </div>
-                    <div class="skills-list">
-                        <span>C</span>
-                        <span>C++</span>
-                        <span>PHP</span>
-                        <span>JAVA</span>
-                        <span>Python</span>
-                        <span>MySQL</span>
-                    </div>
-                </div>
-                </div>
-                <div class="about-info">
-                <div class="skills-box">
-                    <div class="skills-header">
-                        <h3>Database</h3>
-                    </div>
-                    <div class="skills-list">
-                        <span>MySQL</span>
-                        <span>MySQL.Workbench</span>
-                        <span>MySQL Lite</span>
-                        
-                    </div>
-                    </div>
-                </div>
+      <!-- ABOUT -->
+      <section class="section" id="about">
+        <div class="top-header"><h1>À Propos de Moi</h1></div>
+
+        <div class="row">
+          <div class="col">
+            <div class="about-info">
+              <h3>Introduction</h3>
+              <p>
+                Je suis un étudiant passionné par l'<b>Informatique</b>, avec un fort intérêt pour la <b>Cybersécurité</b>.
+                Je suis <b>Curieux</b>, <b>Rigoureux</b> et toujours en quête de <b>nouvelles connaissances</b>.
+                Je <b>Recherche</b> actuellement une <b>Alternance</b> qui me permettra d’appliquer mes compétences
+                tout en développant mon expertise sur des <b>projets concrets</b>. Je suis très <b>Motivé</b> à m’investir
+                au sein d’une <b>entreprise</b>, contribuer activement à ses <b>projets</b> afin de <b>monter en compétences</b>
+                aux côtés de <b>professionnels</b> du secteur.
+              </p>
             </div>
           </div>
-       </section>
-       
-       <!-- -- Project Section -- -->
-       <section class="section" id="projects">
-        <div class="top-header">
-            <h1>Mes Projets</h1>
+
+          <div class="col">
+            <div class="about-info">
+              <h3>Formation</h3>
+              <p>
+                Le Bachelor Informatique de l’<b>ECE</b> est une formation en trois ans qui prépare aux métiers de l'<b>Informatique</b>
+                avec une approche alliant <b>théorie</b> et <b>pratique</b>. Cette formation met l’accent sur des <b>projets concrets</b>
+                et une immersion dans l’<b>écosystème digital</b>.<br><br>
+                J'y ai étudié : <b>Cybersécurité</b>, <b>Systèmes & Réseaux</b>, <b>Data</b> & <b>Cloud</b>, <b>Bases de données</b>,
+                <b>Développement</b> (C, C++, Java, Python, PHP, MySQL).
+              </p>
+            </div>
+          </div>
         </div>
+
+        <br><br><br><br><br>
+
+        <div class="top-header"><h1>Compétences</h1></div>
+
+        <div class="col">
+          <div class="about-infos">
+            <div class="about-info">
+              <div class="skills-box">
+                <div class="skills-header"><h3>Front End</h3></div>
+                <div class="skills-list">
+                  <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Bootstrap</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="about-info">
+              <div class="skills-box">
+                <div class="skills-header"><h3>Back End</h3></div>
+                <div class="skills-list">
+                  <span>C</span><span>C++</span><span>PHP</span><span>JAVA</span><span>Python</span><span>MySQL</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="about-info">
+              <div class="skills-box">
+                <div class="skills-header"><h3>Database</h3></div>
+                <div class="skills-list">
+                  <span>MySQL</span><span>MySQL.Workbench</span><span>MySQL Lite</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section class="section" id="projects">
+        <div class="top-header"><h1>Mes Projets</h1></div>
+
         <div class="project-container">
-          <div class="project-box">
-            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 1024 1024"><path fill="currentColor" d="m145 96l66 746.6L511.8 928l299.6-85.4L878.7 96zm610.9 700.6l-244.1 69.6l-245.2-69.6l-56.7-641.2h603.8zM281 249l1.7 24.3l22.7 253.5h206.5v-.1h112.9l-11.4 118.5L511 672.9v.2h-.8l-102.4-27.7l-6.5-73.2h-91l11.3 144.7l188.6 52h1.7v-.4l187.7-51.7l1.7-16.3l21.2-242.2l3.2-24.3H511v.2H389.9l-8.2-94.2h352.1l1.7-19.5l4.8-47.2L742 249H511z"/></svg>
+          <!-- Tous les project-box n'ont plus de data-image -->
+          <div class="project-box" data-title="Site Web E-Commerce">
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 1024 1024" aria-hidden="true">
+              <path fill="currentColor" d="m145 96l66 746.6L511.8 928l299.6-85.4L878.7 96zm610.9 700.6l-244.1 69.6l-245.2-69.6l-56.7-641.2h603.8zM281 249l1.7 24.3l22.7 253.5h206.5v-.1h112.9l-11.4 118.5L511 672.9v.2h-.8l-102.4-27.7l-6.5-73.2h-91l11.3 144.7l188.6 52h1.7v-.4l187.7-51.7l1.7-16.3l21.2-242.2l3.2-24.3H511v.2H389.9l-8.2-94.2h352.1l1.7-19.5l4.8-47.2L742 249H511z"/>
+            </svg>
+          
+            <h3>Site Web E-Commerce Sécurisé</h3>
+            <label>Développement d’une boutique en ligne cybersécurisée (HTML, CSS, JavaScript, Bootstrap, PHP, MySQL).</label>
+            
+          
+            <template class="project-body">
+              <p><strong>Objectif :</strong> créer une boutique responsive avec gestion du catalogue, du panier et d’un espace admin simple.</p>
+          
+              <ul>
+                <li>Panier en temps réel (ajout, suppression, persistance locale).</li>
+                <li>CRUD produits côté admin (titre, prix, stock).</li>
+                <li>Design adapté mobile et accessible.</li>
+              </ul>
+          
+              <p><strong>Aspects cybersécurité :</strong> validation des entrées pour limiter XSS, réflexion sur protections CSRF,
+                 séparation client/admin et sensibilisation aux bonnes pratiques OWASP et système de cryptage des informations dans la base de donées.</p>
+          
+              <p><strong>Apprentissages :</strong> mise en œuvre de fonctionnalités web concrètes tout en intégrant une logique de
+                 <em>sécurité dès la conception</em>.</p>
+            </template>
+          </div>
+          
 
-              <h3>Site Web E-Commerce</h3>
-              <label>Développement d'un site web e-commerce avec HTML, CSS, JavaScript.</label>
-          </div>
-          <div class="project-box">
-            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 50 50">
-                <path d="M 25 2 C 24.285156 2 23.574219 2.179688 22.933594 2.539063 L 6.089844 12.003906 C 4.808594 12.726563 4 14.074219 4 15.535156 L 4 34.464844 C 4 35.929688 4.808594 37.277344 6.089844 38 L 22.933594 47.460938 C 24.214844 48.183594 25.785156 48.183594 27.066406 47.460938 L 43.910156 38 C 45.195313 37.277344 46 35.925781 46 34.464844 L 46 15.535156 C 46 14.074219 45.191406 12.726563 43.910156 12.003906 L 27.066406 2.539063 C 26.425781 2.179688 25.714844 2 25 2 Z M 25 4 C 25.375 4 25.753906 4.09375 26.089844 4.28125 L 42.933594 13.746094 C 43.601563 14.125 44 14.804688 44 15.535156 L 44 24 L 42 24 L 42 22 L 40 22 L 40 24 L 38 24 L 38 26 L 40 26 L 40 28 L 42 28 L 42 26 L 44 26 L 44 34.464844 C 44 35.195313 43.601563 35.875 42.929688 36.253906 L 26.089844 45.71875 C 25.417969 46.09375 24.582031 46.09375 23.910156 45.71875 L 7.070313 36.253906 C 6.398438 35.875 6 35.199219 6 34.464844 L 6 15.535156 C 6 14.804688 6.398438 14.125 7.070313 13.746094 L 23.910156 4.28125 C 24.246094 4.09375 24.625 4 25 4 Z M 25 12 C 17.839844 12 12 17.839844 12 25 C 12 32.160156 17.839844 38 25 38 C 29.089844 38 32.886719 36.09375 35.339844 32.863281 L 36.023438 31.960938 L 29.96875 28.453125 L 29.421875 29.046875 C 28.292969 30.28125 26.691406 31 25 31 C 21.683594 31 19 28.316406 19 25 C 19 21.683594 21.683594 19 25 19 C 26.691406 19 28.292969 19.71875 29.421875 20.953125 L 29.96875 21.546875 L 36.023438 18.039063 L 35.339844 17.136719 C 32.886719 13.90625 29.089844 12 25 12 Z M 25 14 C 28.074219 14 30.886719 15.316406 32.945313 17.511719 L 30.203125 19.097656 C 28.757813 17.832031 26.960938 17 25 17 C 20.597656 17 17 20.597656 17 25 C 17 29.402344 20.597656 33 25 33 C 26.960938 33 28.757813 32.167969 30.203125 30.902344 L 32.945313 32.488281 C 30.886719 34.683594 28.074219 36 25 36 C 18.925781 36 14 31.074219 14 25 C 14 18.925781 18.925781 14 25 14 Z M 33 22 L 33 24 L 31 24 L 31 26 L 33 26 L 33 28 L 35 28 L 35 26 L 37 26 L 37 24 L 35 24 L 35 22 Z"></path>
-                </svg>
-              <h3>Plateforme de Réservation de Billets de Train</h3>
-              <label>Développement d'un système de réservation et de gestion des trains en C++.</label>
-          </div>
-          <div class="project-box">
-            <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="50" height="50" viewBox="0 0 100 100">
-                <path d="M 50 12.003906 C 49.170125 12.003781 48.340109 12.214719 47.599609 12.636719 L 18.410156 29.257812 C 16.924156 30.104812 16 31.683859 16 33.380859 L 16 66.621094 C 16 68.316094 16.923156 69.896141 18.410156 70.744141 L 47.599609 87.363281 C 48.338609 87.786281 49.168047 87.998047 49.998047 87.998047 C 50.827047 87.998047 51.657484 87.787234 52.396484 87.365234 L 81.589844 70.744141 C 83.075844 69.896141 84 68.315141 84 66.619141 L 84 33.378906 C 84 31.681906 83.076844 30.102813 81.589844 29.257812 L 52.398438 12.636719 C 51.659437 12.214219 50.829875 12.004031 50 12.003906 z M 49.998047 14.001953 C 50.485047 14.001953 50.974203 14.125047 51.408203 14.373047 L 80.601562 30.994141 C 81.464562 31.485141 82 32.399906 82 33.378906 L 82 66.619141 C 82 67.599141 81.462609 68.513859 80.599609 69.005859 L 51.40625 85.626953 C 50.53725 86.122953 49.458844 86.122953 48.589844 85.626953 L 19.398438 69.007812 C 18.536438 68.515812 18 67.600094 18 66.621094 L 18 33.380859 C 18 32.400859 18.536391 31.485141 19.400391 30.994141 L 48.589844 14.373047 C 49.023844 14.125047 49.511047 14.001953 49.998047 14.001953 z M 49.96875 16.496094 C 49.903984 16.503453 49.840047 16.522391 49.779297 16.556641 L 46.878906 18.185547 C 46.638906 18.320547 46.553453 18.624234 46.689453 18.865234 C 46.780453 19.028234 46.95 19.121094 47.125 19.121094 C 47.208 19.121094 47.291141 19.101641 47.369141 19.056641 L 50.269531 17.427734 C 50.509531 17.292734 50.596938 16.987094 50.460938 16.746094 C 50.360437 16.566094 50.163047 16.474016 49.96875 16.496094 z M 45.443359 19.035156 C 45.378594 19.042594 45.314656 19.063406 45.253906 19.097656 L 35.515625 24.564453 C 35.275625 24.699453 35.188219 25.003141 35.324219 25.244141 C 35.415219 25.407141 35.586719 25.5 35.761719 25.5 C 35.844719 25.5 35.927859 25.479547 36.005859 25.435547 L 45.744141 19.96875 C 45.984141 19.83375 46.071547 19.528109 45.935547 19.287109 C 45.835047 19.106359 45.637656 19.012844 45.443359 19.035156 z M 49.970703 25.955078 C 36.712703 25.955078 25.925781 36.742 25.925781 50 C 25.925781 63.259 36.712703 74.044922 49.970703 74.044922 C 58.581703 74.044922 66.588188 69.384813 70.867188 61.882812 C 70.934187 61.765813 70.950063 61.627047 70.914062 61.498047 C 70.878063 61.369047 70.790828 61.260312 70.673828 61.195312 L 60.353516 55.517578 C 60.117516 55.388578 59.818641 55.467172 59.681641 55.701172 C 57.657641 59.136172 53.935703 61.271484 49.970703 61.271484 C 43.756703 61.271484 38.699219 56.216 38.699219 50 C 38.699219 43.786 43.755703 38.728516 49.970703 38.728516 C 53.915703 38.728516 57.508078 40.749766 59.580078 44.134766 C 59.723078 44.367766 60.023859 44.440594 60.255859 44.308594 L 70.486328 38.462891 C 70.602328 38.395891 70.688656 38.28525 70.722656 38.15625 C 70.756656 38.02625 70.736922 37.888438 70.669922 37.773438 C 66.351922 30.484438 58.419703 25.955078 49.970703 25.955078 z M 49.970703 26.955078 C 57.898703 26.955078 65.352922 31.116609 69.544922 37.849609 L 60.171875 43.205078 C 57.883875 39.766078 54.105703 37.728516 49.970703 37.728516 C 43.204703 37.728516 37.699219 43.234 37.699219 50 C 37.699219 56.766 43.203703 62.271484 49.970703 62.271484 C 54.126703 62.271484 58.033156 60.120047 60.285156 56.623047 L 69.740234 61.824219 C 65.582234 68.758219 58.054703 73.044922 49.970703 73.044922 C 37.264703 73.044922 26.925781 62.707 26.925781 50 C 26.925781 37.294 37.264703 26.955078 49.970703 26.955078 z M 31.320312 26.964844 C 31.255547 26.972281 31.191609 26.991141 31.130859 27.025391 L 20.277344 33.117188 C 20.120344 33.205187 20.023438 33.371734 20.023438 33.552734 L 20.023438 63.25 C 20.023438 63.526 20.247438 63.75 20.523438 63.75 C 20.800437 63.75 21.022437 63.526 21.023438 63.25 L 21.023438 33.845703 L 31.621094 27.896484 C 31.861094 27.761484 31.946547 27.457797 31.810547 27.216797 C 31.710047 27.036047 31.514609 26.942531 31.320312 26.964844 z M 49.970703 28.955078 C 38.366703 28.955078 28.925781 38.396 28.925781 50 C 28.925781 58.833 34.514078 66.789828 42.830078 69.798828 C 42.886078 69.818828 42.943 69.828125 43 69.828125 C 43.204 69.828125 43.396703 69.702047 43.470703 69.498047 C 43.565703 69.238047 43.429922 68.951422 43.169922 68.857422 C 35.247922 65.990422 29.925781 58.413 29.925781 50 C 29.925781 38.947 38.917703 29.955078 49.970703 29.955078 C 50.246703 29.955078 50.470703 29.731078 50.470703 29.455078 C 50.470703 29.179078 50.246703 28.955078 49.970703 28.955078 z M 55.052734 29.625 C 54.859844 29.651859 54.693875 29.793891 54.640625 29.994141 C 54.569625 30.261141 54.729094 30.536469 54.996094 30.605469 C 59.100094 31.681469 62.836578 34.082234 65.517578 37.365234 C 65.617578 37.486234 65.759297 37.548828 65.904297 37.548828 C 66.016297 37.548828 66.128703 37.5125 66.220703 37.4375 C 66.434703 37.2625 66.466969 36.946422 66.292969 36.732422 C 63.478969 33.286422 59.557953 30.767672 55.251953 29.638672 C 55.184453 29.619672 55.117031 29.616047 55.052734 29.625 z M 79.476562 33.052734 C 79.200562 33.052734 78.976562 33.276734 78.976562 33.552734 L 78.976562 66.154297 L 65.503906 73.716797 C 65.263906 73.851797 65.178453 74.155484 65.314453 74.396484 C 65.405453 74.559484 65.575 74.652344 65.75 74.652344 C 65.833 74.652344 65.917141 74.632844 65.994141 74.589844 L 79.720703 66.884766 C 79.877703 66.796766 79.976562 66.630219 79.976562 66.449219 L 79.976562 33.552734 C 79.976562 33.276734 79.752562 33.052734 79.476562 33.052734 z M 46.21875 69.693359 C 45.94975 69.642359 45.686766 69.819797 45.634766 70.091797 C 45.582766 70.362797 45.76025 70.623781 46.03125 70.675781 C 47.32325 70.920781 48.649703 71.044922 49.970703 71.044922 C 50.246703 71.044922 50.470703 70.822875 50.470703 70.546875 C 50.470703 70.270875 50.246703 70.046875 49.970703 70.046875 C 48.711703 70.046875 47.44875 69.926359 46.21875 69.693359 z M 62.568359 75.408203 C 62.503594 75.415641 62.439656 75.436453 62.378906 75.470703 L 57.253906 78.347656 C 57.013906 78.482656 56.928453 78.786344 57.064453 79.027344 C 57.155453 79.190344 57.325 79.283203 57.5 79.283203 C 57.583 79.283203 57.666141 79.26375 57.744141 79.21875 L 62.869141 76.341797 C 63.109141 76.206797 63.196547 75.901156 63.060547 75.660156 C 62.960047 75.479406 62.762656 75.385891 62.568359 75.408203 z"></path>
-                </svg>
-              <h3>Scrabble</h3>
-              <label>Développement d'un jeu de Scrabble en langage C avec gestion des scores.</label>
-          </div>
-          <div class="project-box">
-            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="currentColor"><path d="M2.5 12c0-4.478 0-6.718 1.391-8.109S7.521 2.5 12 2.5c4.478 0 6.718 0 8.109 1.391S21.5 7.521 21.5 12c0 4.478 0 6.718-1.391 8.109S16.479 21.5 12 21.5c-4.478 0-6.718 0-8.109-1.391S2.5 16.479 2.5 12"/><path d="M5 12v-2a.5.5 0 0 1 .5-.5h1.25a1.25 1.25 0 1 1 0 2.5zm0 0v2.5M16 12v-2a.5.5 0 0 1 .5-.5h1.25a1.25 1.25 0 1 1 0 2.5zm0 0v2.5m-5.5-5V12m0 2.5V12m3-2.5V12m0 2.5V12m-3 0h3"/></g></svg>
-            <h3>Site Web de Gestion de Projets</h3>
-            <label>Développement d’un site de projets en utilisant HTML, CSS, PHP, MySQL et Bootstrap.</label>
+<!-- Projet – Cybersécurité et hacking (DVWA) -->
+<div class="project-box dvwa" data-title="Projet – Cybersécurité et hacking (DVWA)">
+  <!-- Logo DVWA carré arrondi -->
+  <svg class="dvwa-logo" xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 100 100" aria-hidden="true">
+    <rect x="8" y="8" width="84" height="84" rx="22" ry="22" stroke="currentColor" stroke-width="6" fill="none"/>
+    <text x="50" y="58" font-family="Arial, sans-serif" font-size="22" font-weight="700" text-anchor="middle" fill="currentColor">DVWA</text>
+  </svg>
+
+  <h3>Projet – Cybersécurité et hacking</h3>
+  <label>Exploitation de vulnérabilités DVWA et apprentissage des bases en cyber.</label>
+
+  <template class="project-body">
+    <p><strong>Pratique :</strong> mise en place de DVWA en local, configuration des niveaux de sécurité, et exploitation contrôlée de vulnérabilités (SQLi, XSS, Brute Force).</p>
+
+    <p><strong>Outils & méthodes :</strong> Burp Suite pour intercepter les requêtes, tests manuels sur formulaires, validation par logs et captures.</p>
+
+    <p><strong>Apprentissages :</strong> compréhension des risques réels des failles OWASP, manipulation de payloads, et surtout <b>bonnes pratiques de mitigation</b> (requêtes préparées, filtrage des entrées, protections contre brute force et XSS).</p>
+
+    <p><strong>Valeur ajoutée :</strong> ce projet m’a permis de <b>mettre les mains dans la cybersécurité</b>, développer un réflexe de recherche d’exploit, mais aussi apprendre à penser en termes de <b>contre-mesures</b> et durcissement applicatif.</p>
+  </template>
+</div>
+
+
+
+
+
+
+<div class="project-box" data-title="Détection & Mitigation DDoS">
+  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 32 32"><path fill="currentColor" d="m29.895 23.542l-1.724-3.447a2 2 0 0 0-1.789-1.106h-.468a14.9 14.9 0 0 0-1.82-4.597C23.065 12.442 22 10.428 22 8a6 6 0 0 0-12 0a13 13 0 0 1-2.049 6.215a14.7 14.7 0 0 0-1.87 4.776h-.463a2 2 0 0 0-1.789 1.106l-1.723 3.447a1 1 0 0 0 .097 1.05l4.029 5.326a3 3 0 0 0 3.848.652l1.874-1.124A13.8 13.8 0 0 0 16 30a13.8 13.8 0 0 0 4.049-.553l1.871 1.123a3 3 0 0 0 1.539.43a3.04 3.04 0 0 0 2.338-1.119l4-5.288a1 1 0 0 0 .098-1.051m-7.569-8.216a14.8 14.8 0 0 1 1.56 3.663h-2.148a16.7 16.7 0 0 0-.98-2.645a12.7 12.7 0 0 1-.879-2.446a9 9 0 0 0 1.003-1.427l.039-.072a31 31 0 0 0 1.405 2.927M12 21a9.4 9.4 0 0 1 1.073-3.852c.256-.582.516-1.175.726-1.799a4.05 4.05 0 0 0 4.402 0c.21.624.47 1.217.726 1.8A9.4 9.4 0 0 1 20 21c0 1.288-.415 3-4 3s-4-1.712-4-3m6.51-8.575A3.63 3.63 0 0 1 16 14a3.63 3.63 0 0 1-2.51-1.576a7.64 7.64 0 0 1 5.02 0ZM12 8a4 4 0 0 1 8 0a11 11 0 0 0 .467 3.115a8 8 0 0 0-1.467-.63V8h-2v2.054a9.3 9.3 0 0 0-2 0V8h-2v2.485a8 8 0 0 0-1.478.637A10.7 10.7 0 0 0 12 8m-2.285 7.16a30 30 0 0 0 1.354-2.78l.049.09a9 9 0 0 0 1.003 1.428a12.7 12.7 0 0 1-.879 2.445a16.7 16.7 0 0 0-.98 2.648H8.104a14 14 0 0 1 1.61-3.832m1.37 12.477l-2.034 1.22a.99.99 0 0 1-1.253-.18l-3.626-4.794l1.446-2.892h3.706l2.166 5.394a1.004 1.004 0 0 1-.405 1.252m2.316.117a2.96 2.96 0 0 0-.056-2.11A9 9 0 0 0 16 26a9 9 0 0 0 2.656-.356a3 3 0 0 0-.054 2.11a13.9 13.9 0 0 1-5.2 0Zm10.83.884a.996.996 0 0 1-1.282.217l-2.034-1.22a1.01 1.01 0 0 1-.396-1.273l2.157-5.373h3.705l1.446 2.892Z"/></svg>
+
+  <h3>Outil SaaS de Cybersécurité – DDoS</h3>
+  <label>Développement d’une solution SaaS de détection et mitigation d’attaques DDoS en temps réel (Machine Learning, Linux, Dashboard Web).</label>
+
+  <template class="project-body">
+    <p><strong>Objectif :</strong> concevoir un outil accessible pour protéger les infrastructures en détectant et neutralisant automatiquement les attaques DDoS.</p>
+
+    <ul>
+      <li>Inspection de paquets et analyse comportementale via IA.</li>
+      <li>Blocage IP, redirection et filtrage automatisés.</li>
+      <li>Interface administrateur claire pour surveiller et agir en direct.</li>
+    </ul>
+
+    <p><strong>Aspects cybersécurité :</strong> application des bonnes pratiques OWASP, séparation stricte client/admin, validation renforcée des entrées et réflexion sur protections CSRF/XSS.</p>
+
+    <p><strong>Apprentissages :</strong> mise en œuvre d’un projet concret alliant
+      <em>sécurité proactive et développement SaaS</em>.</p>
+  </template>
+</div>
+
+
+<div class="project-box" data-title="Site Web de Gestion de Projets">
+  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" aria-hidden="true">
+    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="currentColor">
+      <path d="M2.5 12c0-4.478 0-6.718 1.391-8.109S7.521 2.5 12 2.5c4.478 0 6.718 0 8.109 1.391S21.5 7.521 21.5 12c0 4.478 0 6.718-1.391 8.109S16.479 21.5 12 21.5c-4.478 0-6.718 0-8.109-1.391S2.5 16.479 2.5 12"/>
+      <path d="M5 12v-2a.5.5 0 0 1 .5-.5h1.25a1.25 1.25 0 1 1 0 2.5zm0 0v2.5M16 12v-2a.5.5 0 0 1 .5-.5h1.25a1.25 1.25 0 1 1 0 2.5zm0 0v2.5m-5.5-5V12m0 2.5V12m3-2.5V12m0 2.5V12m-3 0h3"/>
+    </g>
+  </svg>
+
+  <h3>Site Web de Gestion de Projets</h3>
+  <label>Développement d’une application web collaborative (HTML, CSS, PHP, MySQL, Bootstrap).</label>
+
+  <template class="project-body">
+    <p><strong>Objectif :</strong> permettre aux équipes de planifier, organiser et suivre leurs projets via une plateforme simple et intuitive.</p>
+
+    <ul>
+      <li>Gestion complète des <strong>projets, tâches et utilisateurs</strong> avec rôles personnalisés (CRUD complet).</li>
+      <li>Système d’<strong>authentification sécurisée</strong> (sessions PHP, hachage des mots de passe).</li>
+      <li>Tableaux de bord dynamiques avec <strong>filtres par utilisateur, priorité et statut</strong>.</li>
+      <li>Design responsive et accessible grâce à Bootstrap.</li>
+    </ul>
+
+    <p><strong>Aspects cybersécurité :</strong> protection des données utilisateurs via validation des entrées, prévention XSS/SQLi, gestion fine des droits et séparation des rôles administrateur/membre.</p>
+
+    <p><strong>Apprentissages :</strong> conception d’un projet web complet intégrant à la fois la <em>logique métier</em> (gestion de projets) et des <em>bonnes pratiques de sécurité</em> côté serveur et base de données.</p>
+  </template>
+</div>
+
+
+<div class="project-box" data-title="Scraping & DataViz musicales">
+  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" aria-hidden="true">
+    <g fill="none">
+      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 7.5H7.5m4.5 9h4.5m0 0h1.521c.807 0 1.634-.188 2.13-.824c.531-.679 1.099-1.835 1.099-3.676c0-1.84-.568-2.997-1.098-3.676c-.497-.636-1.324-.824-2.13-.824H16.5m0 9v1.521c0 .807-.188 1.634-.824 2.13c-.679.531-1.835 1.099-3.676 1.099c-1.84 0-2.997-.568-3.676-1.098c-.636-.497-.824-1.324-.824-2.13V16.5m0-9H5.978c-.807 0-1.633.188-2.13.824c-.53.679-1.098 1.835-1.098 3.676c0 1.84.568 2.997 1.098 3.676c.497.636 1.323.824 2.13.824H7.5m0-9V5.978c0-.807.188-1.633.824-2.13c.679-.53 1.835-1.098 3.676-1.098c1.84 0 2.997.568 3.676 1.098c.636.497.824 1.323.824 2.13V7.5m-9 9V14a2 2 0 0 1 2-2h5a2 2 0 0 0 2-2V7.5"/>
+      <path fill="currentColor" d="M15 18.5a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0m-6-13a.75.75 0 1 1 1.5 0a.75.75 0 0 1-1.5 0"/>
+    </g>
+  </svg>
+
+  <h3>Scraping et Visualisation de Données Musicales</h3>
+  <label>Développement d’un pipeline de collecte et visualisation de données (Python : Requests, BeautifulSoup, Pandas + Dash/Plotly).</label>
+
+  <template class="project-body">
+    <p><strong>Objectif :</strong> extraire des informations musicales en ligne (artistes, genres, popularité) et les représenter via un tableau de bord interactif.</p>
+
+    <ul>
+      <li><strong>Scraping :</strong> collecte automatisée des données brutes sur des sites musicaux.</li>
+      <li><strong>Nettoyage & transformation :</strong> traitement avec Pandas pour obtenir un dataset structuré.</li>
+      <li><strong>Dashboard :</strong> graphiques interactifs (courbes, barres, nuages de points) avec filtres par artiste/genre.</li>
+      <li><strong>Export CSV :</strong> sauvegarde des données préparées pour réutilisation.</li>
+    </ul>
+
+    <p><strong>Aspects techniques :</strong> gestion des erreurs réseau, respect des délais de scraping, optimisation du temps de chargement du dashboard.</p>
+
+    <p><strong>Apprentissages :</strong> mise en place d’un projet complet allant de la <em>collecte automatisée</em> à la <em>visualisation dynamique</em>, avec une réflexion sur la qualité et l’exploitabilité des données.</p>
+  </template>
+</div>
+
+
+<div class="project-box" data-title="Bibliothèque en Ligne">
+  <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 1024 1024" aria-hidden="true">
+    <path fill="currentColor" d="m145 96l66 746.6L511.8 928l299.6-85.4L878.7 96zm610.9 700.6l-244.1 69.6l-245.2-69.6l-56.7-641.2h603.8zM281 249l1.7 24.3l22.7 253.5h206.5v-.1h112.9l-11.4 118.5L511 672.9v.2h-.8l-102.4-27.7l-6.5-73.2h-91l11.3 144.7l188.6 52h1.7v-.4l187.7-51.7l1.7-16.3l21.2-242.2l3.2-24.3H511v.2H389.9l-8.2-94.2h352.1l1.7-19.5l4.8-47.2L742 249H511z"/>
+  </svg>
+
+  <h3>Bibliothèque en Ligne</h3>
+  <label>Application web de gestion de livres et utilisateurs (HTML, CSS, JavaScript, PHP, MySQL).</label>
+
+  <template class="project-body">
+    <p><strong>Objectif :</strong> créer une plateforme permettant aux utilisateurs de rechercher, réserver et gérer des emprunts de livres en ligne.</p>
+
+    <ul>
+      <li><strong>Catalogue interactif :</strong> recherche avancée et filtres par titre, auteur ou catégorie.</li>
+      <li><strong>Gestion des emprunts :</strong> emprunts, retours, suivi des disponibilités en temps réel.</li>
+      <li><strong>Espace utilisateur :</strong> profils personnalisés avec historique de lectures et gestion des réservations.</li>
+      <li><strong>Interface admin :</strong> ajout/suppression de livres, gestion des stocks et des comptes.</li>
+    </ul>
+
+    <p><strong>Aspects cybersécurité :</strong> validation des formulaires, protection contre les injections SQL, gestion des sessions utilisateurs et séparation des rôles (admin/utilisateur).</p>
+
+    <p><strong>Apprentissages :</strong> mise en place d’un projet web complet combinant <em>base de données relationnelle</em> et <em>logique de sécurité</em> pour un système multi-utilisateurs.</p>
+  </template>
+</div>
+
+      </section>
+
+      <!-- CONTACT -->
+      <section class="section" id="contact"></section>
+      <div class="col">
+        <div class="contact-info">
+          <h2>Contactez Moi <i class="uil uil-corner-right-down"></i></h2>
+          <p><i class="uil uil-envelope"></i> Email: <a href="mailto:gabriel.tache.gt@gmail.com" class="mailto-link">gabriel.tache.gt@gmail.com</a></p>
+          <p><i class="uil uil-phone"></i> Tel: +33 7 81 88 47 26</p>
         </div>
-        <div class="project-box">
-            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24"><g fill="none"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 7.5H7.5m4.5 9h4.5m0 0h1.521c.807 0 1.634-.188 2.13-.824c.531-.679 1.099-1.835 1.099-3.676c0-1.84-.568-2.997-1.098-3.676c-.497-.636-1.324-.824-2.13-.824H16.5m0 9v1.521c0 .807-.188 1.634-.824 2.13c-.679.531-1.835 1.099-3.676 1.099c-1.84 0-2.997-.568-3.676-1.098c-.636-.497-.824-1.324-.824-2.13V16.5m0-9H5.978c-.807 0-1.633.188-2.13.824c-.53.679-1.098 1.835-1.098 3.676c0 1.84.568 2.997 1.098 3.676c.497.636 1.323.824 2.13.824H7.5m0-9V5.978c0-.807.188-1.633.824-2.13c.679-.53 1.835-1.098 3.676-1.098c1.84 0 2.997.568 3.676 1.098c.636.497.824 1.323.824 2.13V7.5m-9 9V14a2 2 0 0 1 2-2h5a2 2 0 0 0 2-2V7.5"/><path fill="currentColor" d="M15 18.5a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0m-6-13a.75.75 0 1 1 1.5 0a.75.75 0 0 1-1.5 0"/></g></svg>
-            <h3>Scraping et Visualisation de Données Musicales</h3>
-            <label>Extraction de statistiques musicales via scraping (Python, Requests, BeautifulSoup) et visualisation dynamique avec Plotly et Dash.</label>
-        </div>
-        <div class="project-box">
-            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 1024 1024"><path fill="currentColor" d="m145 96l66 746.6L511.8 928l299.6-85.4L878.7 96zm610.9 700.6l-244.1 69.6l-245.2-69.6l-56.7-641.2h603.8zM281 249l1.7 24.3l22.7 253.5h206.5v-.1h112.9l-11.4 118.5L511 672.9v.2h-.8l-102.4-27.7l-6.5-73.2h-91l11.3 144.7l188.6 52h1.7v-.4l187.7-51.7l1.7-16.3l21.2-242.2l3.2-24.3H511v.2H389.9l-8.2-94.2h352.1l1.7-19.5l4.8-47.2L742 249H511z"/></svg>
-            <h3>Bibliothèque en Ligne</h3>
-            <label>Développement d’une bibliothèque e ligne en utilisant HTML, CSS, PHP, JavaScript et MySQL.</label>
-        </div>
-        </div>
-     </section>
-       <!-- -- CONTACT BOX -- -->
-        <!-- --
-       <section class="section" id="contact">
-        <div class="top-header">
-          <h1>Contactez Moi</h1>
-          <span>Have an idea for a project? Let&rsquo;s turn it into reality! Contact me here, and let&rsquo;s get started.</span>
-        </div>
-         CONTACT BOX -- -->
-         <section class="section" id="contact"></section>
-           <div class="col">
-              <div class="contact-info">
-                  <h2>Contactez Moi <i class="uil uil-corner-right-down"></i></h2>
-                  <p><i class="uil uil-envelope"></i> Email: gabriel.tache.gt@gmail.com</p>
-                  <p><i class="uil uil-phone"></i> Tel: +33 7 81 88 47 26</p>
-              </div>
-               
-           
-           <!-- -- 
-           <div class="col">
-              <div class="form-control">
-                  <div class="form-inputs">
-                      <input type="text" class="input-field" placeholder="Name">
-                      <input type="text" class="input-field" placeholder="Email">
-                  </div>
-                  <div class="text-area">
-                      <textarea placeholder="Message"></textarea>
-                  </div>
-                  <div class="form-button">
-                      <button class="btn">Send <i class="uil uil-message"></i></button>
-                  </div>
-              </div>
-           </div>
-        </div>
-        -- -->
-     </section>
+      </div>
     </main>
-    <!-- -- Footer -- -->
-    <footer>
-        <div class="top-footer">
-            <p>Gabriel Taché.</p>
-        </div>
-        <div class="middle-footer">
-            <ul class="footer-menu">
-                <li class="footer_menu_list">
-                    <a href="#home">Accueil</a>
-                </li>
-                <li class="footer_menu_list">
-                    <a href="#about">À Propos</a>
-                </li>
-                <li class="footer_menu_list">
-                    <a href="#projects">Projets</a>
-                </li>
-                <li class="footer_menu_list">
-                    <a href="#contact">Contact</a>
-                </li>
-            </ul>
-        </div>
-        <div class="footer-social-icons">
-            <a href="https://wa.me/+330781884726" target="_blank" class="whatsapp-link">
-            <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-dasharray="64" stroke-dashoffset="64" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 3c0.5 0 2.5 4.5 2.5 5c0 1 -1.5 2 -2 3c-0.5 1 0.5 2 1.5 3c0.39 0.39 2 2 3 1.5c1 -0.5 2 -2 3 -2c0.5 0 5 2 5 2.5c0 2 -1.5 3.5 -3 4c-1.5 0.5 -2.5 0.5 -4.5 0c-2 -0.5 -3.5 -1 -6 -3.5c-2.5 -2.5 -3 -4 -3.5 -6c-0.5 -2 -0.5 -3 0 -4.5c0.5 -1.5 2 -3 4 -3Z"><animate fill="freeze" attributeName="stroke-dashoffset" dur="0.6s" values="64;0"/></path></svg></div>
-        </a>
-        <a>
-            <div class="icon"><i class="uil uil-linkedin-alt"></i></div>
-            </a>
-            <a href="mailto:gabriel.tache.gt@gmail.com" class="mailto-link">
-            <div class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" viewBox="0 0 24 24"><path fill="currentColor" d="M4 20q-.825 0-1.412-.587T2 18V6q0-.825.588-1.412T4 4h16q.825 0 1.413.588T22 6v12q0 .825-.587 1.413T20 20zm8-7L4 8v10h16V8zm0-2l8-5H4zM4 8V6v12z"/></svg></div>
-            </a>
-              <a href="https://www.linkedin.com/in/gabriel-taché-77284b351" target="_blank" class="whatsapp-link">
-                <div class="icon"><i class="uil uil-linkedin-alt"></i></div>
-              </a>
-        </div>
-        <div class="bottom-footer">
-            <p>Copyright &copy; <a href="#home" style="text-decoration: none; color: rgb(216, 86, 0);">Gabriel Taché</a> - All rights reserved</p>
-        </div>
-    </footer>
-    </div>
 
-    <!-- -- JS Link -- -->
-    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
-    <script src="https://unpkg.com/scrollreveal"></script>
-    <script src="script.js"></script>
+    <!-- FOOTER -->
+    <footer>
+      <div class="top-footer"><p>Gabriel Taché.</p></div>
+
+      <div class="middle-footer">
+        <ul class="footer-menu">
+          <li class="footer_menu_list"><a href="#home">Accueil</a></li>
+          <li class="footer_menu_list"><a href="#about">À Propos</a></li>
+          <li class="footer_menu_list"><a href="#projects">Projets</a></li>
+          <li class="footer_menu_list"><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-social-icons">
+        <a href="https://wa.me/+330781884726" target="_blank" rel="noopener" class="whatsapp-link">
+          <div class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" viewBox="0 0 24 24">
+              <path fill="none" stroke="currentColor" stroke-dasharray="64" stroke-dashoffset="64" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 3c0.5 0 2.5 4.5 2.5 5c0 1 -1.5 2 -2 3c-0.5 1 0.5 2 1.5 3c0.39 0.39 2 2 3 1.5c1 -0.5 2 -2 3 -2c0.5 0 5 2 5 2.5c0 2 -1.5 3.5 -3 4c-1.5 0.5 -2.5 0.5 -4.5 0c-2 -0.5 -3.5 -1 -6 -3.5c-2.5 -2.5 -3 -4 -3.5 -6c-0.5 -2 -0.5 -3 0 -4.5c0.5 -1.5 2 -3 4 -3Z">
+                <animate fill="freeze" attributeName="stroke-dashoffset" dur="1.6s" values="64;0"/>
+              </path>
+            </svg>
+          </div>
+        </a>
+
+        <a href="https://www.linkedin.com/in/gabriel-taché-77284b351" target="_blank" rel="noopener" class="whatsapp-link">
+          <div class="icon"><i class="uil uil-linkedin-alt"></i></div>
+        </a>
+
+            <a href="https://mail.google.com/mail/?view=cm&to=gabriel.tache.gt@gmail.com"
+   target="_blank" rel="noopener" class="mailto-link">
+  <div class="icon">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" viewBox="0 0 24 24">
+        <path fill="currentColor" d="M4 20q-.825 0-1.412-.587T2 18V6q0-.825.588-1.412T4 4h16q.825 0 1.413.588T22 6v12q0 .825-.587 1.413T20 20zm8-7L4 8v10h16V8zm0-2l8-5H4zM4 8V6v12z"/>
+      </svg>
+  </div>
+</a>
+
+            <a href="https://github.com/Gabriel-Tache" target="_blank" rel="noopener" class="whatsapp-link">
+              <div class="icon"><i class="uil uil-github-alt"></i></i></div>
+            </a>
+
+      </div>
+
+      <div class="bottom-footer">
+        <p>Copyright &copy; <a href="#home" style="text-decoration: none; color: rgb(216, 86, 0);">Gabriel Taché</a> - All rights reserved</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Libs -->
+  <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+  <script src="https://unpkg.com/scrollreveal"></script>
+
+  <!-- MODAL PROJET (sans image) -->
+  <div id="project-modal" class="pmodal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="pmodal__dialog" role="document">
+      <button class="pmodal__close" aria-label="Fermer">
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M18.3 5.7a1 1 0 0 0-1.4 0L12 10.6 7.1 5.7A1 1 0 0 0 5.7 7.1L10.6 12l-4.9 4.9a1 1 0 1 0 1.4 1.4L12 13.4l4.9 4.9a1 1 0 0 0 1.4-1.4L13.4 12l4.9-4.9a1 1 0 0 0 0-1.4z"/>
+        </svg>
+      </button>
+
+      <div class="pmodal__content">
+        <!-- Plus de colonne média / image -->
+        <div class="pmodal__text">
+          <h2 id="pmodal-title"></h2>
+          <div id="pmodal-body" class="pmodal__body"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script app -->
+  <script src="script.js"></script>
 </body>
 </html>
-
-
