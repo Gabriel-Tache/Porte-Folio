@@ -1,21 +1,55 @@
-// --- Dark mode toggle (optionnel) ---
+// --- Dark mode toggle unifié ---
 document.addEventListener('DOMContentLoaded', () => {
-  const toggleSwitch = document.getElementById('toggle-switch');
-  if (toggleSwitch) {
-    toggleSwitch.addEventListener('click', () => {
+  const toggleSwitches = document.querySelectorAll('.toggle-switch');
+
+  toggleSwitches.forEach(toggle => {
+    toggle.addEventListener('click', (e) => {
+      e.preventDefault();
       document.body.classList.toggle('dark');
+      
+      const isDark = document.body.classList.contains('dark');
+      
+      // Met à jour l'icône sur tous les boutons en même temps
+      toggleSwitches.forEach(sw => {
+        const icon = sw.querySelector('i.uil-moon, i.uil-sun');
+        if(icon) {
+          icon.className = isDark ? 'uil uil-sun' : 'uil uil-moon';
+        }
+      });
+    });
+  });
+
+  // --- Animation Typed ---
+  if (window.Typed) {
+    new Typed(".typedText", {
+      strings: ["Architecte Réseaux", "Technicien Système", "Développeur Sécurisé"], 
+      loop: true,
+      typeSpeed: 100,
+      backSpeed: 80,
+      backDelay: 2000
     });
   }
+
+  // --- Fermeture automatique du menu mobile ---
+  const navLinks = document.querySelectorAll('.nav-link, .nav-close-btn');
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      const menuBtn = document.getElementById("myNavMenu");
+      if (menuBtn && menuBtn.className.includes("responsive")) {
+        menuBtn.className = "nav-menu";
+      }
+    });
+  });
 });
 
-// --- Navigation burger ---
+// --- Navigation burger (Ouvrir / Fermer) ---
 function myMenuFunction(){
   const menuBtn = document.getElementById("myNavMenu");
   if(!menuBtn) return;
-  if(menuBtn.className === "nav-menu"){
-    menuBtn.className += " responsive";
-  } else {
+  if(menuBtn.className.includes("responsive")){
     menuBtn.className = "nav-menu";
+  } else {
+    menuBtn.className += " responsive";
   }
 }
 
@@ -33,17 +67,6 @@ function headerShadow() {
     navHeader.style.height = "90px";
     navHeader.style.lineHeight = "90px";
   }
-}
-
-// --- Typed effect ---
-if (window.Typed) {
-  new Typed(".typedText", {
-    strings: ["Web Designer", "Developer", "Coder"],
-    loop: true,
-    typeSpeed: 100,
-    backSpeed: 80,
-    backDelay: 2000
-  });
 }
 
 // --- ScrollReveal ---
@@ -73,7 +96,9 @@ function scrollActive() {
     const sectionHeight = current.offsetHeight;
     const sectionTop = current.offsetTop - 50;
     const sectionId = current.getAttribute('id');
-    const link = document.querySelector('.nav-menu a[href*=' + CSS.escape(sectionId) + ']');
+    
+    const link = document.querySelector('.nav-menu a[href*=' + CSS.escape(sectionId) + ']:not(.toggle-switch)');
+    
     if(!link) return;
     if(scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
       link.classList.add('active-link');
@@ -84,7 +109,7 @@ function scrollActive() {
 }
 window.addEventListener('scroll', scrollActive);
 
-// --- Modal projet (texte uniquement) ---
+// --- Modal projet ---
 (function(){
   const modal = document.getElementById('project-modal');
   if (!modal) return;
