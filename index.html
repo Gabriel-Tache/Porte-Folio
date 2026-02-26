@@ -125,7 +125,7 @@
 
           <div class="col" style="flex: 1;">
             <div class="about-info" style="padding: 0; overflow: hidden; display: flex; justify-content: center; align-items: center; background: transparent; box-shadow: none;">
-              <img src="https://raw.githubusercontent.com/Gabriel-Tache/Porte-Folio/refs/heads/main/PFE3.png" alt="Aperçu de l'application" style="width: 100%; height: auto; border-radius: 20px; box-shadow: 1px 8px 10px 2px rgba(0,0,0,.1);">
+              <img src="https://raw.githubusercontent.com/Gabriel-Tache/Porte-Folio/refs/heads/main/PFE3.png" alt="Aperçu de l'application Doc(k)leaner" class="pfe-image">
             </div>
           </div>
 
@@ -135,29 +135,48 @@
       <section class="section" id="about">
         <div class="top-header"><h1>À Propos de Moi</h1></div>
         <div class="row">
+          
           <div class="col">
-            <div class="about-info">
+            <div class="about-info" style="align-items: flex-start;">
               <h3>Introduction</h3>
               <p>
                 Je suis un étudiant passionné par l'<b>Informatique</b>, avec un fort intérêt pour l'architecture des réseaux et la <b>Cybersécurité</b>.
                 Je suis <b>curieux</b>, <b>rigoureux</b> et toujours en quête de <b>nouvelles connaissances</b>.
-                Je <b>recherche</b> actuellement un <b>stage de fin d'études en Cybersécurité, Systèmes et Réseaux</b> d'une durée de <b>4 à 6 mois</b> (début <b>avril 2026</b>) sur <b>Paris</b>. Ce stage me permettra d’appliquer mes compétences
-                tout en développant mon expertise sur des <b>projets concrets</b>. Je suis très <b>motivé</b> à m’investir
-                au sein d’une <b>entreprise</b>, et à contribuer activement à ses <b>projets</b> afin de <b>monter en compétences</b>
-                aux côtés de <b>professionnels</b> du secteur.
+                Je <b>recherche</b> actuellement un <b>stage de fin d'études en Cybersécurité, Systèmes et Réseaux</b> d'une durée de <b>4 à 6 mois</b> (début <b>avril 2026</b>) sur <b>Paris</b>.<span id="intro-dots">...</span>
+                
+                <span id="intro-more" style="display: none;">
+                  Ce stage me permettra d’appliquer mes compétences techniques tout en développant mon expertise sur des <b>projets concrets</b>.
+                  <br><br>
+                  En parallèle de mes études, je m'investis en tant qu'<b>Ambassadeur ECE Paris</b>. À ce titre, je représente fièrement mon école lors d'<b>événements à l'échelle nationale</b> (Journées Portes Ouvertes à Paris, Toulouse, Bordeaux, ainsi qu'à l'<b>European Cyber Week</b> à Rennes). 
+                  <br><br>
+                  Cette expérience m'a permis de développer de solides <b>compétences en communication</b>, en <b>organisation d'événements</b> et d'<b>accompagner les futurs étudiants</b> dans leur orientation. Autant d'atouts relationnels et de travail en équipe que je serai ravi de mettre au profit de votre entreprise !
+                </span>
               </p>
+              
+              <button class="btn" id="intro-btn" onclick="toggleIntro()" style="margin-top: 15px; padding: 8px 15px; font-size: 13px;">En savoir plus <i class="uil uil-angle-down"></i></button>
             </div>
           </div>
 
           <div class="col">
-            <div class="about-info">
+            <div class="about-info" style="align-items: flex-start;">
               <h3>Formation</h3>
               <p>
                 Le Bachelor Informatique de l’<b>ECE (École Centrale d'Électronique)</b>, une grande école d'ingénieurs très bien classée, est une formation en trois ans qui prépare aux métiers de l'<b>Informatique</b>
                 avec une approche alliant <b>théorie</b> et <b>pratique</b>. Cette formation met l’accent sur des <b>projets concrets</b>
-                et une immersion dans l’<b>écosystème digital</b>.<br><br>
-                J'y étudie en profondeur la sécurisation des infrastructures. Les modules clés incluent : <b>Cybersécurité, Pentest, GRC (Gouvernance, Risques et Conformité), Méthodes d'authentification</b>, Systèmes & Réseaux, et le Développement sécurisé.
+                et une immersion dans l’<b>écosystème digital</b>.<span id="formation-dots">...</span>
+                
+                <span id="formation-more" style="display: none;">
+                  <br><br>
+                  J'y ai développé une solide expertise en <b>Sécurisation des Infrastructures</b> (<b>Linux & Windows Server</b>, protocoles <b>TCP/IP</b>, administration <b>Active Directory</b> et configuration de <b>Pare-feux</b>).
+                  <br><br>
+                  Mon cursus couvre l'intégralité du cycle de sécurité : de l'analyse offensive (<b>Pentest</b>, détection de vulnérabilités, utilisation de Burp Suite) à la stratégie défensive et l'automatisation (<b>DevSecOps</b>). Je suis également formé aux enjeux stratégiques via des modules poussés en <b>GRC (Gouvernance, Risques et Conformité)</b>, cryptographie et <b>Méthodes d'authentification fortes</b>.
+                  <br><br>
+                  Grâce à ces modules, je suis aujourd'hui capable de concevoir, d'auditer et de protéger des architectures SI complexes face aux menaces cyber actuelles.
+                </span>
               </p>
+              
+              <button class="btn" id="formation-btn" onclick="toggleFormation()" style="margin-top: 15px; padding: 8px 15px; font-size: 13px;">En savoir plus <i class="uil uil-angle-down"></i></button>
+
             </div>
           </div>
         </div>
@@ -393,5 +412,3 @@
   <script src="script.js"></script>
 </body>
 </html>
-
-
