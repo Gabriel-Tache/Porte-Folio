@@ -42,6 +42,40 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+// --- Bouton "En savoir plus" (Formation) ---
+function toggleFormation() {
+  const dots = document.getElementById("formation-dots");
+  const moreText = document.getElementById("formation-more");
+  const btnText = document.getElementById("formation-btn");
+
+  if (dots.style.display === "none") {
+    dots.style.display = "inline";
+    btnText.innerHTML = 'En savoir plus <i class="uil uil-angle-down"></i>';
+    moreText.style.display = "none";
+  } else {
+    dots.style.display = "none";
+    btnText.innerHTML = 'Voir moins <i class="uil uil-angle-up"></i>';
+    moreText.style.display = "inline";
+  }
+}
+
+// --- Bouton "En savoir plus" (Introduction) ---
+function toggleIntro() {
+  const dots = document.getElementById("intro-dots");
+  const moreText = document.getElementById("intro-more");
+  const btnText = document.getElementById("intro-btn");
+
+  if (dots.style.display === "none") {
+    dots.style.display = "inline";
+    btnText.innerHTML = 'En savoir plus <i class="uil uil-angle-down"></i>';
+    moreText.style.display = "none";
+  } else {
+    dots.style.display = "none";
+    btnText.innerHTML = 'Voir moins <i class="uil uil-angle-up"></i>';
+    moreText.style.display = "inline";
+  }
+}
+
 // --- Navigation burger (Ouvrir / Fermer) ---
 function myMenuFunction(){
   const menuBtn = document.getElementById("myNavMenu");
@@ -70,8 +104,9 @@ function headerShadow() {
 }
 
 // --- ScrollReveal ---
+// CORRECTION : reset est sur "false" pour empêcher les éléments de disparaître
 if (window.ScrollReveal) {
-  const sr = ScrollReveal({ origin:'top', distance:'80px', duration:2000, reset:true });
+  const sr = ScrollReveal({ origin:'top', distance:'80px', duration:2000, reset:false, viewFactor: 0.15 });
   sr.reveal('.featured-text-card', {});
   sr.reveal('.featured-name', { delay:100 });
   sr.reveal('.featured-text-info', { delay:200 });
@@ -80,10 +115,12 @@ if (window.ScrollReveal) {
   sr.reveal('.featured-image', { delay:300 });
   sr.reveal('.project-box', { interval:200 });
   sr.reveal('.top-header', {});
-  const srLeft = ScrollReveal({ origin:'left', distance:'80px', duration:2000, reset:true });
+  
+  const srLeft = ScrollReveal({ origin:'left', distance:'80px', duration:2000, reset:false, viewFactor: 0.15 });
   srLeft.reveal('.about-info', { delay:100 });
   srLeft.reveal('.contact-info', { delay:100 });
-  const srRight = ScrollReveal({ origin:'right', distance:'80px', duration:2000, reset:true });
+  
+  const srRight = ScrollReveal({ origin:'right', distance:'80px', duration:2000, reset:false, viewFactor: 0.15 });
   srRight.reveal('.skills-box', { delay:100 });
   srRight.reveal('.form-control', { delay:100 });
 }
