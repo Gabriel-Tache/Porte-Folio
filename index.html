@@ -2,402 +2,550 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
   <link rel="stylesheet" href="style.css">
   <link rel="shortcut icon" href="https://gabriel-tache.github.io/PF-Final/Capture%20d'%C3%A9cran%202025-03-05%20144338.png" type="image/x-icon">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
-  <title>Gabriel Taché | Portfolio</title>
+  <title>Gabriel Taché | Ingénieur Cybersécurité &amp; Réseaux</title>
 </head>
 <body>
   <div class="container">
+    <!-- NAVIGATION TRANSPARENTE -->
     <nav id="header">
       <div class="nav-logo">
-        <p class="nav-name">Gabriel Taché</p>
-        <span>.</span>
+        <a href="#home" class="nav-name">Gabriel Taché<span>.</span></a>
       </div>
 
       <div class="nav-menu" id="myNavMenu">
         <div class="nav-close-btn" onclick="myMenuFunction()"><i class="uil uil-times"></i></div>
         
         <ul class="nav_menu_list">
-          <li class="nav_list"><a href="#home" class="nav-link active-link">Accueil</a><div class="circle"></div></li>
-          <li class="nav_list"><a href="#current-project" class="nav-link">Projet de fin d'études</a><div class="circle"></div></li>
-          <li class="nav_list"><a href="#about" class="nav-link">À Propos</a><div class="circle"></div></li>
-          <li class="nav_list"><a href="#projects" class="nav-link">Projets</a><div class="circle"></div></li>
-          <li class="nav_list"><a href="#contact" class="nav-link">Contact</a><div class="circle"></div></li>
+          <li class="nav_list"><a href="#home" class="nav-link active-link">Accueil</a></li>
+          <li class="nav_list"><a href="#experience" class="nav-link">Expériences</a></li>
+          <li class="nav_list"><a href="#formation" class="nav-link">Formations</a></li>
+          <li class="nav_list"><a href="#current-project" class="nav-link">PFE</a></li>
+          <li class="nav_list"><a href="#competences" class="nav-link">Compétences</a></li>
+          <li class="nav_list"><a href="#projects" class="nav-link">Projets</a></li>
+          <li class="nav_list"><a href="#contact" class="nav-link">Contact</a></li>
           <li class="nav_list">
-            <a href="#" class="nav-link toggle-switch" aria-label="Activer le mode sombre">
-              <i class="uil uil-moon" style="font-size: 1.2em;"></i>
-            </a>
+            <button class="nav-link theme-toggle toggle-switch" aria-label="Basculer le mode sombre">
+              <i class="uil uil-moon"></i>
+            </button>
           </li>
         </ul>
       </div>
 
       <div class="nav-button">
         <a href="https://gabriel-tache.github.io/Porte-Folio/CV-Cyber.pdf" target="_blank" rel="noopener">
-          <button class="btn">Mon CV <i class="uil uil-file-alt"></i></button>
+          <button class="btn btn-primary">Mon CV <i class="uil uil-file-alt"></i></button>
         </a>
       </div>
 
-      <div class="nav-menu-btn">
-        <i class="uil uil-bars" onclick="myMenuFunction()"></i>
+      <div class="nav-menu-btn" onclick="myMenuFunction()">
+        <i class="uil uil-bars"></i>
       </div>
     </nav>
 
     <main class="wrapper">
+      <!-- HERO SECTION -->
       <section class="featured-box" id="home">
         <div class="featured-text">
-          <div class="featured-text-card"><span>Gabriel Taché</span></div>
+          <div class="badge-status">
+            <span class="pulse-dot"></span> Élève Ingénieur en Cybersécurité
+          </div>
           
           <div class="featured-name">
-            <p>Je suis <span class="typedText"></span><span class="staticText">Architecte Réseaux</span></p>
+            <p>Je suis <span class="typedText"></span><span class="staticText">Étudiant Ingénieur</span></p>
           </div>
           
           <div class="featured-text-info">
-            <p style="font-size: 1.05em; line-height: 1.6; color: var(--text-dark);">
-              <b>Étudiant en 3e année de Bachelor Cybersécurité, Systèmes et Réseaux</b>, je suis à la recherche d'un <b>stage de fin d'études</b> d'une durée de <b>4 à 6 mois</b> (début <b>avril 2026</b>).
+            <p>
+              <b>Étudiant en Cycle Ingénieur à l'ECE Paris</b>, spécialisé en <b>Cybersécurité, Systèmes et Réseaux</b>. Fort d'une expérience chez <b>Thales LAS</b> sur la sécurisation de radars militaires GM200, je conçois et audite des infrastructures critiques résilientes.
             </p>
           </div>
 
           <div class="featured-text-btn">
             <a href="https://gabriel-tache.github.io/Porte-Folio/CV-Cyber.pdf" target="_blank" rel="noopener">
-              <button class="btn">Mon CV <i class="uil uil-file-alt"></i></button>
+              <button class="btn btn-primary">Mon CV <i class="uil uil-file-alt"></i></button>
             </a>
-            <a href="#current-project">
-              <button class="btn">Mon Projet de fin d'études <i class="uil uil-arrow-down"></i></button>
+            <a href="#experience">
+              <button class="btn btn-secondary">Mon Parcours <i class="uil uil-arrow-down"></i></button>
             </a>
           </div>
 
+          <!-- ICÔNES HERO AVEC BOUTON EMAIL RÉINTÉGRÉ -->
           <div class="social_icons">
-            <a href="https://wa.me/+330781884726" target="_blank" rel="noopener" class="whatsapp-link">
-              <div class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" viewBox="0 0 24 24">
-                  <path fill="none" stroke="currentColor" stroke-dasharray="64" stroke-dashoffset="64" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 3c0.5 0 2.5 4.5 2.5 5c0 1 -1.5 2 -2 3c-0.5 1 0.5 2 1.5 3c0.39 0.39 2 2 3 1.5c1 -0.5 2 -2 3 -2c0.5 0 5 2 5 2.5c0 2 -1.5 3.5 -3 4c-1.5 0.5 -2.5 0.5 -4.5 0c-2 -0.5 -3.5 -1 -6 -3.5c-2.5 -2.5 -3 -4 -3.5 -6c-0.5 -2 -0.5 -3 0 -4.5c0.5 -1.5 2 -3 4 -3Z">
-                    <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.6s" values="64;0"/>
-                  </path>
-                </svg>
-              </div>
+            <a href="https://wa.me/+330781884726" target="_blank" rel="noopener" class="icon-link" aria-label="WhatsApp">
+              <div class="icon"><i class="uil uil-whatsapp"></i></div>
             </a>
-            <a href="https://www.linkedin.com/in/gabriel-taché-77284b351" target="_blank" rel="noopener" class="whatsapp-link">
+            <a href="https://www.linkedin.com/in/gabriel-taché-77284b351" target="_blank" rel="noopener" class="icon-link" aria-label="LinkedIn">
               <div class="icon"><i class="uil uil-linkedin-alt"></i></div>
             </a>
-            <a href="https://mail.google.com/mail/?view=cm&to=gabriel.tache.gt@gmail.com" target="_blank" rel="noopener" class="mailto-link">
-              <div class="icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" viewBox="0 0 24 24">
-                    <path fill="currentColor" d="M4 20q-.825 0-1.412-.587T2 18V6q0-.825.588-1.412T4 4h16q.825 0 1.413.588T22 6v12q0 .825-.587 1.413T20 20zm8-7L4 8v10h16V8zm0-2l8-5H4zM4 8V6v12z"/>
-                  </svg>
-              </div>
+            <a href="mailto:gabriel.tache.gt@gmail.com" class="icon-link" aria-label="Email">
+              <div class="icon"><i class="uil uil-envelope"></i></div>
             </a>
-            <a href="https://github.com/Gabriel-Tache" target="_blank" rel="noopener" class="whatsapp-link">
+            <a href="https://github.com/Gabriel-Tache" target="_blank" rel="noopener" class="icon-link" aria-label="GitHub">
               <div class="icon"><i class="uil uil-github-alt"></i></div>
-            </a>
-            <a href="#" class="whatsapp-link toggle-switch" aria-label="Activer le mode sombre">
-              <div class="icon"><i class="uil uil-moon"></i></div>
             </a>
           </div>
         </div>
 
         <div class="featured-image">
-          <div class="image">
-            <img src="https://gabriel-tache.github.io/Porte-Folio/Photo-CV.png" alt="avatar">
+          <div class="image-wrapper">
+            <div class="image-backdrop"></div>
+            <img src="https://gabriel-tache.github.io/Porte-Folio/Photo-CV.png" alt="Gabriel Taché" class="profile-img">
           </div>
         </div>
       </section>
 
+      <!-- BANDEAU STATISTIQUES -->
+      <section class="stats-strip">
+        <div class="stat-card highlight-card">
+          <span class="stat-number">Bac+5</span>
+          <span class="stat-label">Cycle Ingénieur (ING3) ECE</span>
+        </div>
+        <div class="stat-card highlight-card">
+          <span class="stat-number">5 mois</span>
+          <span class="stat-label">Ingénierie Cyber Thales LAS</span>
+        </div>
+        <div class="stat-card highlight-card">
+          <span class="stat-number">Défense</span>
+          <span class="stat-label">Systèmes Radars GM200</span>
+        </div>
+        <div class="stat-card highlight-card">
+          <span class="stat-number">6+</span>
+          <span class="stat-label">Projets Cyber &amp; SaaS Réalisés</span>
+        </div>
+      </section>
+
+      <!-- SECTION EXPÉRIENCES -->
+      <section class="section" id="experience">
+        <div class="top-header">
+          <h1>Expériences Professionnelles</h1>
+          <span class="section-subtitle">Immersion industrielle en cyberdéfense et missions techniques institutionnelles.</span>
+        </div>
+
+        <div class="cards-column">
+          <!-- Carte Thales -->
+          <div class="info-card highlight-card">
+            <div class="card-head">
+              <div class="card-identity">
+                <h3>Stage en ingénierie cybersécurité</h3>
+                <span class="entity-name">Thales LAS (Land and Air Systems) — Limours</span>
+                <span class="time-tag"><i class="uil uil-calendar-alt"></i> Avril 2026 - Août 2026</span>
+              </div>
+              <div class="logo-wrapper">
+                <img src="658AD7D2-6269-4EA1-9279-C32EC530AF11_1_201_a-removebg-preview.png" alt="Logo Thales" class="corp-logo thales-logo">
+              </div>
+            </div>
+            <div class="card-body">
+              <p>Au sein du pôle cybersécurité, renforcement et évaluation de la sécurité logicielle et matérielle des systèmes radar <strong>GM200</strong> (système d'arme sol-air critique) :</p>
+              <ul class="custom-list">
+                <li><strong>Virtualisation &amp; Bancs d'essai :</strong> Conception d'environnements virtualisés sous Linux pour la simulation de flux opérationnels.</li>
+                <li><strong>Tests d'intrusion (Pentest) :</strong> Audits offensifs réseau pour éprouver la résistance des composants face aux menaces d'écoute, d'altération et de DoS.</li>
+                <li><strong>Validation &amp; Remédiation :</strong> Détection de vulnérabilités, validation stricte des correctifs et conformité aux exigences défense.</li>
+              </ul>
+              <div class="tech-tags">
+                <span>Linux Virtualisé</span><span>Pentest Réseau</span><span>Systèmes Radar GM200</span><span>Sécurité Réseau</span><span>Durcissement SI</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Carte ECE Ambassadeur -->
+          <div class="info-card highlight-card">
+            <div class="card-head">
+              <div class="card-identity">
+                <h3>Ambassadeur Étudiant</h3>
+                <span class="entity-name">ECE Paris — Grande École d'Ingénieurs</span>
+                <span class="time-tag"><i class="uil uil-calendar-alt"></i> Janvier 2026 - Mars 2026</span>
+              </div>
+              <div class="logo-wrapper">
+                <img src="2975e450-89d6-4753-b5cf-b302cccd9c0b.png" alt="Logo ECE Paris" class="corp-logo ece-logo">
+              </div>
+            </div>
+            <div class="card-body">
+              <p>Représentation de l'école et valorisation de la filière cybersécurité auprès des futurs étudiants et partenaires :</p>
+              <ul class="custom-list">
+                <li><strong>European Cyber Week (Rennes) :</strong> Membre de la délégation ECE, échanges techniques avec les industriels de la souveraineté numérique.</li>
+                <li><strong>Salons &amp; Conférences :</strong> Présentation des formations et animation de tables rondes d'orientation à Paris, Toulouse et Bordeaux.</li>
+                <li><strong>Communication Technique :</strong> Vulgarisation des architectures et animation d'ateliers techniques.</li>
+              </ul>
+              <div class="tech-tags">
+                <span>European Cyber Week</span><span>Communication Technique</span><span>Prise de parole</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION FORMATIONS -->
+      <section class="section" id="formation">
+        <div class="top-header">
+          <h1>Formations &amp; Diplômes</h1>
+          <span class="section-subtitle">Cursus d'excellence alliant socle technique opérationnel et conception d'architectures.</span>
+        </div>
+
+        <div class="cards-column">
+          <!-- Cycle Ingénieur -->
+          <div class="info-card highlight-card">
+            <div class="card-head">
+              <div class="card-identity">
+                <h3>Cycle Ingénieur (ING3) — Cybersécurité, Systèmes et Réseaux</h3>
+                <span class="entity-name">ECE Paris — Diplôme d'Ingénieur habilité CTI</span>
+                <span class="time-tag"><i class="uil uil-graduation-cap"></i> 2026 - Présent</span>
+              </div>
+              <div class="logo-wrapper">
+                <img src="2975e450-89d6-4753-b5cf-b302cccd9c0b.png" alt="Logo ECE Paris" class="corp-logo ece-logo">
+              </div>
+            </div>
+            <div class="card-body">
+              <p>Ingénierie avancée, supervision et défense d'infrastructures informatiques résilientes :</p>
+              <ul class="custom-list">
+                <li><strong>Architectures sécurisées &amp; Zéro-Trust :</strong> Ingénierie réseau, segmentation et cryptographie.</li>
+                <li><strong>DevSecOps &amp; Automatisation :</strong> Sécurisation des pipelines CI/CD, conteneurisation et Infrastructure as Code.</li>
+                <li><strong>Gouvernance &amp; Risques :</strong> Analyse EBIOS RM, normes ISO 27001 et directives NIS 2.</li>
+              </ul>
+              <div class="tech-tags">
+                <span>Cycle Ingénieur CTI</span><span>Architecture Zéro-Trust</span><span>GRC &amp; EBIOS RM</span><span>DevSecOps</span><span>Cryptographie</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bachelor -->
+          <div class="info-card highlight-card">
+            <div class="card-head">
+              <div class="card-identity">
+                <h3>Bachelor Cybersécurité, Systèmes et Réseaux</h3>
+                <span class="entity-name">ECE Paris — Cursus en 3 ans</span>
+                <span class="time-tag"><i class="uil uil-award"></i> Diplôme obtenu</span>
+              </div>
+              <div class="logo-wrapper">
+                <img src="2975e450-89d6-4753-b5cf-b302cccd9c0b.png" alt="Logo ECE Paris" class="corp-logo ece-logo">
+              </div>
+            </div>
+            <div class="card-body">
+              <p>Socle technique pratique orienté administration système, protocoles et sécurité :</p>
+              <ul class="custom-list">
+                <li><strong>Infrastructures SI :</strong> Administration Linux et Windows Server, Active Directory, GPO et gestion des accès.</li>
+                <li><strong>Réseaux &amp; Protocoles :</strong> Architecture TCP/IP, configuration de routeurs/switches Cisco, pare-feux et VLANs.</li>
+                <li><strong>Audit offensif de base :</strong> Analyse de vulnérabilités applicatives web (Burp Suite, OWASP Top 10).</li>
+              </ul>
+              <div class="tech-tags">
+                <span>Linux &amp; Windows Server</span><span>Active Directory</span><span>Cisco Routing</span><span>Pare-feux</span><span>Burp Suite</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION PFE : DOC(K)LEANER -->
       <section class="section" id="current-project">
-        <div class="top-header"><h1>Projet de fin d'études</h1></div>
-        <div class="row" style="align-items: stretch;">
-          
-          <div class="col" style="flex: 1;">
-            <div class="about-info" style="align-items: flex-start; height: 100%;">
-              <h3 style="color: var(--first-color);">Doc(k)leaner — Solution SaaS d'Audit</h3>
-              <p>Développement d'une plateforme web centralisée dédiée à l'audit de sécurité automatisé et en profondeur des environnements conteneurisés (Images Docker) et des scripts d'infrastructure (IaC).</p>
-              <br>
-              <p><strong>Mon Rôle (Data Engineer & Backend) :</strong> Conception d'un algorithme de déduplication complexe des CVE et création d'un système de scoring propriétaire. Optimisation drastique des performances via la mise en place d'un cache Redis.</p>
-              <br>
-              <p><strong>Architecture Technique :</strong> Déploiement d'une architecture micro-services asynchrone ultra-scalable (FastAPI, Redis, PostgreSQL, Celery/Workers isolés) pour le traitement des analyses lourdes en temps réel.</p>
-              <br>
-              <p><strong>Livrables Clés :</strong> Dashboard web interactif (React), API REST sécurisée, et outil CLI Open-source pensé pour l'intégration dans les pipelines CI/CD.</p>
-            </div>
-          </div>
-
-          <div class="col" style="flex: 1;">
-            <div class="about-info" style="padding: 0; overflow: hidden; display: flex; justify-content: center; align-items: center; background: transparent; box-shadow: none;">
-              <img src="https://raw.githubusercontent.com/Gabriel-Tache/Porte-Folio/refs/heads/main/PFE3.png" alt="Aperçu de l'application Doc(k)leaner" class="pfe-image">
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <section class="section" id="about">
-        <div class="top-header"><h1>À Propos de Moi</h1></div>
-        <div class="row">
-          
-          <div class="col">
-            <div class="about-info" style="align-items: flex-start;">
-              <h3>Introduction</h3>
-              <p>
-                Je suis un étudiant passionné par l'<b>Informatique</b>, avec un fort intérêt pour l'architecture des réseaux et la <b>Cybersécurité</b>.
-                Je suis <b>curieux</b>, <b>rigoureux</b> et toujours en quête de <b>nouvelles connaissances</b>.
-                Je <b>recherche</b> actuellement un <b>stage de fin d'études en Cybersécurité, Systèmes et Réseaux</b> d'une durée de <b>4 à 6 mois</b> (début <b>avril 2026</b>) sur <b>Paris</b>.<span id="intro-dots">...</span>
-                
-                <span id="intro-more" style="display: none;">
-                  Ce stage me permettra d’appliquer mes compétences techniques tout en développant mon expertise sur des <b>projets concrets</b>.
-                  <br><br>
-                  En parallèle de mes études, je m'investis en tant qu'<b>Ambassadeur ECE Paris</b>. À ce titre, je représente fièrement mon école lors d'<b>événements à l'échelle nationale</b> (Journées Portes Ouvertes à Paris, Toulouse, Bordeaux, ainsi qu'à l'<b>European Cyber Week</b> à Rennes). 
-                  <br><br>
-                  Cette expérience m'a permis de développer de solides <b>compétences en communication</b>, en <b>organisation d'événements</b> et d'<b>accompagner les futurs étudiants</b> dans leur orientation. Autant d'atouts relationnels et de travail en équipe que je serai ravi de mettre au profit de votre entreprise !
-                </span>
-              </p>
-              
-              <button class="btn" id="intro-btn" onclick="toggleIntro()" style="margin-top: 15px; padding: 8px 15px; font-size: 13px;">En savoir plus <i class="uil uil-angle-down"></i></button>
-            </div>
-          </div>
-
-          <div class="col">
-            <div class="about-info" style="align-items: flex-start;">
-              <h3>Formation</h3>
-              <p>
-                Le Bachelor Informatique de l’<b>ECE (École Centrale d'Électronique)</b>, une grande école d'ingénieurs très bien classée, est une formation en trois ans qui prépare aux métiers de l'<b>Informatique</b>
-                avec une approche alliant <b>théorie</b> et <b>pratique</b>. Cette formation met l’accent sur des <b>projets concrets</b>
-                et une immersion dans l’<b>écosystème digital</b>.<span id="formation-dots">...</span>
-                
-                <span id="formation-more" style="display: none;">
-                  <br><br>
-                  J'y ai développé une solide expertise en <b>Sécurisation des Infrastructures</b> (<b>Linux & Windows Server</b>, protocoles <b>TCP/IP</b>, administration <b>Active Directory</b> et configuration de <b>Pare-feux</b>).
-                  <br><br>
-                  Mon cursus couvre l'intégralité du cycle de sécurité : de l'analyse offensive (<b>Pentest</b>, détection de vulnérabilités, utilisation de Burp Suite) à la stratégie défensive et l'automatisation (<b>DevSecOps</b>). Je suis également formé aux enjeux stratégiques via des modules poussés en <b>GRC (Gouvernance, Risques et Conformité)</b>, cryptographie et <b>Méthodes d'authentification fortes</b>.
-                  <br><br>
-                  Grâce à ces modules, je suis aujourd'hui capable de concevoir, d'auditer et de protéger des architectures SI complexes face aux menaces cyber actuelles.
-                </span>
-              </p>
-              
-              <button class="btn" id="formation-btn" onclick="toggleFormation()" style="margin-top: 15px; padding: 8px 15px; font-size: 13px;">En savoir plus <i class="uil uil-angle-down"></i></button>
-
-            </div>
-          </div>
+        <div class="top-header">
+          <h1>Projet de Fin d'Études</h1>
+          <span class="section-subtitle">Doc(k)leaner : solution SaaS d'audit et de déduplication de vulnérabilités conteneurisées.</span>
         </div>
 
-        <br><br><br><br><br>
+        <div class="pfe-card highlight-card">
+          <div class="pfe-visual">
+            <div class="pfe-browser-mockup">
+              <div class="mockup-header">
+                <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+                <span class="mockup-url">dockleaner.local/audit</span>
+              </div>
+              <div class="mockup-body">
+                <img src="https://raw.githubusercontent.com/Gabriel-Tache/Porte-Folio/refs/heads/main/PFE3.png" alt="Dashboard Doc(k)leaner" class="pfe-fixed-img">
+              </div>
+            </div>
+            <div class="pfe-badge">Projet Majeur de Bachelor</div>
+          </div>
 
-        <div class="top-header"><h1>Compétences</h1></div>
+          <div class="pfe-content">
+            <div class="pfe-header">
+              <span class="pfe-kicker">Projet SaaS &amp; Sécurité Applicative</span>
+              <h3>Doc(k)leaner — SaaS d'Audit &amp; CVE Triage</h3>
+            </div>
 
-        <div class="col">
-          <div class="about-infos">
-            <div class="about-info">
-              <div class="skills-box">
-                <div class="skills-header"><h3>Systèmes & Réseaux</h3></div>
-                <div class="skills-list">
-                  <span>Linux / Windows Server</span><span>Cisco</span><span>TCP/IP</span><span>Active Directory</span><span>Firewalls</span>
+            <p class="pfe-description">
+              Plateforme centralisée dédiée à l'audit de sécurité automatisé des environnements conteneurisés (Images Docker) et des scripts d'infrastructure (IaC), conçue pour éliminer la fatigue d'alerte des équipes DevSecOps.
+            </p>
+
+            <div class="pfe-key-metrics">
+              <div class="metric-pill">
+                <i class="uil uil-bolt-alt"></i>
+                <div>
+                  <strong>Temps de scan /5</strong>
+                  <span>Cache mémoire Redis</span>
+                </div>
+              </div>
+              <div class="metric-pill">
+                <i class="uil uil-filter"></i>
+                <div>
+                  <strong>Zéro redondance</strong>
+                  <span>Déduplication heuristique CVE</span>
                 </div>
               </div>
             </div>
 
-            <div class="about-info">
-              <div class="skills-box">
-                <div class="skills-header"><h3>Cybersécurité</h3></div>
-                <div class="skills-list">
-                  <span>Pentest</span><span>GRC</span><span>Authentification</span><span>Burp Suite</span><span>Cryptographie</span><span>Analyse de logs</span>
+            <div id="pfe-details" class="pfe-expandable">
+              <div class="pfe-expandable-inner">
+                <div class="pfe-deep-dive">
+                  <h4>Ingénierie &amp; Architecture :</h4>
+                  <ul class="custom-list">
+                    <li><strong>Rôle (Data Engineer &amp; Backend) :</strong> Logique d'agrégation et de corrélation multi-scanners (Trivy, Grype), algorithme de scoring propriétaire et suppression des faux positifs.</li>
+                    <li><strong>Architecture asynchrone :</strong> API FastAPI asynchrone haute cadence, persistance PostgreSQL et workers Celery distribués pour les analyses d'images lourdes.</li>
+                    <li><strong>Intégration CI/CD :</strong> Interface React moderne, API REST et CLI dédiée intégrable aux pipelines DevOps.</li>
+                  </ul>
                 </div>
               </div>
             </div>
 
-            <div class="about-info">
-              <div class="skills-box">
-                <div class="skills-header"><h3>Développement</h3></div>
-                <div class="skills-list">
-                  <span>Python</span><span>C / C++</span><span>PHP</span><span>Java</span><span>MySQL</span><span>HTML/CSS</span>
-                </div>
+            <div class="pfe-footer">
+              <button class="btn btn-secondary" id="pfe-toggle-btn" onclick="togglePFE()">
+                <span>Afficher les détails techniques</span> <i class="uil uil-angle-down"></i>
+              </button>
+              <div class="tech-tags">
+                <span>FastAPI</span><span>Redis</span><span>Docker</span><span>PostgreSQL</span><span>Celery</span><span>React</span>
               </div>
             </div>
-
           </div>
         </div>
       </section>
 
+      <!-- SECTION COMPÉTENCES -->
+      <section class="section" id="competences">
+        <div class="top-header">
+          <h1>Compétences Techniques</h1>
+          <span class="section-subtitle">Outils, protocoles et technologies maîtrisés en pratique.</span>
+        </div>
+
+        <div class="skills-grid">
+          <div class="skills-card highlight-card">
+            <div class="skills-icon-wrap"><i class="uil uil-shield-check"></i></div>
+            <h3>Sécurité Offensive &amp; Audit</h3>
+            <p>Méthodologies d'évaluation des failles applicatives et tests d'intrusion.</p>
+            <div class="skills-list">
+              <span>Pentest</span><span>Burp Suite</span><span>OWASP Top 10</span><span>Nmap</span><span>Wireshark</span><span>Analyse de CVE</span><span>DVWA</span>
+            </div>
+          </div>
+
+          <div class="skills-card highlight-card">
+            <div class="skills-icon-wrap"><i class="uil uil-server-network"></i></div>
+            <h3>Systèmes &amp; Réseaux</h3>
+            <p>Administration, durcissement et résilience des infrastructures.</p>
+            <div class="skills-list">
+              <span>Linux (Debian/Ubuntu/RHEL)</span><span>Windows Server</span><span>Active Directory</span><span>Cisco Routing</span><span>Pare-feux</span><span>Docker</span>
+            </div>
+          </div>
+
+          <div class="skills-card highlight-card">
+            <div class="skills-icon-wrap"><i class="uil uil-brackets-curly"></i></div>
+            <h3>Développement &amp; DevSecOps</h3>
+            <p>Scripting sécurisé, automatisation et ingestion de données.</p>
+            <div class="skills-list">
+              <span>Python</span><span>FastAPI</span><span>C / C++</span><span>Bash</span><span>PostgreSQL</span><span>Redis</span><span>Git / CI-CD</span>
+            </div>
+          </div>
+
+          <div class="skills-card highlight-card">
+            <div class="skills-icon-wrap"><i class="uil uil-file-shield-alt"></i></div>
+            <h3>Gouvernance &amp; Risques</h3>
+            <p>Cadres réglementaires, conformité et gestion des risques cyber.</p>
+            <div class="skills-list">
+              <span>EBIOS RM</span><span>ISO 27001</span><span>NIS 2</span><span>Politiques Zéro-Trust</span><span>Cryptographie</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SECTION PROJETS -->
       <section class="section" id="projects">
-        <div class="top-header"><h1>Mes Projets</h1></div>
+        <div class="top-header">
+          <h1>Mes Projets Réalisés</h1>
+          <span class="section-subtitle">Clique sur un projet pour ouvrir la fiche détaillée.</span>
+        </div>
 
         <div class="project-container">
-          <div class="project-box" data-title="Site Web E-Commerce">
-            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 1024 1024" aria-hidden="true">
-              <path fill="currentColor" d="m145 96l66 746.6L511.8 928l299.6-85.4L878.7 96zm610.9 700.6l-244.1 69.6l-245.2-69.6l-56.7-641.2h603.8zM281 249l1.7 24.3l22.7 253.5h206.5v-.1h112.9l-11.4 118.5L511 672.9v.2h-.8l-102.4-27.7l-6.5-73.2h-91l11.3 144.7l188.6 52h1.7v-.4l187.7-51.7l1.7-16.3l21.2-242.2l3.2-24.3H511v.2H389.9l-8.2-94.2h352.1l1.7-19.5l4.8-47.2L742 249H511z"/>
-            </svg>
+          <div class="project-box highlight-card" data-title="Boutique E-Commerce Sécurisée">
+            <div class="project-icon"><i class="uil uil-shopping-bag"></i></div>
             <h3>Site Web E-Commerce Sécurisé</h3>
-            <label>Développement d’une boutique en ligne cybersécurisée (HTML, CSS, JavaScript, Bootstrap, PHP, MySQL).</label>
+            <label>Boutique en ligne avec durcissement serveur, gestion des entrées et BDD chiffrée.</label>
             <template class="project-body">
-              <p><strong>Objectif :</strong> créer une boutique responsive avec gestion du catalogue, du panier et d’un espace admin simple.</p>
+              <p><strong>Objectif :</strong> Créer une boutique responsive avec panier en temps réel et panneau administrateur sécurisé.</p>
               <ul>
-                <li>Panier en temps réel (ajout, suppression, persistance locale).</li>
-                <li>CRUD produits côté admin (titre, prix, stock).</li>
-                <li>Design adapté mobile et accessible.</li>
+                <li>CRUD produits et gestion sécurisée des sessions.</li>
+                <li>Prévention active contre les injections SQL (requêtes préparées) et failles XSS.</li>
+                <li>Architecture MVC propre et séparation stricte client/admin.</li>
               </ul>
-              <p><strong>Aspects cybersécurité :</strong> validation des entrées pour limiter XSS, réflexion sur protections CSRF, séparation client/admin et sensibilisation aux bonnes pratiques OWASP et système de cryptage des informations dans la base de données.</p>
             </template>
           </div>
 
-          <div class="project-box dvwa" data-title="Projet – Cybersécurité et hacking (DVWA)">
-            <svg class="dvwa-logo" xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 100 100" aria-hidden="true">
-              <rect x="8" y="8" width="84" height="84" rx="22" ry="22" stroke="currentColor" stroke-width="6" fill="none"/>
-              <text x="50" y="58" font-family="Arial, sans-serif" font-size="22" font-weight="700" text-anchor="middle" fill="currentColor">DVWA</text>
-            </svg>
-            <h3>Projet Cybersécurité et hacking</h3>
-            <label>Exploitation de vulnérabilités DVWA et apprentissage des bases en cyber.</label>
+          <div class="project-box dvwa highlight-card" data-title="Laboratoire DVWA &amp; Hacking">
+            <div class="project-icon"><i class="uil uil-bug"></i></div>
+            <h3>Laboratoire Cyber &amp; Pentest (DVWA)</h3>
+            <label>Exploitation méthodique de vulnérabilités web et déploiement de contre-mesures.</label>
             <template class="project-body">
-              <p><strong>Pratique :</strong> mise en place de DVWA en local, configuration des niveaux de sécurité, et exploitation contrôlée de vulnérabilités (SQLi, XSS, Brute Force).</p>
-              <p><strong>Outils & méthodes :</strong> Burp Suite pour intercepter les requêtes, tests manuels sur formulaires, validation par logs et captures.</p>
-              <p><strong>Apprentissages :</strong> compréhension des risques réels des failles OWASP, manipulation de payloads, et surtout <b>bonnes pratiques de mitigation</b> (requêtes préparées, filtrage des entrées, protections contre brute force et XSS).</p>
-              <p><strong>Valeur ajoutée :</strong> ce projet m’a permis de <b>mettre les mains dans la cybersécurité</b> et de développer un réflexe de recherche de failles.</p>
-            </template>
-          </div>
-
-          <div class="project-box" data-title="Détection & Mitigation DDoS">
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 32 32"><path fill="currentColor" d="m29.895 23.542l-1.724-3.447a2 2 0 0 0-1.789-1.106h-.468a14.9 14.9 0 0 0-1.82-4.597C23.065 12.442 22 10.428 22 8a6 6 0 0 0-12 0a13 13 0 0 1-2.049 6.215a14.7 14.7 0 0 0-1.87 4.776h-.463a2 2 0 0 0-1.789 1.106l-1.723 3.447a1 1 0 0 0 .097 1.05l4.029 5.326a3 3 0 0 0 3.848.652l1.874-1.124A13.8 13.8 0 0 0 16 30a13.8 13.8 0 0 0 4.049-.553l1.871 1.123a3 3 0 0 0 1.539.43a3.04 3.04 0 0 0 2.338-1.119l4-5.288a1 1 0 0 0 .098-1.051m-7.569-8.216a14.8 14.8 0 0 1 1.56 3.663h-2.148a16.7 16.7 0 0 0-.98-2.645a12.7 12.7 0 0 1-.879-2.446a9 9 0 0 0 1.003-1.427l.039-.072a31 31 0 0 0 1.405 2.927M12 21a9.4 9.4 0 0 1 1.073-3.852c.256-.582.516-1.175.726-1.799a4.05 4.05 0 0 0 4.402 0c.21.624.47 1.217.726 1.8A9.4 9.4 0 0 1 20 21c0 1.288-.415 3-4 3s-4-1.712-4-3m6.51-8.575A3.63 3.63 0 0 1 16 14a3.63 3.63 0 0 1-2.51-1.576a7.64 7.64 0 0 1 5.02 0ZM12 8a4 4 0 0 1 8 0a11 11 0 0 0 .467 3.115a8 8 0 0 0-1.467-.63V8h-2v2.054a9.3 9.3 0 0 0-2 0V8h-2v2.485a8 8 0 0 0-1.478.637A10.7 10.7 0 0 0 12 8m-2.285 7.16a30 30 0 0 0 1.354-2.78l.049.09a9 9 0 0 0 1.003 1.428a12.7 12.7 0 0 1-.879 2.445a16.7 16.7 0 0 0-.98 2.648H8.104a14 14 0 0 1 1.61-3.832m1.37 12.477l-2.034 1.22a.99.99 0 0 1-1.253-.18l-3.626-4.794l1.446-2.892h3.706l2.166 5.394a1.004 1.004 0 0 1-.405 1.252m2.316.117a2.96 2.96 0 0 0-.056-2.11A9 9 0 0 0 16 26a9 9 0 0 0 2.656-.356a3 3 0 0 0-.054 2.11a13.9 13.9 0 0 1-5.2 0Zm10.83.884a.996.996 0 0 1-1.282.217l-2.034-1.22a1.01 1.01 0 0 1-.396-1.273l2.157-5.373h3.705l1.446 2.892Z"/></svg>
-            <h3>Outil SaaS de Cybersécurité – DDoS</h3>
-            <label>Développement d’une solution SaaS de détection et mitigation d’attaques DDoS.</label>
-            <template class="project-body">
-              <p><strong>Objectif :</strong> concevoir un outil accessible pour protéger les infrastructures en détectant et neutralisant automatiquement les attaques DDoS.</p>
+              <p><strong>Pratique :</strong> Déploiement en local de DVWA pour analyser et mitiger des vecteurs d'attaques réalistes.</p>
               <ul>
-                <li>Inspection de paquets et analyse comportementale via IA.</li>
-                <li>Blocage IP, redirection et filtrage automatisés.</li>
-                <li>Interface administrateur claire pour surveiller et agir en direct.</li>
+                <li>Interception et manipulation de flux via Burp Suite.</li>
+                <li>Exploitation SQLi, XSS, CSRF et cassage de mots de passe par force brute.</li>
+                <li>Application des règles de remédiation : jetons anti-CSRF, filtrage strict et hachage fort.</li>
               </ul>
-              <p><strong>Aspects cybersécurité :</strong> application des bonnes pratiques OWASP, séparation stricte client/admin, validation renforcée des entrées et réflexion sur protections CSRF/XSS.</p>
-              <p><strong>Technologies :</strong> (Python : FastAPI, Scikit-learn + React).</p>
             </template>
           </div>
 
-          <div class="project-box" data-title="Site Web de Gestion de Projets">
-            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" aria-hidden="true">
-              <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" color="currentColor">
-                <path d="M2.5 12c0-4.478 0-6.718 1.391-8.109S7.521 2.5 12 2.5c4.478 0 6.718 0 8.109 1.391S21.5 7.521 21.5 12c0 4.478 0 6.718-1.391 8.109S16.479 21.5 12 21.5c-4.478 0-6.718 0-8.109-1.391S2.5 16.479 2.5 12"/>
-                <path d="M5 12v-2a.5.5 0 0 1 .5-.5h1.25a1.25 1.25 0 1 1 0 2.5zm0 0v2.5M16 12v-2a.5.5 0 0 1 .5-.5h1.25a1.25 1.25 0 1 1 0 2.5zm0 0v2.5m-5.5-5V12m0 2.5V12m3-2.5V12m0 2.5V12m-3 0h3"/>
-              </g>
-            </svg>
-            <h3>Site Web de Gestion de Projets</h3>
-            <label>Développement d’une application web collaborative (HTML, CSS, PHP, MySQL, Bootstrap).</label>
+          <div class="project-box highlight-card" data-title="Solution SaaS Anti-DDoS">
+            <div class="project-icon"><i class="uil uil-shield-exclamation"></i></div>
+            <h3>Outil SaaS de Détection DDoS</h3>
+            <label>Détection comportementale de flux anormaux et filtrage réseau automatisé.</label>
             <template class="project-body">
-              <p><strong>Objectif :</strong> permettre aux équipes de planifier, organiser et suivre leurs projets via une plateforme simple et intuitive.</p>
+              <p><strong>Objectif :</strong> Détecter et neutraliser en direct les hausses illégitimes de trafic réseau.</p>
               <ul>
-                <li>Gestion complète des <strong>projets, tâches et utilisateurs</strong> avec rôles personnalisés.</li>
-                <li>Système d’<strong>authentification sécurisée</strong> (sessions PHP, hachage des mots de passe).</li>
-                <li>Tableaux dynamiques avec <strong>filtres par utilisateur, priority et statut</strong>.</li>
-                <li>Design responsive et accessible grâce à Bootstrap.</li>
+                <li>Inspection de paquets et détection d'anomalies via algorithmes IA.</li>
+                <li>Blocage dynamique d'adresses IP suspectes et règles de filtrage pare-feu.</li>
+                <li>Dashboard interactif d'administration et d'alerte en temps réel.</li>
               </ul>
-              <p><strong>Aspects cybersécurité :</strong> protection des données via validation des entrées, prévention XSS/SQLi, gestion fine des droits administrateurs.</p>
-              <p><strong>Apprentissages :</strong> conception d’un projet web complet intégrant à la fois la <em>logique métier</em> (gestion de projets) et des <em>bonnes pratiques de sécurité</em> côté serveur et base de données.</p>
             </template>
           </div>
 
-          <div class="project-box" data-title="Scraping & DataViz musicales">
-            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" aria-hidden="true">
-              <g fill="none">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 7.5H7.5m4.5 9h4.5m0 0h1.521c.807 0 1.634-.188 2.13-.824c.531-.679 1.099-1.835 1.099-3.676c0-1.84-.568-2.997-1.098-3.676c-.497-.636-1.324-.824-2.13-.824H16.5m0 9v1.521c0 .807-.188 1.634-.824 2.13c-.679.531-1.835 1.099-3.676 1.099c-1.84 0-2.997-.568-3.676-1.098c-.636-.497-.824-1.324-.824-2.13V16.5m0-9H5.978c-.807 0-1.633.188-2.13.824c-.53.679-1.098 1.835-1.098 3.676c0 1.84.568 2.997 1.098 3.676c.497.636 1.323.824 2.13.824H7.5m0-9V5.978c0-.807.188-1.633.824-2.13c.679-.53 1.835-1.098 3.676-1.098c1.84 0 2.997.568 3.676 1.098c.636.497.824 1.323.824 2.13V7.5m-9 9V14a2 2 0 0 1 2-2h5a2 2 0 0 0 2-2V7.5"/>
-                <path fill="currentColor" d="M15 18.5a.75.75 0 1 1-1.5 0a.75.75 0 0 1 1.5 0m-6-13a.75.75 0 1 1 1.5 0a.75.75 0 0 1-1.5 0"/>
-              </g>
-            </svg>
-            <h3>Scraping et Visualisation</h3>
-            <label>Développement d’un outil de collecte et de visualisation de données.</label>
+          <div class="project-box highlight-card" data-title="Gestionnaire de Projets Web">
+            <div class="project-icon"><i class="uil uil-clipboard-notes"></i></div>
+            <h3>Plateforme de Gestion de Projets</h3>
+            <label>Application web collaborative avec contrôle d'accès granulaire basé sur les rôles.</label>
             <template class="project-body">
-              <p><strong>Objectif :</strong> extraire des informations musicales en ligne (artistes, genres, popularité) et les représenter via un tableau de bord interactif.</p>
+              <p><strong>Objectif :</strong> Permettre aux équipes de piloter leurs sprints et tâches avec clarté et sécurité.</p>
               <ul>
-                <li><strong>Scraping :</strong> collecte automatisée des données brutes sur des sites musicaux.</li>
-                <li><strong>Nettoyage & transformation :</strong> traitement avec Pandas pour obtenir un dataset structuré.</li>
-                <li><strong>Dashboard :</strong> graphiques interactifs (courbes, barres, nuages de points) avec filtres par artiste/genre.</li>
-                <li><strong>Export CSV :</strong> sauvegarde des données préparées pour réutilisation.</li>
+                <li>Authentification renforcée et cloisonnement des espaces projets.</li>
+                <li>Filtres dynamiques par priorité, statut et membre assigné.</li>
+                <li>Sécurisation des transactions SQL et validation des données en entrée.</li>
               </ul>
-              <p><strong>Technologies :</strong> (Python : Requests, BeautifulSoup, Pandas + Dash).</p>
             </template>
           </div>
 
-          <div class="project-box" data-title="Bibliothèque en Ligne">
-            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 1024 1024" aria-hidden="true">
-              <path fill="currentColor" d="m145 96l66 746.6L511.8 928l299.6-85.4L878.7 96zm610.9 700.6l-244.1 69.6l-245.2-69.6l-56.7-641.2h603.8zM281 249l1.7 24.3l22.7 253.5h206.5v-.1h112.9l-11.4 118.5L511 672.9v.2h-.8l-102.4-27.7l-6.5-73.2h-91l11.3 144.7l188.6 52h1.7v-.4l187.7-51.7l1.7-16.3l21.2-242.2l3.2-24.3H511v.2H389.9l-8.2-94.2h352.1l1.7-19.5l4.8-47.2L742 249H511z"/>
-            </svg>
-            <h3>Bibliothèque en Ligne</h3>
-            <label>Application web de gestion de livres et utilisateurs (HTML, CSS, JavaScript, PHP, MySQL).</label>
+          <div class="project-box highlight-card" data-title="Scraping &amp; Visualisation Musicale">
+            <div class="project-icon"><i class="uil uil-chart-line"></i></div>
+            <h3>Scraping &amp; DataViz Musicale</h3>
+            <label>Pipeline d'ingestion de données web et restitution analytique dynamique (Python).</label>
             <template class="project-body">
-              <p><strong>Objectif :</strong> créer une plateforme permettant aux utilisateurs de rechercher, réserver et gérer des emprunts de livres en ligne.</p>
+              <p><strong>Objectif :</strong> Extraire automatiquement des données web volumineuses et les restituer visuellement.</p>
               <ul>
-                <li><strong>Catalogue interactif :</strong> recherche avancée et filtres par titre, auteur ou catégorie.</li>
-                <li><strong>Gestion des emprunts :</strong> emprunts, retours, suivi des disponibilités en temps réel.</li>
-                <li><strong>Espace utilisateur :</strong> profils personnalisés avec historique de lectures et gestion des réservations.</li>
-                <li><strong>Interface admin :</strong> ajout/suppression de livres, gestion des stocks et des comptes.</li>
+                <li>Collecte automatisée via scripts Python (Requests, BeautifulSoup).</li>
+                <li>Nettoyage et structuration de données avec Pandas.</li>
+                <li>Dashboard interactif avec graphes et filtrage multicritères.</li>
+              </ul>
+            </template>
+          </div>
+
+          <div class="project-box highlight-card" data-title="Bibliothèque en Ligne">
+            <div class="project-icon"><i class="uil uil-book-open"></i></div>
+            <h3>Système de Bibliothèque en Ligne</h3>
+            <label>Application de gestion des emprunts avec suivi des stocks en temps réel.</label>
+            <template class="project-body">
+              <p><strong>Objectif :</strong> Gérer un catalogue d'ouvrages, les réservations et les flux d'adhérents.</p>
+              <ul>
+                <li>Recherche avancée multicritères et gestion du statut des exemplaires.</li>
+                <li>Espace utilisateur dédié pour le suivi personnel des emprunts.</li>
+                <li>Interface d'administration pour la gestion des stocks et alertes de retards.</li>
               </ul>
             </template>
           </div>
         </div>
       </section>
 
+      <!-- SECTION CONTACT -->
       <section class="section" id="contact">
         <div class="col">
-          <div class="contact-info">
-            <h2>Contactez Moi <i class="uil uil-corner-right-down"></i></h2>
-            <p><i class="uil uil-envelope"></i> Email: <a href="mailto:gabriel.tache.gt@gmail.com" class="mailto-link">gabriel.tache.gt@gmail.com</a></p>
-            <p><i class="uil uil-phone"></i> Tel: +33 7 81 88 47 26</p>
+          <div class="contact-card highlight-card">
+            <div class="contact-header">
+              <h2>Contactez-moi <i class="uil uil-comment-alt-lines"></i></h2>
+              <p class="contact-lead">Disponible pour échanger sur vos projets et opportunités en ingénierie de cybersécurité.</p>
+            </div>
+            
+            <div class="contact-action-buttons">
+              <!-- BOUTON EMAIL -->
+              <a href="mailto:gabriel.tache.gt@gmail.com" class="contact-btn-box btn-email">
+                <div class="contact-btn-icon"><i class="uil uil-envelope-alt"></i></div>
+                <div class="contact-btn-info">
+                  <span class="contact-btn-tag">Email direct</span>
+                  <strong>gabriel.tache.gt@gmail.com</strong>
+                </div>
+                <i class="uil uil-arrow-up-right external-arrow"></i>
+              </a>
+
+              <!-- BOUTON WHATSAPP -->
+              <a href="https://wa.me/+330781884726" target="_blank" rel="noopener" class="contact-btn-box">
+                <div class="contact-btn-icon"><i class="uil uil-whatsapp"></i></div>
+                <div class="contact-btn-info">
+                  <span class="contact-btn-tag">WhatsApp</span>
+                  <strong>+33 7 81 88 47 26</strong>
+                </div>
+                <i class="uil uil-arrow-up-right external-arrow"></i>
+              </a>
+
+              <!-- BOUTON LINKEDIN -->
+              <a href="https://www.linkedin.com/in/gabriel-taché-77284b351" target="_blank" rel="noopener" class="contact-btn-box">
+                <div class="contact-btn-icon"><i class="uil uil-linkedin-alt"></i></div>
+                <div class="contact-btn-info">
+                  <span class="contact-btn-tag">Réseau professionnel</span>
+                  <strong>Gabriel Taché</strong>
+                </div>
+                <i class="uil uil-arrow-up-right external-arrow"></i>
+              </a>
+
+              <!-- BOUTON GITHUB -->
+              <a href="https://github.com/Gabriel-Tache" target="_blank" rel="noopener" class="contact-btn-box">
+                <div class="contact-btn-icon"><i class="uil uil-github-alt"></i></div>
+                <div class="contact-btn-info">
+                  <span class="contact-btn-tag">Dépôts de code</span>
+                  <strong>Gabriel-Tache</strong>
+                </div>
+                <i class="uil uil-arrow-up-right external-arrow"></i>
+              </a>
+            </div>
+
+            <div class="contact-meta-footer">
+              <span><i class="uil uil-map-marker"></i> Île-de-France, France</span>
+              <span><i class="uil uil-check-circle"></i> En recherche active d'opportunités d'ingénierie</span>
+            </div>
           </div>
         </div>
       </section>
     </main>
 
+    <!-- FOOTER -->
     <footer>
-      <div class="top-footer"><p>Gabriel Taché.</p></div>
+      <div class="top-footer"><p>Gabriel Taché<span>.</span></p></div>
       <div class="middle-footer">
         <ul class="footer-menu">
-          <li class="footer_menu_list"><a href="#home">Accueil</a></li>
-          <li class="footer_menu_list"><a href="#current-project">Projet de fin d'études</a></li>
-          <li class="footer_menu_list"><a href="#about">À Propos</a></li>
-          <li class="footer_menu_list"><a href="#projects">Projets</a></li>
-          <li class="footer_menu_list"><a href="#contact">Contact</a></li>
+          <li><a href="#home">Accueil</a></li>
+          <li><a href="#experience">Expériences</a></li>
+          <li><a href="#formation">Formations</a></li>
+          <li><a href="#current-project">PFE</a></li>
+          <li><a href="#competences">Compétences</a></li>
+          <li><a href="#projects">Projets</a></li>
+          <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
 
       <div class="footer-social-icons">
-        <a href="https://wa.me/+330781884726" target="_blank" rel="noopener" class="whatsapp-link">
-          <div class="icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" viewBox="0 0 24 24">
-              <path fill="none" stroke="currentColor" stroke-dasharray="64" stroke-dashoffset="64" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 3c0.5 0 2.5 4.5 2.5 5c0 1 -1.5 2 -2 3c-0.5 1 0.5 2 1.5 3c0.39 0.39 2 2 3 1.5c1 -0.5 2 -2 3 -2c0.5 0 5 2 5 2.5c0 2 -1.5 3.5 -3 4c-1.5 0.5 -2.5 0.5 -4.5 0c-2 -0.5 -3.5 -1 -6 -3.5c-2.5 -2.5 -3 -4 -3.5 -6c-0.5 -2 -0.5 -3 0 -4.5c0.5 -1.5 2 -3 4 -3Z">
-                <animate fill="freeze" attributeName="stroke-dashoffset" dur="1.6s" values="64;0"/>
-              </path>
-            </svg>
-          </div>
-        </a>
-        <a href="https://www.linkedin.com/in/gabriel-taché-77284b351" target="_blank" rel="noopener" class="whatsapp-link">
-          <div class="icon"><i class="uil uil-linkedin-alt"></i></div>
-        </a>
-        <a href="https://mail.google.com/mail/?view=cm&to=gabriel.tache.gt@gmail.com" target="_blank" rel="noopener" class="mailto-link">
-          <div class="icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="25" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M4 20q-.825 0-1.412-.587T2 18V6q0-.825.588-1.412T4 4h16q.825 0 1.413.588T22 6v12q0 .825-.587 1.413T20 20zm8-7L4 8v10h16V8zm0-2l8-5H4zM4 8V6v12z"/>
-            </svg>
-          </div>
-        </a>
-        <a href="https://github.com/Gabriel-Tache" target="_blank" rel="noopener" class="whatsapp-link">
-          <div class="icon"><i class="uil uil-github-alt"></i></div>
-        </a>
-        <a href="#" class="whatsapp-link toggle-switch" aria-label="Activer le mode sombre">
-          <div class="icon"><i class="uil uil-moon"></i></div>
-        </a>
+        <a href="mailto:gabriel.tache.gt@gmail.com" class="icon-link" aria-label="Email"><div class="icon"><i class="uil uil-envelope"></i></div></a>
+        <a href="https://wa.me/+330781884726" target="_blank" rel="noopener" class="icon-link" aria-label="WhatsApp"><div class="icon"><i class="uil uil-whatsapp"></i></div></a>
+        <a href="https://www.linkedin.com/in/gabriel-taché-77284b351" target="_blank" rel="noopener" class="icon-link" aria-label="LinkedIn"><div class="icon"><i class="uil uil-linkedin-alt"></i></div></a>
+        <a href="https://github.com/Gabriel-Tache" target="_blank" rel="noopener" class="icon-link" aria-label="GitHub"><div class="icon"><i class="uil uil-github-alt"></i></div></a>
       </div>
 
       <div class="bottom-footer">
-        <p>Copyright &copy; <a href="#home" style="text-decoration: none; color: rgb(216, 86, 0);">Gabriel Taché</a> - Tous droits réservés</p>
+        <p>&copy; 2026 Gabriel Taché — Tous droits réservés.</p>
       </div>
     </footer>
   </div>
 
-  <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
-  <script src="https://unpkg.com/scrollreveal"></script>
-
+  <!-- MODAL PROJET -->
   <div id="project-modal" class="pmodal" aria-hidden="true" role="dialog" aria-modal="true">
     <div class="pmodal__dialog" role="document">
-      <button class="pmodal__close" aria-label="Fermer">
-        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-          <path fill="currentColor" d="M18.3 5.7a1 1 0 0 0-1.4 0L12 10.6 7.1 5.7A1 1 0 0 0 5.7 7.1L10.6 12l-4.9 4.9a1 1 0 1 0 1.4 1.4L12 13.4l4.9 4.9a1 1 0 0 0 1.4-1.4L13.4 12l4.9-4.9a1 1 0 0 0 0-1.4z"/>
-        </svg>
+      <button class="pmodal__close" aria-label="Fermer la boîte de dialogue">
+        <i class="uil uil-times"></i>
       </button>
 
       <div class="pmodal__content">
@@ -409,6 +557,8 @@
     </div>
   </div>
 
+  <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+  <script src="https://unpkg.com/scrollreveal"></script>
   <script src="script.js"></script>
 </body>
 </html>
