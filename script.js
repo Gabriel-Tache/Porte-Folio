@@ -88,7 +88,7 @@ function myMenuFunction() {
   menuBtn.classList.toggle("responsive");
 }
 
-// --- NAVBAR 100% TRANSPARENTE AVEC EFFET COMPACT AU DÉFILEMENT ---
+// --- NAVBAR AU SCROLL ---
 window.addEventListener('scroll', () => {
   const navHeader = document.getElementById("header");
   if (!navHeader) return;
