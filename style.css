@@ -98,7 +98,7 @@ body {
 }
 
 /* ========================================================================= */
-/* --- NAVIGATION : ULTRA-TRANSPARENTE AVEC DÉMARCATION TRÈS SUBTILE ------- */
+/* --- NAVIGATION : ULTRA-TRANSPARENTE (FOND INVISIBLE, PUR ÉPURÉ) -------- */
 /* ========================================================================= */
 nav {
   position: fixed;
@@ -111,22 +111,22 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding-inline: 7vw;
-  background: rgba(250, 250, 250, 0.03) !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.02) !important;
-  backdrop-filter: blur(6px) saturate(140%);
-  -webkit-backdrop-filter: blur(6px) saturate(140%);
+  background: transparent !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.015) !important;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
   transition: height 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
   z-index: 200;
 }
 
-/* Démarcation légère au défilement */
+/* Effet très léger uniquement quand on défile */
 nav.nav-scrolled {
   height: 70px;
-  background: rgba(250, 250, 250, 0.08) !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.04) !important;
-  box-shadow: 0 8px 24px -10px rgba(0, 0, 0, 0.025) !important;
-  backdrop-filter: blur(10px) saturate(150%);
-  -webkit-backdrop-filter: blur(10px) saturate(150%);
+  background: rgba(250, 250, 250, 0.05) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.035) !important;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.02) !important;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
 .nav-logo .nav-name {
@@ -223,14 +223,14 @@ body.dark {
 }
 
 body.dark nav {
-  background: rgba(13, 14, 18, 0.05) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.025) !important;
+  background: transparent !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02) !important;
 }
 
 body.dark nav.nav-scrolled {
-  background: rgba(13, 14, 18, 0.11) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-  box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.25) !important;
+  background: rgba(13, 14, 18, 0.07) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.035) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2) !important;
 }
 
 body.dark .stat-card,
@@ -270,7 +270,7 @@ body.dark footer {
 }
 
 /* ========================================================================= */
-/* --- HERO SECTION & PHOTO DE PROFIL CIRCULAIRE ÉPURÉE -------------------- */
+/* --- HERO SECTION & TITRE ANIMÉ SANS DÉCALAGE ---------------------------- */
 /* ========================================================================= */
 .featured-box {
   position: relative;
@@ -319,14 +319,22 @@ body.dark footer {
 }
 
 .featured-name {
-  font-size: clamp(32px, 4vw, 48px);
+  font-size: clamp(30px, 3.8vw, 46px);
   font-weight: 700;
   color: var(--text-main);
-  line-height: 1.2;
+  line-height: 1.25;
   margin-bottom: 20px;
 }
 
+.typed-line {
+  display: inline;
+}
+
 .typedText {
+  color: var(--first-color);
+}
+
+.typed-cursor {
   color: var(--first-color);
 }
 
@@ -602,7 +610,7 @@ section[id] {
 }
 
 /* ========================================================================= */
-/* --- SECTION PFE SANS DÉFORMATION NI ZOOM -------------------------------- */
+/* --- SECTION PFE --------------------------------------------------------- */
 /* ========================================================================= */
 .pfe-card {
   display: grid;
@@ -1266,6 +1274,20 @@ body.modal-open {
   .featured-text {
     align-items: center;
   }
+  .featured-name {
+    font-size: clamp(22px, 5.2vw, 27px);
+    line-height: 1.35;
+    margin-bottom: 16px;
+    width: 100%;
+  }
+
+  /* Bloque tout déplacement : ligne dédiée et hauteur minimale garantie */
+  .typed-line {
+    display: block;
+    margin-top: 6px;
+    min-height: 2.7em;
+  }
+
   .badge-status {
     margin-inline: auto;
   }
@@ -1291,6 +1313,12 @@ body.modal-open {
 }
 
 @media (max-width: 480px) {
+  .featured-name {
+    font-size: 21px;
+  }
+  .typed-line {
+    min-height: 2.85em;
+  }
   .stats-strip {
     grid-template-columns: 1fr;
   }
