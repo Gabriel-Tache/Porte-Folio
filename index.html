@@ -3,91 +3,144 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Portfolio de Gabriel Taché — Élève Ingénieur en Cybersécurité, Systèmes et Réseaux à l'ECE Paris (ING3). Expérience chez Thales LAS (radars GM200), DevSecOps, Pentest et Systèmes Embarqués." />
+  <meta name="author" content="Gabriel Taché" />
+  <meta name="theme-color" content="#3b4bc3" />
+
+  <!-- Typographie Inter (Style Apple / Linear / Silicon Valley) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
   <link rel="stylesheet" href="style.css">
   <link rel="shortcut icon" href="https://gabriel-tache.github.io/PF-Final/Capture%20d'%C3%A9cran%202025-03-05%20144338.png" type="image/x-icon">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
-  <title>Gabriel Taché | Ingénieur Cybersécurité &amp; Réseaux</title>
+  <title>Gabriel Taché | Ingénieur Cybersécurité, Systèmes &amp; Réseaux</title>
 </head>
 <body>
+  <!-- LUMIÈRES D'AMBIANCE HAUTE PERFORMANCE (ZÉRO OVERHEAD GPU) -->
+  <div class="ambient-bg" aria-hidden="true"></div>
+
+  <!-- BARRE DE PROGRESSION DE LECTURE -->
+  <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+
+  <!-- VOILE DE FOND POUR LE MENU MOBILE (NET ET SANS FLOU GLOBALE) -->
+  <div class="nav-overlay" id="nav-overlay" onclick="closeMobileMenu()" aria-hidden="true"></div>
+
+  <!-- TIROIR MOBILE INDÉPENDANT (SÉPARÉ DE LA CAPSULE LIQUID GLASS POUR ÉVITER TOUT CONFLIT DE BLUR SUR MOBILE) -->
+  <aside class="mobile-nav-drawer" id="myNavMenu" aria-label="Menu mobile">
+    <div class="drawer-header">
+      <a href="#home" class="drawer-logo" onclick="closeMobileMenu()">Gabriel Taché<span>.</span></a>
+      <button class="drawer-close-btn" onclick="closeMobileMenu()" aria-label="Fermer le menu">
+        <i class="uil uil-times"></i>
+      </button>
+    </div>
+
+    <ul class="drawer-menu-list">
+      <li class="nav_list"><a href="#home" class="nav-link active-link"><i class="uil uil-estate"></i> Accueil</a></li>
+      <li class="nav_list"><a href="#experience" class="nav-link"><i class="uil uil-briefcase-alt"></i> Expériences</a></li>
+      <li class="nav_list"><a href="#formation" class="nav-link"><i class="uil uil-graduation-cap"></i> Formations</a></li>
+      <li class="nav_list"><a href="#current-project" class="nav-link"><i class="uil uil-shield-check"></i> PFE Doc(k)leaner</a></li>
+      <li class="nav_list"><a href="#competences" class="nav-link"><i class="uil uil-layer-group"></i> Compétences</a></li>
+      <li class="nav_list"><a href="#projects" class="nav-link"><i class="uil uil-folder"></i> Projets</a></li>
+      <li class="nav_list"><a href="#contact" class="nav-link"><i class="uil uil-envelope"></i> Contact</a></li>
+    </ul>
+
+    <div class="drawer-footer">
+      <a href="https://gabriel-tache.github.io/Porte-Folio/CV-Cyber.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-full">
+        Consulter mon CV <i class="uil uil-file-alt"></i>
+      </a>
+      <div class="drawer-socials">
+        <a href="https://www.linkedin.com/in/gabriel-taché-77284b351" target="_blank" rel="noopener noreferrer" class="drawer-icon-link" aria-label="LinkedIn"><i class="uil uil-linkedin-alt"></i></a>
+        <a href="https://github.com/Gabriel-Tache" target="_blank" rel="noopener noreferrer" class="drawer-icon-link" aria-label="GitHub"><i class="uil uil-github-alt"></i></a>
+        <a href="mailto:gabriel.tache.gt@gmail.com" class="drawer-icon-link" aria-label="Email"><i class="uil uil-envelope"></i></a>
+        <a href="https://wa.me/33781884726" target="_blank" rel="noopener noreferrer" class="drawer-icon-link" aria-label="WhatsApp"><i class="uil uil-whatsapp"></i></a>
+      </div>
+    </div>
+  </aside>
+
   <div class="container">
-    <!-- NAVIGATION -->
-    <nav id="header">
-      <div class="nav-logo">
-        <a href="#home" class="nav-name">Gabriel Taché<span>.</span></a>
-      </div>
+    <!-- NAVIGATION LIQUID GLASS (STYLE APPLE VISIONOS) -->
+    <header class="nav-wrapper" id="header">
+      <nav class="liquid-glass-nav" aria-label="Navigation principale">
+        <div class="nav-logo">
+          <a href="#home" class="nav-name">Gabriel Taché<span>.</span></a>
+        </div>
 
-      <div class="nav-menu" id="myNavMenu">
-        <div class="nav-close-btn" onclick="myMenuFunction()"><i class="uil uil-times"></i></div>
-        
-        <ul class="nav_menu_list">
-          <li class="nav_list"><a href="#home" class="nav-link active-link">Accueil</a></li>
-          <li class="nav_list"><a href="#experience" class="nav-link">Expériences</a></li>
-          <li class="nav_list"><a href="#formation" class="nav-link">Formations</a></li>
-          <li class="nav_list"><a href="#current-project" class="nav-link">PFE</a></li>
-          <li class="nav_list"><a href="#competences" class="nav-link">Compétences</a></li>
-          <li class="nav_list"><a href="#projects" class="nav-link">Projets</a></li>
-          <li class="nav_list"><a href="#contact" class="nav-link">Contact</a></li>
-          <li class="nav_list">
-            <button class="nav-link theme-toggle toggle-switch" aria-label="Basculer le mode sombre">
-              <i class="uil uil-moon"></i>
-            </button>
-          </li>
-        </ul>
-      </div>
+        <!-- Menu Desktop : intégré horizontalement dans la capsule -->
+        <div class="nav-menu nav-menu-desktop">
+          <ul class="nav_menu_list">
+            <li class="nav_list"><a href="#home" class="nav-link active-link">Accueil</a></li>
+            <li class="nav_list"><a href="#experience" class="nav-link">Expériences</a></li>
+            <li class="nav_list"><a href="#formation" class="nav-link">Formations</a></li>
+            <li class="nav_list"><a href="#current-project" class="nav-link">PFE</a></li>
+            <li class="nav_list"><a href="#competences" class="nav-link">Compétences</a></li>
+            <li class="nav_list"><a href="#projects" class="nav-link">Projets</a></li>
+            <li class="nav_list"><a href="#contact" class="nav-link">Contact</a></li>
+          </ul>
+        </div>
 
-      <div class="nav-button">
-        <a href="https://gabriel-tache.github.io/Porte-Folio/CV-Cyber.pdf" target="_blank" rel="noopener">
-          <button class="btn btn-primary">Mon CV <i class="uil uil-file-alt"></i></button>
-        </a>
-      </div>
+        <div class="nav-actions">
+          <button class="theme-toggle toggle-switch" aria-label="Basculer le mode sombre" title="Changer de thème">
+            <i class="uil uil-moon"></i>
+          </button>
 
-      <div class="nav-menu-btn" onclick="myMenuFunction()">
-        <i class="uil uil-bars"></i>
-      </div>
-    </nav>
+          <div class="nav-button">
+            <a href="https://gabriel-tache.github.io/Porte-Folio/CV-Cyber.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-nav">
+              Mon CV <i class="uil uil-file-alt"></i>
+            </a>
+          </div>
+
+          <button class="nav-menu-btn" onclick="toggleMobileMenu()" aria-label="Ouvrir le menu" aria-expanded="false" id="menu-toggle-btn">
+            <i class="uil uil-bars"></i>
+          </button>
+        </div>
+      </nav>
+    </header>
 
     <main class="wrapper">
       <!-- HERO SECTION -->
       <section class="featured-box" id="home">
         <div class="featured-text">
           <div class="badge-status">
-            <span class="pulse-dot"></span> Élève Ingénieur en Cybersécurité
+            <span class="pulse-dot"></span> Cycle Ingénieur (ING3) — ECE Paris &bull; Ex-Thales LAS
           </div>
-          
-          <div class="featured-name">
-            <p>Je suis <span class="typed-line"><span class="typedText"></span><span class="staticText">Étudiant Ingénieur</span></span></p>
-          </div>
-          
+
+          <h1 class="featured-name">
+            Gabriel Taché<br>
+            <span class="typed-line"><span class="typedText"></span><span class="staticText">Ingénieur Cybersécurité</span></span>
+          </h1>
+
           <div class="featured-text-info">
             <p>
-              <b>Étudiant en Cycle Ingénieur à l'ECE Paris</b>, spécialisé en <b>Cybersécurité, Systèmes et Réseaux</b>. Fort d'une expérience chez <b>Thales LAS</b> sur la sécurisation de radars militaires GM200, je conçois et audite des infrastructures critiques résilientes.
+              Élève ingénieur à l'<b>ECE Paris</b> spécialisé en <b>Cybersécurité, Systèmes et Réseaux</b>. Fort d'une expérience de 5 mois en cyberdéfense industrielle chez <b>Thales LAS</b> sur la sécurisation des systèmes radars tactiques <b>GM200</b>, je conçois des bancs de virtualisation critiques, audite des architectures réseaux et déploie des pipelines <b>DevSecOps</b> haute performance.
             </p>
           </div>
 
           <div class="featured-text-btn">
-            <a href="https://gabriel-tache.github.io/Porte-Folio/CV-Cyber.pdf" target="_blank" rel="noopener">
-              <button class="btn btn-primary">Mon CV <i class="uil uil-file-alt"></i></button>
+            <a href="https://gabriel-tache.github.io/Porte-Folio/CV-Cyber.pdf" target="_blank" rel="noopener" class="btn btn-primary">
+              Télécharger mon CV <i class="uil uil-file-download-alt"></i>
             </a>
-            <a href="#experience">
-              <button class="btn btn-secondary">Mon Parcours <i class="uil uil-arrow-down"></i></button>
+            <a href="#experience" class="btn btn-glass">
+              Explorer mes responsabilités <i class="uil uil-arrow-down"></i>
             </a>
           </div>
 
           <!-- ICÔNES HERO -->
           <div class="social_icons">
-            <a href="https://wa.me/+330781884726" target="_blank" rel="noopener" class="icon-link" aria-label="WhatsApp">
-              <div class="icon"><i class="uil uil-whatsapp"></i></div>
-            </a>
             <a href="https://www.linkedin.com/in/gabriel-taché-77284b351" target="_blank" rel="noopener" class="icon-link" aria-label="LinkedIn">
               <div class="icon"><i class="uil uil-linkedin-alt"></i></div>
+            </a>
+            <a href="https://github.com/Gabriel-Tache" target="_blank" rel="noopener" class="icon-link" aria-label="GitHub">
+              <div class="icon"><i class="uil uil-github-alt"></i></div>
             </a>
             <a href="mailto:gabriel.tache.gt@gmail.com" class="icon-link" aria-label="Email">
               <div class="icon"><i class="uil uil-envelope"></i></div>
             </a>
-            <a href="https://github.com/Gabriel-Tache" target="_blank" rel="noopener" class="icon-link" aria-label="GitHub">
-              <div class="icon"><i class="uil uil-github-alt"></i></div>
+            <a href="https://wa.me/33781884726" target="_blank" rel="noopener" class="icon-link" aria-label="WhatsApp">
+              <div class="icon"><i class="uil uil-whatsapp"></i></div>
             </a>
           </div>
         </div>
@@ -95,156 +148,219 @@
         <div class="featured-image">
           <div class="image-wrapper">
             <div class="image-backdrop"></div>
-            <img src="https://gabriel-tache.github.io/Porte-Folio/Photo-CV.png" alt="Gabriel Taché" class="profile-img">
+            <img src="https://gabriel-tache.github.io/Porte-Folio/Photo-CV.png" alt="Portrait de Gabriel Taché" class="profile-img" fetchpriority="high">
           </div>
         </div>
       </section>
 
       <!-- BANDEAU STATISTIQUES -->
-      <section class="stats-strip">
+      <section class="stats-strip" aria-label="Chiffres clés">
         <div class="stat-card highlight-card">
-          <span class="stat-number">Bac+5</span>
-          <span class="stat-label">Cycle Ingénieur (ING3) ECE</span>
+          <span class="stat-number">ING3</span>
+          <span class="stat-label">Cycle Ingénieur CTI — ECE Paris</span>
         </div>
         <div class="stat-card highlight-card">
-          <span class="stat-number">5 mois</span>
-          <span class="stat-label">Ingénierie Cyber Thales LAS</span>
+          <span class="stat-number">Thales LAS</span>
+          <span class="stat-label">Ingénierie Cyber Défense (GM200)</span>
         </div>
         <div class="stat-card highlight-card">
-          <span class="stat-number">Défense</span>
-          <span class="stat-label">Systèmes Radars GM200</span>
+          <span class="stat-number">DevSecOps</span>
+          <span class="stat-label">Audit Conteneurs &amp; Hardening</span>
         </div>
         <div class="stat-card highlight-card">
-          <span class="stat-number">6+</span>
-          <span class="stat-label">Projets Cyber &amp; SaaS Réalisés</span>
+          <span class="stat-number">7+</span>
+          <span class="stat-label">Projets Cyber, Systèmes &amp; SaaS</span>
         </div>
       </section>
 
       <!-- SECTION EXPÉRIENCES -->
       <section class="section" id="experience">
         <div class="top-header">
-          <h1>Expériences Professionnelles</h1>
-          <span class="section-subtitle">Immersion industrielle en cyberdéfense et missions techniques institutionnelles.</span>
+          <span class="section-kicker">Parcours Professionnel</span>
+          <h2>Expériences &amp; Responsabilités</h2>
+          <span class="section-subtitle">Ingénierie de cyberdéfense sur systèmes d'armes critiques, recherche scientifique et représentation institutionnelle.</span>
         </div>
 
         <div class="cards-column">
           <!-- Carte Thales -->
-          <div class="info-card highlight-card">
+          <article class="info-card highlight-card">
             <div class="card-head">
               <div class="card-identity">
-                <h3>Stage en ingénierie cybersécurité</h3>
-                <span class="entity-name">Thales LAS (Land and Air Systems) — Limours</span>
-                <span class="time-tag"><i class="uil uil-calendar-alt"></i> Avril 2026 - Août 2026</span>
+                <div class="title-row">
+                  <h3>Ingénieur Cybersécurité &amp; Bancs d'Intégration (Stage)</h3>
+                  <span class="role-badge">Cyberdéfense &amp; Systèmes Critiques</span>
+                </div>
+                <span class="entity-name">Thales LAS (Land and Air Systems) — Centre radar de Limours</span>
+                <span class="time-tag"><i class="uil uil-calendar-alt"></i> Avril 2026 - Août 2026 (5 mois)</span>
               </div>
               <div class="logo-wrapper">
-                <img src="https://raw.githubusercontent.com/Gabriel-Tache/Porte-Folio/37368b83bee8d73f80cc15105e6b0e4888ec3c3f/images/658AD7D2-6269-4EA1-9279-C32EC530AF11_1_201_a-removebg-preview.png" alt="Logo Thales" class="corp-logo thales-logo">
+                <img src="658AD7D2-6269-4EA1-9279-C32EC530AF11_1_201_a-removebg-preview.png" alt="Logo Thales" class="corp-logo thales-logo" loading="lazy" onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/Gabriel-Tache/Porte-Folio/37368b83bee8d73f80cc15105e6b0e4888ec3c3f/images/658AD7D2-6269-4EA1-9279-C32EC530AF11_1_201_a-removebg-preview.png';">
               </div>
             </div>
             <div class="card-body">
-              <p>Au sein du pôle cybersécurité, renforcement et évaluation de la sécurité logicielle et matérielle des systèmes radar <strong>GM200</strong> (système d'arme sol-air critique) :</p>
+              <p>Rattaché à l'équipe cybersécurité des systèmes radars de surveillance aérienne, prise en charge de la qualification offensive, de la virtualisation et du maintien en condition de sécurité (MCS) du système radar multi-missions <strong>Ground Master 200 (GM200)</strong> :</p>
               <ul class="custom-list">
-                <li><strong>Virtualisation &amp; Bancs d'essai :</strong> Conception d'environnements virtualisés sous Linux pour la simulation de flux opérationnels.</li>
-                <li><strong>Tests d'intrusion (Pentest) :</strong> Audits offensifs réseau pour éprouver la résistance des composants face aux menaces d'écoute, d'altération et de DoS.</li>
-                <li><strong>Validation &amp; Remédiation :</strong> Détection de vulnérabilités, validation stricte des correctifs et conformité aux exigences défense.</li>
+                <li><strong>Conception de plateformes de test virtualisées :</strong> Architecture et déploiement d'environnements Linux virtualisés reproduisant fidèlement les sous-systèmes et flux opérationnels du radar, permettant de qualifier les correctifs de sécurité et de rejouer des scénarios d'attaque sans immobiliser les radars physiques.</li>
+                <li><strong>Tests d'intrusion (Pentest) &amp; Robustesse protocolaire :</strong> Cartographie de la surface d'attaque matérielle et logicielle, exécution d'audits offensifs (écoute clandestine, altération/injection de trames, saturation DoS) et évaluation de la résilience des interconnexions réseau.</li>
+                <li><strong>Durcissement (Hardening) &amp; Conformité Défense :</strong> Qualification technique des vulnérabilités (scoring CVSS), rédaction des dossiers de justification de sécurité, implémentation de politiques de durcissement système/réseau et validation stricte des correctifs selon les référentiels militaires.</li>
               </ul>
               <div class="tech-tags">
-                <span>Linux Virtualisé</span><span>Pentest Réseau</span><span>Systèmes Radar GM200</span><span>Sécurité Réseau</span><span>Durcissement SI</span>
+                <span>Systèmes Radars GM200</span>
+                <span>Virtualisation Linux</span>
+                <span>Pentest Réseau &amp; Système</span>
+                <span>Hardening OS &amp; Réseau</span>
+                <span>Qualification CVSS</span>
+                <span>Maintien en Condition de Sécurité (MCS)</span>
               </div>
             </div>
-          </div>
+          </article>
 
           <!-- Carte ECE Ambassadeur -->
-          <div class="info-card highlight-card">
+          <article class="info-card highlight-card">
             <div class="card-head">
               <div class="card-identity">
-                <h3>Ambassadeur Étudiant</h3>
+                <div class="title-row">
+                  <h3>Ambassadeur Technique &amp; Chargé de Promotion (CDD)</h3>
+                  <span class="role-badge">Communication &amp; Leadership</span>
+                </div>
                 <span class="entity-name">ECE Paris — Grande École d'Ingénieurs</span>
-                <span class="time-tag"><i class="uil uil-calendar-alt"></i> Janvier 2026 - Mars 2026</span>
+                <span class="time-tag"><i class="uil uil-calendar-alt"></i> Janvier 2026 - Mars 2026 (3 mois)</span>
               </div>
               <div class="logo-wrapper">
-                <img src="https://raw.githubusercontent.com/Gabriel-Tache/Porte-Folio/37368b83bee8d73f80cc15105e6b0e4888ec3c3f/images/2975e450-89d6-4753-b5cf-b302cccd9c0b.png" alt="Logo ECE Paris" class="corp-logo ece-logo">
+                <img src="2975e450-89d6-4753-b5cf-b302cccd9c0b.png" alt="Logo ECE Paris" class="corp-logo ece-logo" loading="lazy" onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/Gabriel-Tache/Porte-Folio/37368b83bee8d73f80cc15105e6b0e4888ec3c3f/images/2975e450-89d6-4753-b5cf-b302cccd9c0b.png';">
               </div>
             </div>
             <div class="card-body">
-              <p>Représentation de l'école et valorisation de la filière cybersécurité auprès des futurs étudiants et partenaires :</p>
+              <p>Contrat à durée déterminée dédié au rayonnement de la filière cybersécurité et des cycles d'ingénierie auprès des acteurs institutionnels, industriels et futurs étudiants :</p>
               <ul class="custom-list">
-                <li><strong>European Cyber Week (Rennes) :</strong> Membre de la délégation ECE, échanges techniques avec les industriels de la souveraineté numérique.</li>
-                <li><strong>Salons &amp; Conférences :</strong> Présentation des formations et animation de tables rondes d'orientation à Paris, Toulouse et Bordeaux.</li>
-                <li><strong>Communication Technique :</strong> Vulgarisation des architectures et animation d'ateliers techniques.</li>
+                <li><strong>Délégation European Cyber Week (Rennes) :</strong> Membre sélectionné de la délégation officielle ECE ; échanges techniques avec les industriels de la souveraineté européenne, l'ANSSI et le Commandement de la Cyberdéfense (COMCYBER).</li>
+                <li><strong>Conférences &amp; Tables rondes nationales :</strong> Animation de conférences techniques et présentation des programmes d'ingénierie lors des salons majeurs à Paris, Bordeaux et Toulouse.</li>
+                <li><strong>Ateliers pratiques &amp; Logistique événementielle :</strong> Organisation d'événements campus, vulgarisation d'architectures cyber/réseaux et démonstrations de projets techniques auprès des candidats et partenaires.</li>
               </ul>
               <div class="tech-tags">
-                <span>European Cyber Week</span><span>Communication Technique</span><span>Prise de parole</span>
+                <span>European Cyber Week</span>
+                <span>Communication Technique</span>
+                <span>Animation de Conférences</span>
+                <span>Gestion d'Événements</span>
               </div>
             </div>
-          </div>
+          </article>
+
+          <!-- Carte Synchrotron SOLEIL -->
+          <article class="info-card highlight-card">
+            <div class="card-head">
+              <div class="card-identity">
+                <div class="title-row">
+                  <h3>Assistant de Recherche Scientifique (Stage)</h3>
+                  <span class="role-badge">Instrumentation &amp; Rigueur Scientifique</span>
+                </div>
+                <span class="entity-name">Synchrotron SOLEIL — Plateau de Saclay (Saint-Aubin)</span>
+                <span class="time-tag"><i class="uil uil-calendar-alt"></i> Stage Scientifique (2 mois)</span>
+              </div>
+              <div class="logo-wrapper">
+                <span class="entity-pill-logo"><i class="uil uil-atom"></i> SOLEIL</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <p>Immersion au sein d'une infrastructure nationale de recherche de très haute technologie dédiée à l'exploration de la matière par rayonnement synchrotron :</p>
+              <ul class="custom-list">
+                <li><strong>Caractérisation de matériaux sous rayonnement :</strong> Assistance directe aux équipes de chercheurs sur les lignes de lumière pour la préparation et l'analyse structurelle d'échantillons par rayonnement électromagnétique.</li>
+                <li><strong>Exploitation de mesures &amp; Protocoles :</strong> Suivi des protocoles expérimentaux en environnement critique, acquisition de données physiques et vérification de la cohérence des relevés d'instrumentation.</li>
+              </ul>
+              <div class="tech-tags">
+                <span>Environnement Critique</span>
+                <span>Analyse de Données Physiques</span>
+                <span>Protocoles Expérimentaux</span>
+                <span>Rigueur Scientifique</span>
+              </div>
+            </div>
+          </article>
         </div>
       </section>
 
       <!-- SECTION FORMATIONS -->
       <section class="section" id="formation">
         <div class="top-header">
-          <h1>Formations &amp; Diplômes</h1>
-          <span class="section-subtitle">Cursus d'excellence alliant socle technique opérationnel et conception d'architectures.</span>
+          <span class="section-kicker">Cursus Académique</span>
+          <h2>Formations &amp; Diplômes</h2>
+          <span class="section-subtitle">Parcours d'ingénieur alliant expertise opérationnelle en cybersécurité, systèmes embarqués et architectures critiques.</span>
         </div>
 
         <div class="cards-column">
           <!-- Cycle Ingénieur -->
-          <div class="info-card highlight-card">
+          <article class="info-card highlight-card">
             <div class="card-head">
               <div class="card-identity">
-                <h3>Cycle Ingénieur (ING3) — Cybersécurité, Systèmes et Réseaux</h3>
-                <span class="entity-name">ECE Paris — Diplôme d'Ingénieur habilité CTI</span>
+                <div class="title-row">
+                  <h3>Cycle Ingénieur (ING3) — Cybersécurité, Systèmes &amp; Réseaux</h3>
+                  <span class="role-badge">En cours — Diplôme Habilité CTI</span>
+                </div>
+                <span class="entity-name">ECE Paris — École Centrale d'Électronique</span>
                 <span class="time-tag"><i class="uil uil-graduation-cap"></i> 2026 - Présent</span>
               </div>
               <div class="logo-wrapper">
-                <img src="https://raw.githubusercontent.com/Gabriel-Tache/Porte-Folio/37368b83bee8d73f80cc15105e6b0e4888ec3c3f/images/2975e450-89d6-4753-b5cf-b302cccd9c0b.png" alt="Logo ECE Paris" class="corp-logo ece-logo">
+                <img src="2975e450-89d6-4753-b5cf-b302cccd9c0b.png" alt="Logo ECE Paris" class="corp-logo ece-logo" loading="lazy" onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/Gabriel-Tache/Porte-Folio/37368b83bee8d73f80cc15105e6b0e4888ec3c3f/images/2975e450-89d6-4753-b5cf-b302cccd9c0b.png';">
               </div>
             </div>
             <div class="card-body">
-              <p>Ingénierie avancée, supervision et défense d'infrastructures informatiques résilientes :</p>
+              <p>Formation d'ingénieur de grade Master habilitée CTI orientée conception d'architectures sécurisées, systèmes embarqués et gouvernance des risques :</p>
               <ul class="custom-list">
-                <li><strong>Architectures sécurisées &amp; Zéro-Trust :</strong> Ingénierie réseau, segmentation et cryptographie.</li>
-                <li><strong>DevSecOps &amp; Automatisation :</strong> Sécurisation des pipelines CI/CD, conteneurisation et Infrastructure as Code.</li>
-                <li><strong>Gouvernance &amp; Risques :</strong> Analyse EBIOS RM, normes ISO 27001 et directives NIS 2.</li>
+                <li><strong>Architectures Zero-Trust &amp; DevSecOps :</strong> Ingénierie réseau avancée, micro-segmentation, cryptographie appliquée, sécurisation de pipelines CI/CD et conteneurisation.</li>
+                <li><strong>Systèmes Embarqués &amp; Électronique :</strong> Programmation bas niveau en <strong>C / C++</strong>, architecture microcontrôleurs (<strong>ESP32-S3</strong>, PlatformIO) et modélisation électronique sous <strong>Proteus</strong>.</li>
+                <li><strong>Gouvernance, Risques &amp; Conformité (GRC) :</strong> Analyses de risques <strong>EBIOS RM</strong>, implémentation de SMSI selon la norme <strong>ISO/IEC 27001</strong> et conformité à la directive européenne <strong>NIS 2</strong>.</li>
+                <li><strong>Sécurité Offensive &amp; Défensive :</strong> Audits d'infrastructures, hardening serveurs Linux/Windows, qualification de vulnérabilités et gestion d'incidents.</li>
               </ul>
               <div class="tech-tags">
-                <span>Cycle Ingénieur CTI</span><span>Architecture Zéro-Trust</span><span>GRC &amp; EBIOS RM</span><span>DevSecOps</span><span>Cryptographie</span>
+                <span>Diplôme d'Ingénieur CTI</span>
+                <span>Architecture Zero-Trust</span>
+                <span>DevSecOps</span>
+                <span>C &amp; ESP32-S3 Embarqué</span>
+                <span>EBIOS RM / ISO 27001 / NIS 2</span>
+                <span>Sécurité Offensive &amp; Hardening</span>
               </div>
             </div>
-          </div>
+          </article>
 
           <!-- Bachelor -->
-          <div class="info-card highlight-card">
+          <article class="info-card highlight-card">
             <div class="card-head">
               <div class="card-identity">
-                <h3>Bachelor Cybersécurité, Systèmes et Réseaux</h3>
-                <span class="entity-name">ECE Paris — Cursus en 3 ans</span>
-                <span class="time-tag"><i class="uil uil-award"></i> Diplôme obtenu</span>
+                <div class="title-row">
+                  <h3>Bachelor Cybersécurité, Systèmes et Réseaux</h3>
+                  <span class="role-badge">Diplôme obtenu</span>
+                </div>
+                <span class="entity-name">ECE Paris — Cursus intensif en 3 ans</span>
+                <span class="time-tag"><i class="uil uil-award"></i> 2023 - 2026</span>
               </div>
               <div class="logo-wrapper">
-                <img src="https://raw.githubusercontent.com/Gabriel-Tache/Porte-Folio/37368b83bee8d73f80cc15105e6b0e4888ec3c3f/images/2975e450-89d6-4753-b5cf-b302cccd9c0b.png" alt="Logo ECE Paris" class="corp-logo ece-logo">
+                <img src="2975e450-89d6-4753-b5cf-b302cccd9c0b.png" alt="Logo ECE Paris" class="corp-logo ece-logo" loading="lazy" onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/Gabriel-Tache/Porte-Folio/37368b83bee8d73f80cc15105e6b0e4888ec3c3f/images/2975e450-89d6-4753-b5cf-b302cccd9c0b.png';">
               </div>
             </div>
             <div class="card-body">
-              <p>Socle technique pratique orienté administration système, protocoles et sécurité :</p>
+              <p>Acquisition d'un socle technique opérationnel par la pratique intensive en laboratoires systèmes, réseaux et sécurité offensive :</p>
               <ul class="custom-list">
-                <li><strong>Infrastructures SI :</strong> Administration Linux et Windows Server, Active Directory, GPO et gestion des accès.</li>
-                <li><strong>Réseaux &amp; Protocoles :</strong> Architecture TCP/IP, configuration de routeurs/switches Cisco, pare-feux et VLANs.</li>
-                <li><strong>Audit offensif de base :</strong> Analyse de vulnérabilités applicatives web (Burp Suite, OWASP Top 10).</li>
+                <li><strong>Administration Systèmes &amp; Annuaire :</strong> Déploiement et durcissement de serveurs Linux (Debian, Ubuntu, RHEL) et Windows Server, administration Active Directory, GPO et contrôle d'accès IAM.</li>
+                <li><strong>Ingénierie Réseau &amp; Filtrage :</strong> Conception d'architectures TCP/IP, routage dynamique et commutation Cisco, segmentation VLANs, VPN et politiques de pare-feu.</li>
+                <li><strong>Audit Offensif &amp; Développement Sécurisé :</strong> Exploitation et remédiation de vulnérabilités applicatives (OWASP Top 10, Burp Suite), sécurisation SQL et automatisation Python/Bash.</li>
               </ul>
               <div class="tech-tags">
-                <span>Linux &amp; Windows Server</span><span>Active Directory</span><span>Cisco Routing</span><span>Pare-feux</span><span>Burp Suite</span>
+                <span>Linux &amp; Windows Server</span>
+                <span>Active Directory &amp; GPO</span>
+                <span>Cisco Routing &amp; Switching</span>
+                <span>Pare-feux &amp; VLANs</span>
+                <span>Burp Suite &amp; OWASP</span>
               </div>
             </div>
-          </div>
+          </article>
         </div>
       </section>
 
       <!-- SECTION PFE : DOC(K)LEANER -->
       <section class="section" id="current-project">
         <div class="top-header">
-          <h1>Projet de Fin d'Études</h1>
-          <span class="section-subtitle">Doc(k)leaner : solution SaaS d'audit et de déduplication de vulnérabilités conteneurisées.</span>
+          <span class="section-kicker">Réalisation Majeure</span>
+          <h2>Projet de Fin d'Études — Doc(k)leaner</h2>
+          <span class="section-subtitle">Solution SaaS d'orchestration d'audits de conteneurs et de déduplication intelligente de vulnérabilités CVE.</span>
         </div>
 
         <div class="pfe-card highlight-card">
@@ -252,38 +368,41 @@
             <div class="pfe-browser-mockup">
               <div class="mockup-header">
                 <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
-                <span class="mockup-url">dockleaner.local/audit</span>
+                <span class="mockup-url">https://dockleaner.sec/dashboard/audit</span>
               </div>
               <div class="mockup-body">
-                <img src="https://raw.githubusercontent.com/Gabriel-Tache/Porte-Folio/refs/heads/main/PFE3.png" alt="Dashboard Doc(k)leaner" class="pfe-fixed-img">
+                <img src="https://raw.githubusercontent.com/Gabriel-Tache/Porte-Folio/refs/heads/main/PFE3.png" alt="Interface de la plateforme Doc(k)leaner" class="pfe-fixed-img" loading="lazy">
               </div>
             </div>
-            <div class="pfe-badge">Projet Majeur de Bachelor</div>
+            <div class="pfe-badges-row">
+              <span class="pfe-badge">Rôle : Data Engineer &amp; Architecte Backend</span>
+              <span class="pfe-badge pfe-badge-outline">Pipeline DevSecOps</span>
+            </div>
           </div>
 
           <div class="pfe-content">
             <div class="pfe-header">
-              <span class="pfe-kicker">Projet SaaS &amp; Sécurité Applicative</span>
-              <h3>Doc(k)leaner — SaaS d'Audit &amp; CVE Triage</h3>
+              <span class="pfe-kicker">Sécurité des Conteneurs &amp; Ingénierie des Données</span>
+              <h3>Doc(k)leaner — Orchestrateur d'Audit &amp; Triage CVE</h3>
             </div>
 
             <p class="pfe-description">
-              Plateforme centralisée dédiée à l'audit de sécurité automatisé des environnements conteneurisés (Images Docker) et des scripts d'infrastructure (IaC), conçue pour éliminer la fatigue d'alerte des équipes DevSecOps.
+              Plateforme centralisée dédiée à l'audit automatisé des images Docker et des scripts d'infrastructure (IaC). Elle corrèle plusieurs moteurs d'analyse pour supprimer les doublons d'alerte et accélérer la remédiation par les équipes DevSecOps.
             </p>
 
             <div class="pfe-key-metrics">
               <div class="metric-pill">
                 <i class="uil uil-bolt-alt"></i>
                 <div>
-                  <strong>Temps de scan /5</strong>
-                  <span>Cache mémoire Redis</span>
+                  <strong>Temps de scan divisé par 5</strong>
+                  <span>Cache mémoire Redis par digest SHA-256</span>
                 </div>
               </div>
               <div class="metric-pill">
-                <i class="uil uil-filter"></i>
+                <i class="uil uil-layer-group"></i>
                 <div>
-                  <strong>Zéro redondance</strong>
-                  <span>Déduplication heuristique CVE</span>
+                  <strong>Zéro redondance CVE</strong>
+                  <span>Corrélation heuristique multi-scanners</span>
                 </div>
               </div>
             </div>
@@ -291,22 +410,28 @@
             <div id="pfe-details" class="pfe-expandable">
               <div class="pfe-expandable-inner">
                 <div class="pfe-deep-dive">
-                  <h4>Ingénierie &amp; Architecture :</h4>
+                  <h4>Mes responsabilités d'ingénierie sur le projet :</h4>
                   <ul class="custom-list">
-                    <li><strong>Rôle (Data Engineer &amp; Backend) :</strong> Logique d'agrégation et de corrélation multi-scanners (Trivy, Grype), algorithme de scoring propriétaire et suppression des faux positifs.</li>
-                    <li><strong>Architecture asynchrone :</strong> API FastAPI asynchrone haute cadence, persistance PostgreSQL et workers Celery distribués pour les analyses d'images lourdes.</li>
-                    <li><strong>Intégration CI/CD :</strong> Interface React moderne, API REST et CLI dédiée intégrable aux pipelines DevOps.</li>
+                    <li><strong>Moteur de déduplication &amp; Normalisation CVE :</strong> Conception de l'algorithme d'ingestion fusionnant les rapports JSON hétérogènes de plusieurs scanners (Trivy, Grype), élimination des doublons par couche d'image et calcul d'un score de criticité unifié.</li>
+                    <li><strong>Architecture de cache &amp; Persistance :</strong> Déploiement d'un cache haute vitesse sous <strong>Redis</strong> indexé sur l'empreinte cryptographique des couches Docker et modélisation de la base <strong>PostgreSQL</strong> pour l'historisation et le suivi de conformité.</li>
+                    <li><strong>API Asynchrone &amp; Workers distribués :</strong> Développement du backend <strong>FastAPI</strong> et orchestration de files de tâches <strong>Celery</strong> pour absorber les analyses d'images lourdes en parallèle, avec intégration directe en CLI dans les pipelines CI/CD.</li>
                   </ul>
                 </div>
               </div>
             </div>
 
             <div class="pfe-footer">
-              <button class="btn btn-secondary" id="pfe-toggle-btn" onclick="togglePFE()">
-                <span>Afficher les détails techniques</span> <i class="uil uil-angle-down"></i>
+              <button class="btn btn-glass" id="pfe-toggle-btn" onclick="togglePFE()" aria-expanded="false" aria-controls="pfe-details">
+                <span>Afficher mes responsabilités détaillées</span> <i class="uil uil-angle-down"></i>
               </button>
               <div class="tech-tags">
-                <span>FastAPI</span><span>Redis</span><span>Docker</span><span>PostgreSQL</span><span>Celery</span><span>React</span>
+                <span>Python / FastAPI</span>
+                <span>Redis (Caching)</span>
+                <span>PostgreSQL</span>
+                <span>Celery</span>
+                <span>Docker</span>
+                <span>Trivy &amp; Grype</span>
+                <span>React</span>
               </div>
             </div>
           </div>
@@ -316,44 +441,85 @@
       <!-- SECTION COMPÉTENCES -->
       <section class="section" id="competences">
         <div class="top-header">
-          <h1>Compétences Techniques</h1>
-          <span class="section-subtitle">Outils, protocoles et technologies maîtrisés en pratique.</span>
+          <span class="section-kicker">Expertise Technique</span>
+          <h2>Compétences &amp; Technologies</h2>
+          <span class="section-subtitle">Outils d'audit, architectures systèmes, développement et cadres normatifs maîtrisés en environnement opérationnel.</span>
         </div>
 
         <div class="skills-grid">
           <div class="skills-card highlight-card">
-            <div class="skills-icon-wrap"><i class="uil uil-shield-check"></i></div>
-            <h3>Sécurité Offensive &amp; Audit</h3>
-            <p>Méthodologies d'évaluation des failles applicatives et tests d'intrusion.</p>
+            <div class="skills-card-top">
+              <div class="skills-icon-wrap"><i class="uil uil-shield-check"></i></div>
+              <div>
+                <h3>Sécurité Offensive &amp; Audit</h3>
+                <p>Tests d'intrusion réseau et applicatif, qualification de vulnérabilités et remédiation.</p>
+              </div>
+            </div>
             <div class="skills-list">
-              <span>Pentest</span><span>Burp Suite</span><span>OWASP Top 10</span><span>Nmap</span><span>Wireshark</span><span>Analyse de CVE</span><span>DVWA</span>
+              <span>Pentest Réseau &amp; Web</span>
+              <span>Burp Suite</span>
+              <span>Nmap</span>
+              <span>Wireshark</span>
+              <span>OWASP Top 10</span>
+              <span>Qualification CVSS &amp; CVE</span>
+              <span>Trivy &amp; Grype</span>
+              <span>DVWA</span>
             </div>
           </div>
 
           <div class="skills-card highlight-card">
-            <div class="skills-icon-wrap"><i class="uil uil-server-network"></i></div>
-            <h3>Systèmes &amp; Réseaux</h3>
-            <p>Administration, durcissement et résilience des infrastructures.</p>
+            <div class="skills-card-top">
+              <div class="skills-icon-wrap"><i class="uil uil-server-network"></i></div>
+              <div>
+                <h3>Systèmes, Réseaux &amp; Virtualisation</h3>
+                <p>Administration, segmentation, durcissement d'infrastructures et bancs d'intégration.</p>
+              </div>
+            </div>
             <div class="skills-list">
-              <span>Linux (Debian/Ubuntu/RHEL)</span><span>Windows Server</span><span>Active Directory</span><span>Cisco Routing</span><span>Pare-feux</span><span>Docker</span>
+              <span>Linux (Debian, Ubuntu, RHEL)</span>
+              <span>Windows Server</span>
+              <span>Active Directory &amp; GPO</span>
+              <span>Cisco Routing &amp; Switching</span>
+              <span>Pare-feux &amp; VLANs</span>
+              <span>Docker &amp; Virtualisation</span>
+              <span>Hardening SI</span>
             </div>
           </div>
 
           <div class="skills-card highlight-card">
-            <div class="skills-icon-wrap"><i class="uil uil-brackets-curly"></i></div>
-            <h3>Développement &amp; DevSecOps</h3>
-            <p>Scripting sécurisé, automatisation et ingestion de données.</p>
+            <div class="skills-card-top">
+              <div class="skills-icon-wrap"><i class="uil uil-brackets-curly"></i></div>
+              <div>
+                <h3>Développement, Data &amp; Embarqué</h3>
+                <p>Conception d'API asynchrones, ingénierie de données, scripting et électronique embarquée.</p>
+              </div>
+            </div>
             <div class="skills-list">
-              <span>Python</span><span>FastAPI</span><span>C / C++</span><span>Bash</span><span>PostgreSQL</span><span>Redis</span><span>Git / CI-CD</span>
+              <span>Python (FastAPI, Pandas)</span>
+              <span>C / C++</span>
+              <span>ESP32-S3 &amp; PlatformIO</span>
+              <span>Proteus Simulation</span>
+              <span>Bash / Shell</span>
+              <span>PostgreSQL &amp; Redis</span>
+              <span>Git &amp; CI/CD</span>
             </div>
           </div>
 
           <div class="skills-card highlight-card">
-            <div class="skills-icon-wrap"><i class="uil uil-file-shield-alt"></i></div>
-            <h3>Gouvernance &amp; Risques</h3>
-            <p>Cadres réglementaires, conformité et gestion des risques cyber.</p>
+            <div class="skills-card-top">
+              <div class="skills-icon-wrap"><i class="uil uil-file-shield-alt"></i></div>
+              <div>
+                <h3>Gouvernance, Risques &amp; Conformité</h3>
+                <p>Analyses de risques, référentiels réglementaires et maintien en condition de sécurité.</p>
+              </div>
+            </div>
             <div class="skills-list">
-              <span>EBIOS RM</span><span>ISO 27001</span><span>NIS 2</span><span>Politiques Zéro-Trust</span><span>Cryptographie</span>
+              <span>EBIOS RM</span>
+              <span>ISO/IEC 27001</span>
+              <span>Directive NIS 2</span>
+              <span>Architecture Zero-Trust</span>
+              <span>Cryptographie Appliquée</span>
+              <span>Normes Cyber Défense</span>
             </div>
           </div>
         </div>
@@ -362,92 +528,174 @@
       <!-- SECTION PROJETS -->
       <section class="section" id="projects">
         <div class="top-header">
-          <h1>Mes Projets Réalisés</h1>
-          <span class="section-subtitle">Clique sur un projet pour ouvrir la fiche détaillée.</span>
+          <span class="section-kicker">Réalisations Techniques</span>
+          <h2>Projets d'Ingénierie</h2>
+          <span class="section-subtitle">Filtre par domaine ou clique sur une réalisation pour consulter l'architecture et les responsabilités associées.</span>
+        </div>
+
+        <!-- FILTRES DE PROJETS -->
+        <div class="project-filters" role="tablist" aria-label="Filtrer les projets par domaine">
+          <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">Tous les projets</button>
+          <button class="filter-btn" data-filter="cyber" role="tab" aria-selected="false">Cybersécurité &amp; Réseau</button>
+          <button class="filter-btn" data-filter="data" role="tab" aria-selected="false">Data &amp; DevSecOps</button>
+          <button class="filter-btn" data-filter="web" role="tab" aria-selected="false">Développement Sécurisé</button>
         </div>
 
         <div class="project-container">
-          <div class="project-box highlight-card" data-title="Boutique E-Commerce Sécurisée">
-            <div class="project-icon"><i class="uil uil-shopping-bag"></i></div>
-            <h3>Site Web E-Commerce Sécurisé</h3>
-            <label>Boutique en ligne avec durcissement serveur, gestion des entrées et BDD chiffrée.</label>
+          <!-- Projet 1 : Anti-DDoS -->
+          <div class="project-box highlight-card" data-category="cyber" data-title="Solution SaaS de Détection &amp; Mitigation DDoS" tabindex="0" role="button" aria-label="Voir les détails du projet Solution SaaS de Détection DDoS">
+            <div class="project-top-meta">
+              <span class="project-category-tag">Cyber &amp; Réseau</span>
+              <div class="project-icon"><i class="uil uil-shield-exclamation"></i></div>
+            </div>
+            <h3>SaaS de Détection &amp; Mitigation DDoS</h3>
+            <p class="project-summary">Analyse comportementale de trafic réseau en temps réel et déclenchement automatisé de règles de filtrage pare-feu.</p>
+            <div class="project-mini-tags">
+              <span>Python</span><span>Inspection Paquets</span><span>Pare-feu</span>
+            </div>
+            <span class="project-cta">Voir l'architecture <i class="uil uil-arrow-right"></i></span>
             <template class="project-body">
-              <p><strong>Objectif :</strong> Créer une boutique responsive avec panier en temps réel et panneau administrateur sécurisé.</p>
+              <p><strong>Contexte &amp; Objectif :</strong> Conception d'une plateforme capable d'identifier les anomalies volumétriques et protocolaires sur un flux réseau afin de bloquer automatiquement les tentatives de déni de service distribué (DDoS).</p>
+              <h4>Responsabilités &amp; Réalisations techniques :</h4>
               <ul>
-                <li>CRUD produits et gestion sécurisée des sessions.</li>
-                <li>Prévention active contre les injections SQL (requêtes préparées) et failles XSS.</li>
-                <li>Architecture MVC propre et séparation stricte client/admin.</li>
+                <li><strong>Capture &amp; Télémétrie :</strong> Mise en place d'un pipeline de collecte et d'inspection des en-têtes de paquets réseau (fréquence de requêtes par IP, distribution des ports et drapeaux TCP SYN/ACK).</li>
+                <li><strong>Moteur de détection d'anomalies :</strong> Implémentation d'algorithmes de détection de seuils et d'analyse comportementale pour distinguer les pics de charge légitimes des attaques par saturation.</li>
+                <li><strong>Mitigation automatisée :</strong> Génération dynamique de règles de bannissement IP (blacklistage temporaire et rate-limiting) appliquées au niveau pare-feu.</li>
+                <li><strong>Supervision :</strong> Création d'un tableau de bord temps réel visualisant la bande passante, les alertes critiques et l'origine des flux bloqués.</li>
               </ul>
+              <div class="modal-tags">
+                <span>Sécurité Réseau</span><span>Analyse de Flux</span><span>Python</span><span>Filtrage Pare-feu</span><span>Dashboard Temps Réel</span>
+              </div>
             </template>
           </div>
 
-          <div class="project-box dvwa highlight-card" data-title="Laboratoire DVWA &amp; Hacking">
-            <div class="project-icon"><i class="uil uil-bug"></i></div>
-            <h3>Laboratoire Cyber &amp; Pentest (DVWA)</h3>
-            <label>Exploitation méthodique de vulnérabilités web et déploiement de contre-mesures.</label>
+          <!-- Projet 2 : Laboratoire DVWA -->
+          <div class="project-box highlight-card" data-category="cyber" data-title="Laboratoire d'Audit Offensif &amp; Remédiation (DVWA)" tabindex="0" role="button" aria-label="Voir les détails du projet Laboratoire Cyber et Pentest DVWA">
+            <div class="project-top-meta">
+              <span class="project-category-tag">Pentest &amp; AppSec</span>
+              <div class="project-icon"><i class="uil uil-bug"></i></div>
+            </div>
+            <h3>Laboratoire Pentest &amp; Remédiation Web</h3>
+            <p class="project-summary">Exploitation méthodique des vulnérabilités du référentiel OWASP Top 10 et implémentation des correctifs en code.</p>
+            <div class="project-mini-tags">
+              <span>Burp Suite</span><span>OWASP Top 10</span><span>Remédiation</span>
+            </div>
+            <span class="project-cta">Voir l'architecture <i class="uil uil-arrow-right"></i></span>
             <template class="project-body">
-              <p><strong>Pratique :</strong> Déploiement en local de DVWA pour analyser et mitiger des vecteurs d'attaques réalistes.</p>
+              <p><strong>Contexte &amp; Objectif :</strong> Déploiement d'un banc d'essai offensif/défensif (Red Team / Blue Team) basé sur DVWA pour reproduire des chaînes d'exploitation critiques et concevoir les contre-mesures serveur associées.</p>
+              <h4>Responsabilités &amp; Réalisations techniques :</h4>
               <ul>
-                <li>Interception et manipulation de flux via Burp Suite.</li>
-                <li>Exploitation SQLi, XSS, CSRF et cassage de mots de passe par force brute.</li>
-                <li>Application des règles de remédiation : jetons anti-CSRF, filtrage strict et hachage fort.</li>
+                <li><strong>Audit offensif (Red Team) :</strong> Interception et forge de requêtes HTTP via <strong>Burp Suite</strong>, extraction de bases de données par injections SQL (Union-based &amp; Blind SQLi), exécution de payloads XSS (Reflected &amp; Stored), contournement CSRF et attaques par dictionnaire.</li>
+                <li><strong>Ingénierie de remédiation (Blue Team) :</strong> Réécriture des contrôleurs vulnérables avec requêtes préparées PDO, encodage contextuel des sorties HTML, déploiement de jetons anti-CSRF cryptographiques et politique de verrouillage de compte.</li>
+                <li><strong>Documentation d'audit :</strong> Rédaction de fiches de synthèse détaillant pour chaque faille le vecteur d'attaque, la preuve de concept (PoC) et le correctif validé.</li>
               </ul>
+              <div class="modal-tags">
+                <span>Burp Suite</span><span>OWASP Top 10</span><span>SQLi / XSS / CSRF</span><span>Remédiation Code</span><span>Linux</span>
+              </div>
             </template>
           </div>
 
-          <div class="project-box highlight-card" data-title="Solution SaaS Anti-DDoS">
-            <div class="project-icon"><i class="uil uil-shield-exclamation"></i></div>
-            <h3>Outil SaaS de Détection DDoS</h3>
-            <label>Détection comportementale de flux anormaux et filtrage réseau automatisé.</label>
+          <!-- Projet 3 : E-Commerce Sécurisé -->
+          <div class="project-box highlight-card" data-category="web" data-title="Architecture E-Commerce Sécurisée (Security by Design)" tabindex="0" role="button" aria-label="Voir les détails du projet Site Web E-Commerce Sécurisé">
+            <div class="project-top-meta">
+              <span class="project-category-tag">Web Sécurisé</span>
+              <div class="project-icon"><i class="uil uil-shopping-bag"></i></div>
+            </div>
+            <h3>Plateforme E-Commerce Security by Design</h3>
+            <p class="project-summary">Application transactionnelle complète intégrant gestion robuste des sessions, requêtes préparées et cloisonnement admin.</p>
+            <div class="project-mini-tags">
+              <span>MVC</span><span>SQL Préparé</span><span>Auth &amp; Sessions</span>
+            </div>
+            <span class="project-cta">Voir l'architecture <i class="uil uil-arrow-right"></i></span>
             <template class="project-body">
-              <p><strong>Objectif :</strong> Détecter et neutraliser en direct les hausses illégitimes de trafic réseau.</p>
+              <p><strong>Contexte &amp; Objectif :</strong> Concevoir une plateforme e-commerce complète (catalogue dynamique, panier persistant, tunnel de commande et back-office d'administration) en appliquant les principes de <em>Security by Design</em> dès la modélisation.</p>
+              <h4>Responsabilités &amp; Réalisations techniques :</h4>
               <ul>
-                <li>Inspection de paquets et détection d'anomalies via algorithmes IA.</li>
-                <li>Blocage dynamique d'adresses IP suspectes et règles de filtrage pare-feu.</li>
-                <li>Dashboard interactif d'administration et d'alerte en temps réel.</li>
+                <li><strong>Architecture MVC &amp; Base de données :</strong> Structuration stricte du code en Modèle-Vue-Contrôleur et modélisation relationnelle garantissant l'intégrité référentielle des commandes et des stocks.</li>
+                <li><strong>Sécurisation de l'authentification :</strong> Hachage fort des mots de passe (Bcrypt), régénération des identifiants de session contre la fixation de session et attributs de cookies sécurisés (<code>HttpOnly</code>, <code>SameSite</code>).</li>
+                <li><strong>Protection contre les injections :</strong> Validation stricte des entrées côté serveur, paramétrage systématique des requêtes SQL et filtrage des téléversements de fichiers produits.</li>
               </ul>
+              <div class="modal-tags">
+                <span>Architecture MVC</span><span>Sécurité Applicative</span><span>SQL Préparé</span><span>Gestion IAM</span><span>Back-Office</span>
+              </div>
             </template>
           </div>
 
-          <div class="project-box highlight-card" data-title="Gestionnaire de Projets Web">
-            <div class="project-icon"><i class="uil uil-clipboard-notes"></i></div>
-            <h3>Plateforme de Gestion de Projets</h3>
-            <label>Application web collaborative avec contrôle d'accès granulaire basé sur les rôles.</label>
+          <!-- Projet 4 : Gestionnaire de Projets RBAC -->
+          <div class="project-box highlight-card" data-category="web" data-title="Plateforme Collaborative &amp; Contrôle d'Accès (RBAC)" tabindex="0" role="button" aria-label="Voir les détails du projet Plateforme de Gestion de Projets">
+            <div class="project-top-meta">
+              <span class="project-category-tag">IAM &amp; Web</span>
+              <div class="project-icon"><i class="uil uil-clipboard-notes"></i></div>
+            </div>
+            <h3>Gestionnaire de Projets &amp; Accès RBAC</h3>
+            <p class="project-summary">Outil collaboratif multi-équipes avec contrôle d'accès granulaire basé sur les rôles et prévention des failles IDOR.</p>
+            <div class="project-mini-tags">
+              <span>RBAC</span><span>Anti-IDOR</span><span>Transactions SQL</span>
+            </div>
+            <span class="project-cta">Voir l'architecture <i class="uil uil-arrow-right"></i></span>
             <template class="project-body">
-              <p><strong>Objectif :</strong> Permettre aux équipes de piloter leurs sprints et tâches avec clarté et sécurité.</p>
+              <p><strong>Contexte &amp; Objectif :</strong> Développer un environnement de pilotage de projets permettant à plusieurs équipes de gérer leurs sprints et livrables tout en garantissant l'isolation stricte des données entre espaces de travail.</p>
+              <h4>Responsabilités &amp; Réalisations techniques :</h4>
               <ul>
-                <li>Authentification renforcée et cloisonnement des espaces projets.</li>
-                <li>Filtres dynamiques par priorité, statut et membre assigné.</li>
-                <li>Sécurisation des transactions SQL et validation des données en entrée.</li>
+                <li><strong>Contrôle d'accès basé sur les rôles (RBAC) :</strong> Implémentation d'une matrice de permissions (Administrateur, Chef de projet, Contributeur, Lecteur) vérifiée sur chaque point de terminaison serveur pour prévenir les failles IDOR (<em>Insecure Direct Object References</em>).</li>
+                <li><strong>Moteur de recherche &amp; Filtrage :</strong> Système de tri multicritères en temps réel (priorité, échéance, assignation, statut d'avancement).</li>
+                <li><strong>Intégrité transactionnelle :</strong> Gestion atomique des modifications en base de données et validation systématique des schémas de données entrants.</li>
               </ul>
+              <div class="modal-tags">
+                <span>Contrôle d'Accès RBAC</span><span>Prévention IDOR</span><span>SQL</span><span>Application Collaborative</span>
+              </div>
             </template>
           </div>
 
-          <div class="project-box highlight-card" data-title="Scraping &amp; Visualisation Musicale">
-            <div class="project-icon"><i class="uil uil-chart-line"></i></div>
-            <h3>Scraping &amp; DataViz Musicale</h3>
-            <label>Pipeline d'ingestion de données web et restitution analytique dynamique (Python).</label>
+          <!-- Projet 5 : Scraping & DataViz -->
+          <div class="project-box highlight-card" data-category="data" data-title="Pipeline ETL de Scraping &amp; Analyse de Données (Python)" tabindex="0" role="button" aria-label="Voir les détails du projet Scraping et DataViz Musicale">
+            <div class="project-top-meta">
+              <span class="project-category-tag">Data Engineering</span>
+              <div class="project-icon"><i class="uil uil-chart-line"></i></div>
+            </div>
+            <h3>Pipeline ETL &amp; DataViz Analytique</h3>
+            <p class="project-summary">Automatisation de collecte web à grande échelle, normalisation sous Pandas et restitution analytique interactive.</p>
+            <div class="project-mini-tags">
+              <span>Python</span><span>Pandas ETL</span><span>BeautifulSoup</span>
+            </div>
+            <span class="project-cta">Voir l'architecture <i class="uil uil-arrow-right"></i></span>
             <template class="project-body">
-              <p><strong>Objectif :</strong> Extraire automatiquement des données web volumineuses et les restituer visuellement.</p>
+              <p><strong>Contexte &amp; Objectif :</strong> Concevoir une chaîne de traitement automatisée (Extract, Transform, Load) capable de collecter des volumes importants de métadonnées musicales, de les normaliser et de générer des indicateurs visuels d'aide à la décision.</p>
+              <h4>Responsabilités &amp; Réalisations techniques :</h4>
               <ul>
-                <li>Collecte automatisée via scripts Python (Requests, BeautifulSoup).</li>
-                <li>Nettoyage et structuration de données avec Pandas.</li>
-                <li>Dashboard interactif avec graphes et filtrage multicritères.</li>
+                <li><strong>Collecte résiliente (Scraping) :</strong> Développement de collecteurs Python (<code>Requests</code>, <code>BeautifulSoup</code>) avec gestion des délais de requêtage (rate-limiting), reprise sur erreur HTTP et rotation d'en-têtes.</li>
+                <li><strong>Traitement &amp; Normalisation (Data Cleaning) :</strong> Utilisation de <strong>Pandas</strong> pour la suppression des doublons, le typage des séries temporelles, l'imputation des valeurs manquantes et l'agrégation statistique.</li>
+                <li><strong>Restitution analytique :</strong> Conception d'un tableau de bord interactif permettant d'explorer les tendances par genre, popularité et période.</li>
               </ul>
+              <div class="modal-tags">
+                <span>Python</span><span>Pandas (ETL)</span><span>BeautifulSoup</span><span>Automatisation</span><span>Data Visualization</span>
+              </div>
             </template>
           </div>
 
-          <div class="project-box highlight-card" data-title="Bibliothèque en Ligne">
-            <div class="project-icon"><i class="uil uil-book-open"></i></div>
-            <h3>Système de Bibliothèque en Ligne</h3>
-            <label>Application de gestion des emprunts avec suivi des stocks en temps réel.</label>
+          <!-- Projet 6 : Système de Bibliothèque -->
+          <div class="project-box highlight-card" data-category="data" data-title="Système de Gestion Documentaire &amp; Suivi Temporel" tabindex="0" role="button" aria-label="Voir les détails du projet Système de Bibliothèque en Ligne">
+            <div class="project-top-meta">
+              <span class="project-category-tag">Architecture BDD</span>
+              <div class="project-icon"><i class="uil uil-book-open"></i></div>
+            </div>
+            <h3>Système de Gestion &amp; Traçabilité</h3>
+            <p class="project-summary">Application de gestion de catalogue, réservations concurrentes et suivi automatisé des états et échéances.</p>
+            <div class="project-mini-tags">
+              <span>Modélisation SQL</span><span>Indexation</span><span>Back-Office</span>
+            </div>
+            <span class="project-cta">Voir l'architecture <i class="uil uil-arrow-right"></i></span>
             <template class="project-body">
-              <p><strong>Objectif :</strong> Gérer un catalogue d'ouvrages, les réservations et les flux d'adhérents.</p>
+              <p><strong>Contexte &amp; Objectif :</strong> Développer un système d'information complet assurant la gestion d'inventaire, le suivi des flux d'emprunts et l'automatisation des alertes de dépassement d'échéance.</p>
+              <h4>Responsabilités &amp; Réalisations techniques :</h4>
               <ul>
-                <li>Recherche avancée multicritères et gestion du statut des exemplaires.</li>
-                <li>Espace utilisateur dédié pour le suivi personnel des emprunts.</li>
-                <li>Interface d'administration pour la gestion des stocks et alertes de retards.</li>
+                <li><strong>Modélisation de base de données :</strong> Conception du schéma relationnel gérant la disponibilité en temps réel des exemplaires et l'historique complet des mouvements par adhérent.</li>
+                <li><strong>Moteur de recherche multicritères :</strong> Indexation et filtrage rapide par auteur, catégorie, ISBN et disponibilité immédiate.</li>
+                <li><strong>Espace d'administration &amp; Alertes :</strong> Tableau de bord de gestion des stocks, validation des retours et détection automatique des retards.</li>
               </ul>
+              <div class="modal-tags">
+                <span>Modélisation SQL</span><span>Gestion de Flux</span><span>Backend</span><span>Interface Admin</span>
+              </div>
             </template>
           </div>
         </div>
@@ -458,37 +706,42 @@
         <div class="col">
           <div class="contact-card highlight-card">
             <div class="contact-header">
-              <h2>Contactez-moi <i class="uil uil-comment-alt-lines"></i></h2>
-              <p class="contact-lead">Disponible pour échanger sur vos projets et opportunités en ingénierie de cybersécurité.</p>
+              <span class="section-kicker">Disponibilité &amp; Échanges</span>
+              <h2>Entrer en contact</h2>
+              <p class="contact-lead">Disponible pour échanger sur vos projets et opportunités en ingénierie cybersécurité, architecture systèmes/réseaux et DevSecOps.</p>
             </div>
-            
-            <div class="contact-action-buttons">
-              <!-- BOUTON EMAIL -->
-              <a href="mailto:gabriel.tache.gt@gmail.com" class="contact-btn-box btn-email">
-                <div class="contact-btn-icon"><i class="uil uil-envelope-alt"></i></div>
-                <div class="contact-btn-info">
-                  <span class="contact-btn-tag">Email direct</span>
-                  <strong>gabriel.tache.gt@gmail.com</strong>
-                </div>
-                <i class="uil uil-arrow-up-right external-arrow"></i>
-              </a>
 
-              <!-- BOUTON WHATSAPP -->
-              <a href="https://wa.me/+330781884726" target="_blank" rel="noopener" class="contact-btn-box">
-                <div class="contact-btn-icon"><i class="uil uil-whatsapp"></i></div>
-                <div class="contact-btn-info">
-                  <span class="contact-btn-tag">WhatsApp</span>
-                  <strong>+33 7 81 88 47 26</strong>
-                </div>
-                <i class="uil uil-arrow-up-right external-arrow"></i>
-              </a>
+            <div class="contact-action-buttons">
+              <!-- BOUTON EMAIL AVEC ACTION COPIE -->
+              <div class="contact-btn-box btn-email">
+                <a href="mailto:gabriel.tache.gt@gmail.com" class="contact-main-link" aria-label="Envoyer un email à gabriel.tache.gt@gmail.com">
+                  <div class="contact-btn-icon"><i class="uil uil-envelope-alt"></i></div>
+                  <div class="contact-btn-info">
+                    <span class="contact-btn-tag">Email direct</span>
+                    <strong>gabriel.tache.gt@gmail.com</strong>
+                  </div>
+                </a>
+                <button class="copy-email-btn" onclick="copyEmail()" aria-label="Copier l'adresse email" title="Copier l'adresse email">
+                  <i class="uil uil-copy" id="copy-icon"></i>
+                </button>
+              </div>
 
               <!-- BOUTON LINKEDIN -->
               <a href="https://www.linkedin.com/in/gabriel-taché-77284b351" target="_blank" rel="noopener" class="contact-btn-box">
                 <div class="contact-btn-icon"><i class="uil uil-linkedin-alt"></i></div>
                 <div class="contact-btn-info">
                   <span class="contact-btn-tag">Réseau professionnel</span>
-                  <strong>Gabriel Taché</strong>
+                  <strong>linkedin.com/in/gabriel-taché</strong>
+                </div>
+                <i class="uil uil-arrow-up-right external-arrow"></i>
+              </a>
+
+              <!-- BOUTON WHATSAPP -->
+              <a href="https://wa.me/33781884726" target="_blank" rel="noopener" class="contact-btn-box">
+                <div class="contact-btn-icon"><i class="uil uil-whatsapp"></i></div>
+                <div class="contact-btn-info">
+                  <span class="contact-btn-tag">Messagerie directe / Téléphone</span>
+                  <strong>+33 7 81 88 47 26</strong>
                 </div>
                 <i class="uil uil-arrow-up-right external-arrow"></i>
               </a>
@@ -497,16 +750,17 @@
               <a href="https://github.com/Gabriel-Tache" target="_blank" rel="noopener" class="contact-btn-box">
                 <div class="contact-btn-icon"><i class="uil uil-github-alt"></i></div>
                 <div class="contact-btn-info">
-                  <span class="contact-btn-tag">Dépôts de code</span>
-                  <strong>Gabriel-Tache</strong>
+                  <span class="contact-btn-tag">Dépôts &amp; Projets Open-Source</span>
+                  <strong>github.com/Gabriel-Tache</strong>
                 </div>
                 <i class="uil uil-arrow-up-right external-arrow"></i>
               </a>
             </div>
 
             <div class="contact-meta-footer">
-              <span><i class="uil uil-map-marker"></i> Île-de-France, France</span>
-              <span><i class="uil uil-check-circle"></i> En recherche active d'opportunités d'ingénierie</span>
+              <span><i class="uil uil-map-marker"></i> Palaiseau / Paris (Île-de-France)</span>
+              <span><i class="uil uil-graduation-cap"></i> Cycle Ingénieur ECE Paris (ING3)</span>
+              <span><i class="uil uil-check-circle"></i> Ouvert aux opportunités d'ingénierie cyber</span>
             </div>
           </div>
         </div>
@@ -515,41 +769,55 @@
 
     <!-- FOOTER -->
     <footer>
-      <div class="top-footer"><p>Gabriel Taché<span>.</span></p></div>
-      <div class="middle-footer">
-        <ul class="footer-menu">
-          <li><a href="#home">Accueil</a></li>
-          <li><a href="#experience">Expériences</a></li>
-          <li><a href="#formation">Formations</a></li>
-          <li><a href="#current-project">PFE</a></li>
-          <li><a href="#competences">Compétences</a></li>
-          <li><a href="#projects">Projets</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
+      <div class="footer-inner">
+        <div class="top-footer"><p>Gabriel Taché<span>.</span></p></div>
+        <div class="middle-footer">
+          <ul class="footer-menu">
+            <li><a href="#home">Accueil</a></li>
+            <li><a href="#experience">Expériences</a></li>
+            <li><a href="#formation">Formations</a></li>
+            <li><a href="#current-project">PFE Doc(k)leaner</a></li>
+            <li><a href="#competences">Compétences</a></li>
+            <li><a href="#projects">Projets</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
 
-      <div class="footer-social-icons">
-        <a href="mailto:gabriel.tache.gt@gmail.com" class="icon-link" aria-label="Email"><div class="icon"><i class="uil uil-envelope"></i></div></a>
-        <a href="https://wa.me/+330781884726" target="_blank" rel="noopener" class="icon-link" aria-label="WhatsApp"><div class="icon"><i class="uil uil-whatsapp"></i></div></a>
-        <a href="https://www.linkedin.com/in/gabriel-taché-77284b351" target="_blank" rel="noopener" class="icon-link" aria-label="LinkedIn"><div class="icon"><i class="uil uil-linkedin-alt"></i></div></a>
-        <a href="https://github.com/Gabriel-Tache" target="_blank" rel="noopener" class="icon-link" aria-label="GitHub"><div class="icon"><i class="uil uil-github-alt"></i></div></a>
-      </div>
+        <div class="footer-social-icons">
+          <a href="mailto:gabriel.tache.gt@gmail.com" class="icon-link" aria-label="Email"><div class="icon"><i class="uil uil-envelope"></i></div></a>
+          <a href="https://www.linkedin.com/in/gabriel-taché-77284b351" target="_blank" rel="noopener" class="icon-link" aria-label="LinkedIn"><div class="icon"><i class="uil uil-linkedin-alt"></i></div></a>
+          <a href="https://github.com/Gabriel-Tache" target="_blank" rel="noopener" class="icon-link" aria-label="GitHub"><div class="icon"><i class="uil uil-github-alt"></i></div></a>
+          <a href="https://wa.me/33781884726" target="_blank" rel="noopener" class="icon-link" aria-label="WhatsApp"><div class="icon"><i class="uil uil-whatsapp"></i></div></a>
+        </div>
 
-      <div class="bottom-footer">
-        <p>&copy; 2026 Gabriel Taché — Tous droits réservés.</p>
+        <div class="bottom-footer">
+          <p>&copy; 2026 Gabriel Taché — Ingénierie Cybersécurité, Systèmes &amp; Réseaux. Tous droits réservés.</p>
+        </div>
       </div>
     </footer>
   </div>
 
+  <!-- BOUTON RETOUR EN HAUT -->
+  <button id="back-to-top" class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Retourner en haut de la page">
+    <i class="uil uil-arrow-up"></i>
+  </button>
+
+  <!-- NOTIFICATION TOAST (COPIE EMAIL) -->
+  <div id="toast-notification" class="toast-notification" role="status" aria-live="polite">
+    <i class="uil uil-check-circle"></i>
+    <span>Adresse email copiée dans le presse-papiers</span>
+  </div>
+
   <!-- MODAL PROJET -->
-  <div id="project-modal" class="pmodal" aria-hidden="true" role="dialog" aria-modal="true">
+  <div id="project-modal" class="pmodal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="pmodal-title">
     <div class="pmodal__dialog" role="document">
-      <button class="pmodal__close" aria-label="Fermer la boîte de dialogue">
+      <button class="pmodal__close" aria-label="Fermer la fiche projet">
         <i class="uil uil-times"></i>
       </button>
 
       <div class="pmodal__content">
         <div class="pmodal__text">
+          <span class="pmodal__kicker">Fiche d'Ingénierie Projet</span>
           <h2 id="pmodal-title"></h2>
           <div id="pmodal-body" class="pmodal__body"></div>
         </div>
