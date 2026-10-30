@@ -329,3 +329,420 @@ if (window.ScrollReveal) {
     }
   });
 })();
+
+
+/*
+================================================================================
+MOTEUR OPTIQUE LIQUID GLASS V8 — BASE V7 + MICRO-BISEAUX SUR BOUTONS DE NAVBAR
+- Conserve intégralement le biseau extérieur V7 (14px Desktop / 10px Mobile)
+  et son couloir central plat de 40px.
+- Grave un micro-biseau optique C2 (6px-7px) sur le contour de CHAQUE bouton
+  interne de la navbar (.nav-links a, #navActivePill, .theme-toggle, .btn-nav,
+  .nav-menu-btn) avec intérieur du bouton 100% plat (zéro distorsion du texte,
+  zéro ligne parasite).
+- Masque d'occlusion dynamique temps réel au-dessus de `.profile-img`.
+================================================================================
+*/
+(() => {
+  'use strict';
+
+  const OPTICS = {
+    bezelDesktop: 14,    // Biseau extérieur V7 verrouillé (14px -> couloir central de 40px)
+    bezelMobile: 10,     // Biseau extérieur mobile V7 verrouillé (10px)
+    photoFeatherPx: 20
+  };
+
+  const state = {
+    mouseX: window.innerWidth * 0.5,
+    mouseY: 40,
+    curX: window.innerWidth * 0.5,
+    curY: 40,
+    navWidth: 0,
+    navHeight: 0,
+    baseNavNormals: null,
+    wasOverlappingPhoto: false
+  };
+
+  const XLINK_NS = 'http://www.w3.org/1999/xlink';
+
+  function setFeImageHref(feImageEl, dataUrl) {
+    if (!feImageEl || !dataUrl) return;
+    feImageEl.setAttribute('href', dataUrl);
+    feImageEl.setAttributeNS(XLINK_NS, 'xlink:href', dataUrl);
+  }
+
+  function smootherstep(edge0, edge1, x) {
+    const t = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
+    return t * t * t * (t * (t * 6 - 15) + 10);
+  }
+
+  function sdRoundedBoxCentered(px, py, cx, cy, halfW, halfH, cornerRadius) {
+    const r = Math.max(2, Math.min(cornerRadius, halfW - 1, halfH - 1));
+    const lx = Math.abs(px - cx) - (halfW - r);
+    const ly = Math.abs(py - cy) - (halfH - r);
+    const outDist = Math.hypot(Math.max(lx, 0), Math.max(ly, 0));
+    const inDist = Math.min(Math.max(lx, ly), 0);
+    return outDist + inDist - r;
+  }
+
+  /**
+   * Calcule le biseau optique équilibré V7 (pour le contour de la navbar, des boutons et de chaque sous-bouton) :
+   * - Zéro distorsion dès que inwardDist >= bezel (cœur 100% plat).
+   * - Courbe C2 sans aucune cassure.
+   */
+  function evalBalancedOuterBezel(x, y, cx, cy, halfW, halfH, cornerRadius, bezelPx) {
+    const r = Math.max(2, Math.min(cornerRadius, halfW - 1, halfH - 1));
+    const bezel = Math.min(bezelPx, r * 0.80);
+    const dist = sdRoundedBoxCentered(x, y, cx, cy, halfW, halfH, r);
+
+    if (dist > 0.5) return null;
+
+    const inwardDist = -dist;
+    if (inwardDist >= bezel) {
+      return { nx: 0, ny: 0 };
+    }
+
+    const t = 1 - (inwardDist / bezel);
+    const curve = Math.pow(smootherstep(0, 1, t), 1.35);
+
+    const eps = 1.0;
+    const dx = sdRoundedBoxCentered(x + eps, y, cx, cy, halfW, halfH, r) -
+               sdRoundedBoxCentered(x - eps, y, cx, cy, halfW, halfH, r);
+    const dy = sdRoundedBoxCentered(x, y + eps, cx, cy, halfW, halfH, r) -
+               sdRoundedBoxCentered(x, y - eps, cx, cy, halfW, halfH, r);
+    const len = Math.hypot(dx, dy) || 1;
+
+    return {
+      nx: (dx / len) * curve * 0.90,
+      ny: (dy / len) * curve * 0.72
+    };
+  }
+
+  const navbarEl = document.getElementById('liquidNavbar');
+  const navMapEl = document.getElementById('lg-navbar-map');
+  const panelMapEl = document.getElementById('lg-panel-map');
+  const btnMapEl = document.getElementById('lg-btn-map');
+  const navLinksContainer = document.getElementById('navLinks');
+  const activePillEl = document.getElementById('navActivePill');
+  const profileImgEl = document.querySelector('.profile-img');
+
+  if (!navbarEl || !navMapEl) return;
+
+  const navLinks = navLinksContainer ? Array.from(navLinksContainer.querySelectorAll('a')) : [];
+
+  const navCanvas = document.createElement('canvas');
+  const navCtx = navCanvas.getContext('2d');
+  let navImgData = null;
+
+  /**
+   * Précalcule la Normal Map composite de la Navbar :
+   * 1. Biseau extérieur V7 (14px Desktop / 10px Mobile).
+   * 2. Micro-biseaux optiques (6px-7px) sur le contour exact de chaque bouton interne de la navbar
+   *    (.nav-links a, #navActivePill, .theme-toggle, .btn-nav, .nav-menu-btn).
+   */
+  function buildBaseNavbarNormals() {
+    const navRect = navbarEl.getBoundingClientRect();
+    const w = Math.max(120, Math.round(navRect.width || 1060));
+    const h = Math.max(44, Math.round(navRect.height || 68));
+
+    state.navWidth = w;
+    state.navHeight = h;
+    if (!state.baseNavNormals || state.baseNavNormals.length !== w * h * 2) {
+      state.baseNavNormals = new Float32Array(w * h * 2);
+    }
+
+    if (navCanvas.width !== w || navCanvas.height !== h) {
+      navCanvas.width = w;
+      navCanvas.height = h;
+      navImgData = navCtx.createImageData(w, h);
+    }
+
+    // Collecte des boutons internes de la navbar :
+    // Rétablissement du vrai Liquid Glass optique sur le contour de chaque bouton (centre 100% plat)
+    const subButtons = [];
+    const addSubButton = (el, bezelPx, strength) => {
+      if (!el) return;
+      const style = window.getComputedStyle(el);
+      if (style.display === 'none' || style.visibility === 'hidden' || parseFloat(style.opacity) === 0) return;
+      const r = el.getBoundingClientRect();
+      if (r.width < 10 || r.height < 10) return;
+      const halfW = r.width * 0.5;
+      const halfH = r.height * 0.5;
+      subButtons.push({
+        cx: (r.left - navRect.left) + halfW,
+        cy: (r.top - navRect.top) + halfH,
+        halfW,
+        halfH,
+        radius: Math.min(halfW, halfH),
+        bezel: Math.min(bezelPx, halfH * 0.45),
+        strength
+      });
+    };
+
+    // 1. Les 7 boutons de liens (.nav-links a)
+    navLinks.forEach(link => addSubButton(link, 6.5, 0.58));
+    // 2. La pilule active coulissante (#navActivePill)
+    addSubButton(activePillEl, 7.5, 0.78);
+    // 3. Les boutons d'action à droite (Lune/Soleil, Mon CV, Menu Burger mobile)
+    navbarEl.querySelectorAll('.theme-toggle, .btn-nav, .nav-menu-btn').forEach(btn => {
+      addSubButton(btn, 7.5, 0.82);
+    });
+
+    const halfW = w * 0.5;
+    const halfH = h * 0.5;
+    const mainRadius = Math.min(halfW, halfH);
+    const bezel = h < 60 ? OPTICS.bezelMobile : OPTICS.bezelDesktop;
+
+    for (let y = 0; y < h; y++) {
+      const py = y + 0.5;
+      for (let x = 0; x < w; x++) {
+        const px = x + 0.5;
+        const vIdx = (y * w + x) * 2;
+
+        const bezelVec = evalBalancedOuterBezel(px, py, halfW, halfH, halfW, halfH, mainRadius, bezel);
+        if (!bezelVec) {
+          state.baseNavNormals[vIdx] = 0;
+          state.baseNavNormals[vIdx + 1] = 0;
+          continue;
+        }
+
+        let nx = bezelVec.nx;
+        let ny = bezelVec.ny;
+
+        // Micro-biseau optique sur le contour de chaque bouton interne de la navbar
+        for (let i = 0; i < subButtons.length; i++) {
+          const sb = subButtons[i];
+          if (Math.abs(px - sb.cx) <= sb.halfW && Math.abs(py - sb.cy) <= sb.halfH) {
+            const subVec = evalBalancedOuterBezel(px, py, sb.cx, sb.cy, sb.halfW, sb.halfH, sb.radius, sb.bezel);
+            if (subVec && (subVec.nx !== 0 || subVec.ny !== 0)) {
+              nx += subVec.nx * sb.strength;
+              ny += subVec.ny * sb.strength;
+            }
+          }
+        }
+
+        state.baseNavNormals[vIdx] = Math.max(-0.95, Math.min(0.95, nx));
+        state.baseNavNormals[vIdx + 1] = Math.max(-0.95, Math.min(0.95, ny));
+      }
+    }
+  }
+
+  function renderNavbarMapWithPhotoMask(forceRender = false) {
+    if (!state.baseNavNormals || !navImgData) {
+      buildBaseNavbarNormals();
+    }
+
+    const w = state.navWidth;
+    const h = state.navHeight;
+    const navRect = navbarEl.getBoundingClientRect();
+
+    let hasPhotoOverlap = false;
+    let photoCx = -9999;
+    let photoCy = -9999;
+    let photoR = 0;
+    const feather = OPTICS.photoFeatherPx;
+
+    if (profileImgEl) {
+      const pRect = profileImgEl.getBoundingClientRect();
+      if (pRect.width > 10 && pRect.height > 10) {
+        photoCx = (pRect.left + pRect.width * 0.5) - navRect.left;
+        photoCy = (pRect.top + pRect.height * 0.5) - navRect.top;
+        photoR = Math.max(pRect.width, pRect.height) * 0.5;
+
+        const closestX = Math.max(0, Math.min(w, photoCx));
+        const closestY = Math.max(0, Math.min(h, photoCy));
+        const distSq = (photoCx - closestX) ** 2 + (photoCy - closestY) ** 2;
+        hasPhotoOverlap = distSq < (photoR + feather) ** 2;
+      }
+    }
+
+    if (!forceRender && !hasPhotoOverlap && !state.wasOverlappingPhoto) {
+      return;
+    }
+    state.wasOverlappingPhoto = hasPhotoOverlap;
+
+    const data = navImgData.data;
+    const normals = state.baseNavNormals;
+    const innerR = Math.max(0, photoR - 2);
+    const outerR = photoR + feather;
+
+    for (let y = 0; y < h; y++) {
+      const py = y + 0.5;
+      for (let x = 0; x < w; x++) {
+        const px = x + 0.5;
+        const pIdx = (y * w + x) * 4;
+        const vIdx = (y * w + x) * 2;
+
+        let nx = normals[vIdx];
+        let ny = normals[vIdx + 1];
+
+        if (nx === 0 && ny === 0) {
+          data[pIdx] = 128;
+          data[pIdx + 1] = 128;
+          data[pIdx + 2] = 255;
+          data[pIdx + 3] = 255;
+          continue;
+        }
+
+        if (hasPhotoOverlap) {
+          const dPhoto = Math.hypot(px - photoCx, py - photoCy);
+          if (dPhoto <= innerR) {
+            nx = 0;
+            ny = 0;
+          } else if (dPhoto < outerR) {
+            const factor = smootherstep(innerR, outerR, dPhoto);
+            nx *= factor;
+            ny *= factor;
+          }
+        }
+
+        const nz = Math.sqrt(Math.max(0.04, 1 - nx * nx - ny * ny));
+        data[pIdx]     = Math.max(0, Math.min(255, Math.round(128 + nx * 127)));
+        data[pIdx + 1] = Math.max(0, Math.min(255, Math.round(128 + ny * 127)));
+        data[pIdx + 2] = Math.max(0, Math.min(255, Math.round(128 + nz * 127)));
+        data[pIdx + 3] = 255;
+      }
+    }
+
+    navCtx.putImageData(navImgData, 0, 0);
+    setFeImageHref(navMapEl, navCanvas.toDataURL('image/png'));
+  }
+
+  function generateBalancedBezelMap(width, height, cornerRadius, bezelPx) {
+    const w = Math.max(64, Math.round(width));
+    const h = Math.max(36, Math.round(height));
+    const canvas = document.createElement('canvas');
+    canvas.width = w;
+    canvas.height = h;
+    const ctx = canvas.getContext('2d');
+    const imgData = ctx.createImageData(w, h);
+    const data = imgData.data;
+
+    const halfW = w * 0.5;
+    const halfH = h * 0.5;
+
+    for (let y = 0; y < h; y++) {
+      const py = y + 0.5;
+      for (let x = 0; x < w; x++) {
+        const px = x + 0.5;
+        const idx = (y * w + x) * 4;
+        const bezelVec = evalBalancedOuterBezel(px, py, halfW, halfH, halfW, halfH, cornerRadius, bezelPx);
+
+        if (!bezelVec || (bezelVec.nx === 0 && bezelVec.ny === 0)) {
+          data[idx] = 128; data[idx + 1] = 128; data[idx + 2] = 255; data[idx + 3] = 255;
+          continue;
+        }
+
+        const nz = Math.sqrt(Math.max(0.04, 1 - bezelVec.nx * bezelVec.nx - bezelVec.ny * bezelVec.ny));
+        data[idx]     = Math.max(0, Math.min(255, Math.round(128 + bezelVec.nx * 127)));
+        data[idx + 1] = Math.max(0, Math.min(255, Math.round(128 + bezelVec.ny * 127)));
+        data[idx + 2] = Math.max(0, Math.min(255, Math.round(128 + nz * 127)));
+        data[idx + 3] = 255;
+      }
+    }
+
+    ctx.putImageData(imgData, 0, 0);
+    return canvas.toDataURL('image/png');
+  }
+
+  function rebuildOpticalMaps() {
+    buildBaseNavbarNormals();
+    renderNavbarMapWithPhotoMask(true);
+
+    if (btnMapEl) {
+      setFeImageHref(btnMapEl, generateBalancedBezelMap(200, 50, 25, 11));
+    }
+    if (panelMapEl) {
+      setFeImageHref(panelMapEl, generateBalancedBezelMap(480, 480, 28, 16));
+    }
+  }
+
+  window.rebuildLiquidGlassMaps = rebuildOpticalMaps;
+
+  let lastPillTarget = null;
+  let pillAnimRaf = null;
+
+  function updateActivePill(targetLink) {
+    if (!targetLink || !activePillEl || !navLinksContainer) return;
+    if (window.getComputedStyle(navLinksContainer).display === 'none') return;
+
+    const newWidth = targetLink.offsetWidth;
+    const newX = targetLink.offsetLeft - 4;
+    activePillEl.style.width = `${newWidth}px`;
+    activePillEl.style.transform = `translate3d(${newX}px, 0, 0)`;
+
+    if (lastPillTarget === targetLink) return;
+    lastPillTarget = targetLink;
+
+    if (pillAnimRaf) cancelAnimationFrame(pillAnimRaf);
+    const start = performance.now();
+    const duration = 330;
+
+    function syncPillLens(now) {
+      buildBaseNavbarNormals();
+      renderNavbarMapWithPhotoMask(true);
+      if (now - start < duration) {
+        pillAnimRaf = requestAnimationFrame(syncPillLens);
+      } else {
+        pillAnimRaf = null;
+      }
+    }
+    pillAnimRaf = requestAnimationFrame(syncPillLens);
+  }
+  window.updateNavbarActivePill = updateActivePill;
+
+  navLinks.forEach(link => {
+    link.addEventListener('mouseenter', () => updateActivePill(link));
+    link.addEventListener('click', () => {
+      navLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      updateActivePill(link);
+    });
+  });
+
+  if (navLinksContainer) {
+    navLinksContainer.addEventListener('mouseleave', () => {
+      const current = navLinksContainer.querySelector('a.active') || navLinks[0];
+      if (current) updateActivePill(current);
+    });
+  }
+
+  let scrollTicking = false;
+  window.addEventListener('scroll', () => {
+    if (!scrollTicking) {
+      scrollTicking = true;
+      requestAnimationFrame(() => {
+        renderNavbarMapWithPhotoMask(false);
+        scrollTicking = false;
+      });
+    }
+  }, { passive: true });
+
+  window.addEventListener('pointermove', (e) => {
+    state.mouseX = e.clientX;
+    state.mouseY = e.clientY;
+  }, { passive: true });
+
+  function animateLight() {
+    state.curX += (state.mouseX - state.curX) * 0.14;
+    state.curY += (state.mouseY - state.curY) * 0.14;
+    const navRect = navbarEl.getBoundingClientRect();
+    navbarEl.style.setProperty('--local-x', `${(state.curX - navRect.left).toFixed(1)}px`);
+    navbarEl.style.setProperty('--local-y', `${(state.curY - navRect.top).toFixed(1)}px`);
+    requestAnimationFrame(animateLight);
+  }
+
+  const ro = new ResizeObserver(() => {
+    const current = navLinksContainer ? (navLinksContainer.querySelector('a.active') || navLinks[0]) : null;
+    if (current) updateActivePill(current);
+    rebuildOpticalMaps();
+  });
+  ro.observe(navbarEl);
+
+  requestAnimationFrame(() => {
+    const active = navLinksContainer ? (navLinksContainer.querySelector('a.active') || navLinks[0]) : null;
+    if (active) updateActivePill(active);
+    rebuildOpticalMaps();
+    animateLight();
+  });
+})();
