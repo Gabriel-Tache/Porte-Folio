@@ -33,6 +33,20 @@ Design Système Apple Liquid Glass & Responsivité Multi-Écrans
   --glass-pill-active: rgba(255, 255, 255, 0.48);
   --glass-pill-active-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.85), 0 2px 8px rgba(0, 0, 0, 0.04);
 
+  /* Navbar ultra-nette (flou 0.18px) & boutons internes cristallins sans voile laiteux */
+  --lg-navbar-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+  --lg-nav-btn-idle: linear-gradient(180deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.08) 100%);
+  --lg-nav-btn-active: linear-gradient(180deg, rgba(255, 255, 255, 0.42) 0%, rgba(240, 245, 255, 0.20) 100%);
+  --lg-page-btn-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0.18) 100%);
+  --lg-blue-tint: linear-gradient(135deg, rgba(50, 67, 214, 0.72) 0%, rgba(37, 56, 198, 0.58) 100%);
+  --lg-modal-bg: linear-gradient(165deg, rgba(255, 255, 255, 0.84) 0%, rgba(242, 246, 255, 0.72) 100%);
+
+  --lg-border-top: rgba(255, 255, 255, 0.94);
+  --lg-border-bottom: rgba(50, 67, 214, 0.20);
+  --lg-outer-ring: rgba(255, 255, 255, 0.76);
+  --lg-shadow: 0 12px 32px -6px rgba(15, 23, 42, 0.08), 0 2px 8px -2px rgba(50, 67, 214, 0.06);
+  --lg-text-crisp: 0 1px 0 rgba(255, 255, 255, 0.82);
+
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 22px;
@@ -42,7 +56,7 @@ Design Système Apple Liquid Glass & Responsivité Multi-Écrans
 }
 
 /* Mode Sombre */
-body.dark {
+[data-theme="dark"], body.dark, .dark {
   --bg-main: #0b0e14;
   --text-main: #f8fafc;
   --text-muted: #94a3b8;
@@ -65,6 +79,20 @@ body.dark {
   --glass-pill-hover: rgba(255, 255, 255, 0.06);
   --glass-pill-active: rgba(255, 255, 255, 0.12);
   --glass-pill-active-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.24), 0 2px 8px rgba(0, 0, 0, 0.25);
+
+  /* Variables Moteur Optique Liquid Glass (Mode Sombre) */
+  --lg-navbar-bg: linear-gradient(180deg, rgba(18, 25, 45, 0.18) 0%, rgba(12, 17, 32, 0.10) 100%);
+  --lg-nav-btn-idle: linear-gradient(180deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.03) 100%);
+  --lg-nav-btn-active: linear-gradient(180deg, rgba(99, 120, 255, 0.24) 0%, rgba(59, 75, 195, 0.11) 100%);
+  --lg-page-btn-bg: linear-gradient(180deg, rgba(30, 41, 69, 0.40) 0%, rgba(17, 24, 43, 0.24) 100%);
+  --lg-blue-tint: linear-gradient(135deg, rgba(99, 120, 255, 0.72) 0%, rgba(67, 85, 224, 0.58) 100%);
+  --lg-modal-bg: linear-gradient(165deg, rgba(16, 23, 42, 0.86) 0%, rgba(11, 16, 30, 0.76) 100%);
+
+  --lg-border-top: rgba(255, 255, 255, 0.38);
+  --lg-border-bottom: rgba(99, 120, 255, 0.32);
+  --lg-outer-ring: rgba(255, 255, 255, 0.18);
+  --lg-shadow: 0 14px 36px -6px rgba(0, 0, 0, 0.55), 0 4px 12px rgba(0, 0, 0, 0.35);
+  --lg-text-crisp: 0 1px 2px rgba(0, 0, 0, 0.85);
 }
 
 /* Reset universel */
@@ -195,82 +223,252 @@ body.dark .ambient-bg {
   box-shadow: 0 8px 24px var(--first-color-glow);
 }
 
-/* Bouton secondaire en verre liquide */
-.btn-glass {
-  background: var(--glass-bg-scrolled);
-  color: var(--text-main);
-  border: 1px solid var(--glass-border-outer);
-  backdrop-filter: blur(14px) saturate(180%);
-  -webkit-backdrop-filter: blur(14px) saturate(180%);
-  box-shadow: inset 0 1px 0 var(--glass-specular-top);
+.svg-optical-engine {
+  position: fixed;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: -1;
 }
 
-.btn-glass:hover {
+/* Surface principale de la Navbar (Liquid Glass avec micro-flou optique ultra-subtil 0.18px) */
+.lg-surface,
+#liquidNavbar.lg-surface {
+  position: relative;
+  background: var(--lg-navbar-bg) !important;
+  backdrop-filter: blur(0.18px) url(#lg-navbar-filter) !important;
+  -webkit-backdrop-filter: blur(0.18px) url(#lg-navbar-filter) !important;
+  box-shadow:
+    inset 0 1.75px 1px 0 var(--lg-border-top),
+    inset 0 -1.5px 1px 0 var(--lg-border-bottom),
+    inset 0 0 0 1px var(--lg-outer-ring),
+    var(--lg-shadow) !important;
+  transform: translate3d(0, 0, 0);
+  will-change: transform, backdrop-filter;
+}
+
+.lg-surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.4px;
+  background: radial-gradient(
+    340px circle at var(--local-x, 50%) var(--local-y, 0%),
+    rgba(255, 255, 255, 0.98),
+    rgba(50, 67, 214, 0.34) 45%,
+    transparent 75%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: 2;
+}
+
+body.dark .lg-surface::before,
+[data-theme="dark"] .lg-surface::before,
+.dark .lg-surface::before {
+  background: radial-gradient(
+    340px circle at var(--local-x, 50%) var(--local-y, 0%),
+    rgba(255, 255, 255, 0.55),
+    rgba(99, 120, 255, 0.30) 45%,
+    transparent 75%
+  );
+}
+
+/* Boutons, Tags & Badges autonomes sur la page (0px Blur Refraction) */
+.lg-btn {
+  position: relative;
+  background: var(--lg-page-btn-bg);
+  backdrop-filter: url(#lg-btn-filter);
+  -webkit-backdrop-filter: url(#lg-btn-filter);
+  box-shadow:
+    inset 0 1.75px 1px 0 var(--lg-border-top),
+    inset 0 -1.5px 1px 0 var(--lg-border-bottom),
+    inset 0 0 0 1px var(--lg-outer-ring),
+    0 6px 18px -4px rgba(15, 23, 42, 0.08);
+  transition:
+    transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+  transform: translate3d(0, 0, 0);
+}
+
+.lg-btn:hover {
+  transform: translateY(-1.5px);
+  box-shadow:
+    inset 0 2px 1px 0 #ffffff,
+    inset 0 -1.5px 1.5px 0 rgba(50, 67, 214, 0.32),
+    inset 0 0 0 1px var(--lg-outer-ring),
+    0 10px 24px -4px rgba(50, 67, 214, 0.14);
+}
+
+.lg-btn:active {
+  transform: scale(0.95);
+}
+
+.btn-primary.lg-btn {
+  background: var(--lg-blue-tint);
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.btn-glass.lg-btn,
+.btn-glass {
+  background: var(--lg-page-btn-bg);
+  color: var(--text-main);
+  border: 1px solid var(--lg-outer-ring);
+  backdrop-filter: url(#lg-btn-filter);
+  -webkit-backdrop-filter: url(#lg-btn-filter);
+  box-shadow:
+    inset 0 1.75px 1px 0 var(--lg-border-top),
+    inset 0 -1.5px 1px 0 var(--lg-border-bottom),
+    inset 0 0 0 1px var(--lg-outer-ring),
+    0 6px 18px -4px rgba(15, 23, 42, 0.08);
+}
+
+.btn-glass:hover,
+.btn-glass.lg-btn:hover {
   border-color: var(--first-color);
   color: var(--first-color);
   transform: translateY(-2px);
 }
 
 /* ========================================================================= */
-/* --- NAVIGATION APPLE LIQUID GLASS (CAPSULE FLOTTANTE ULTRA-CLAIRE) ------ */
+/* --- NAVIGATION CAPSULE LIQUID GLASS (0PX BLUR OPTICAL ENGINE) ----------- */
 /* ========================================================================= */
+.topbar-wrapper,
 .nav-wrapper {
   position: fixed;
-  top: 14px;
+  top: 16px;
   left: 0;
   right: 0;
+  z-index: 900;
   width: 100%;
-  z-index: 500;
-  padding-inline: clamp(12px, 4vw, 40px);
+  margin-top: 0;
   pointer-events: none;
-  transition: top 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0 clamp(12px, 4vw, 32px);
+  transition: top 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .nav-wrapper.nav-scrolled {
   top: 10px;
 }
 
+.liquid-navbar,
 .liquid-glass-nav {
   pointer-events: auto;
-  width: 100%;
-  max-width: var(--max-width);
-  height: 64px;
-  margin-inline: auto;
-  padding-inline: 22px;
-  border-radius: var(--radius-pill);
+  max-width: var(--max-width, 1140px);
+  margin: 0 auto;
+  height: 68px;
+  border-radius: 9999px;
+  padding: 0 14px 0 24px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-
-  /* Cœur de l'effet Apple Liquid Glass (Style Apple VisionOS / macOS Sonoma) :
-     Hyper-transparence + réfraction optique + reflet prismatique supérieur + lueur volumique interne */
-  background: var(--glass-bg);
-  backdrop-filter: blur(24px) saturate(210%) contrast(102%);
-  -webkit-backdrop-filter: blur(24px) saturate(210%) contrast(102%);
-  border: 1px solid var(--glass-border-outer);
-  box-shadow:
-    var(--glass-shadow),
-    inset 0 1px 0.5px 0 var(--glass-specular-top),
-    inset 0 -1px 0.5px 0 var(--glass-specular-bottom),
-    inset 0 0 22px 0 var(--glass-inner-glow);
-
-  transition:
-    height 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-    background 0.3s ease,
-    box-shadow 0.3s ease,
-    border-color 0.3s ease;
+  justify-content: space-between;
+  gap: 10px;
 }
 
-.nav-wrapper.nav-scrolled .liquid-glass-nav {
-  height: 58px;
-  background: var(--glass-bg-scrolled);
-  backdrop-filter: blur(28px) saturate(220%) contrast(104%);
-  -webkit-backdrop-filter: blur(28px) saturate(220%) contrast(104%);
+.liquid-navbar > *,
+.liquid-glass-nav > * {
+  position: relative;
+  z-index: 3;
+}
+
+.nav-links {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px;
+  border-radius: 9999px;
+}
+
+.nav-active-pill {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  width: 84px;
+  border-radius: 9999px;
+  background: var(--lg-nav-btn-active);
   box-shadow:
-    0 18px 48px -10px rgba(10, 15, 30, 0.12),
-    inset 0 1px 0.5px 0 var(--glass-specular-top),
-    inset 0 -1px 0.5px 0 var(--glass-specular-bottom),
-    inset 0 0 24px 0 var(--glass-inner-glow);
+    inset 0 1.75px 1px rgba(255, 255, 255, 0.98),
+    inset 0 -1.5px 1px rgba(50, 67, 214, 0.22),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.88),
+    0 5px 14px -2px rgba(20, 35, 90, 0.12);
+  transition:
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.nav-links a {
+  position: relative;
+  z-index: 1;
+  padding: 7px clamp(10px, 1.05vw, 15px);
+  border-radius: 9999px;
+  font-size: clamp(0.81rem, 0.9vw, 0.9rem);
+  font-weight: 600;
+  white-space: nowrap;
+  text-shadow: var(--lg-text-crisp);
+  text-decoration: none;
+  color: var(--text-main);
+  background: var(--lg-nav-btn-idle);
+  box-shadow:
+    inset 0 1.25px 0.75px rgba(255, 255, 255, 0.82),
+    inset 0 -1px 0.75px rgba(50, 67, 214, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.52),
+    0 2px 6px rgba(15, 23, 42, 0.04);
+  transition: color 0.2s ease, transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nav-links a:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.95),
+    inset 0 -1px 1px rgba(50, 67, 214, 0.18),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.78),
+    0 4px 10px rgba(30, 48, 110, 0.08);
+}
+
+.nav-links a.active,
+.nav-links a.active-link {
+  font-weight: 700;
+  color: var(--first-color);
+  background: transparent;
+  box-shadow: none;
+}
+
+.lg-nav-item-glass {
+  position: relative;
+  background: var(--lg-nav-btn-active);
+  box-shadow:
+    inset 0 1.75px 1px 0 rgba(255, 255, 255, 0.98),
+    inset 0 -1.5px 1px 0 rgba(50, 67, 214, 0.22),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.85),
+    0 5px 14px -2px rgba(15, 23, 42, 0.10);
+  transition:
+    transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.2s ease,
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+.lg-nav-item-glass:hover {
+  transform: translateY(-1.5px);
+  box-shadow:
+    inset 0 2px 1px 0 #ffffff,
+    inset 0 -1.5px 1px 0 rgba(50, 67, 214, 0.30),
+    inset 0 0 0 1px #ffffff,
+    0 8px 18px -2px rgba(50, 67, 214, 0.16);
+}
+
+.lg-nav-item-glass:active {
+  transform: scale(0.95);
 }
 
 .nav-logo .nav-name {
@@ -287,43 +485,6 @@ body.dark .ambient-bg {
   color: var(--text-main);
 }
 
-.nav-menu-desktop,
-.nav-menu,
-.nav_menu_list {
-  display: flex;
-  align-items: center;
-  list-style: none;
-  gap: 4px;
-}
-
-/* Pastilles de navigation style capsules Apple */
-.nav-link {
-  text-decoration: none;
-  color: var(--text-main);
-  font-weight: 500;
-  font-size: 13.6px;
-  padding: 7px 15px;
-  border-radius: var(--radius-pill);
-  border: 1px solid transparent;
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.nav-link:hover {
-  color: var(--first-color);
-  background: var(--glass-pill-hover);
-  border-color: rgba(255, 255, 255, 0.28);
-  box-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.5);
-  transform: translateY(-1px);
-}
-
-.nav-link.active-link {
-  color: var(--first-color);
-  font-weight: 600;
-  background: var(--glass-pill-active);
-  border-color: rgba(255, 255, 255, 0.42);
-  box-shadow: var(--glass-pill-active-shadow);
-}
-
 .nav-actions {
   display: flex;
   align-items: center;
@@ -331,30 +492,43 @@ body.dark .ambient-bg {
 }
 
 .theme-toggle {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border-outer);
-  box-shadow: inset 0 1px 0.5px var(--glass-specular-top), 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 17px;
+  font-size: 18px;
   color: var(--text-main);
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.theme-toggle:hover {
-  color: var(--first-color);
-  background: var(--glass-pill-hover);
-  border-color: var(--first-color);
-  transform: translateY(-1px) scale(1.04);
+.btn-nav {
+  padding: 8px 18px;
+  border-radius: var(--radius-pill);
+  font-size: 13.5px;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #ffffff;
+  background: var(--lg-blue-tint) !important;
+  text-decoration: none;
+  font-weight: 600;
 }
 
 .nav-menu-btn {
   display: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: var(--text-main);
 }
 
 /* Voile d'obscurcissement net (zéro flou sur la page, aucune distorsion graphique) */
@@ -517,7 +691,7 @@ body.dark .mobile-nav-drawer {
   transform: translateY(-2px);
 }
 
-@media (min-width: 941px) {
+@media (min-width: 1021px) {
   .mobile-nav-drawer {
     display: none !important;
   }
@@ -530,8 +704,6 @@ body.dark .mobile-nav-drawer {
   position: relative;
   border: 1.5px solid var(--card-border);
   background: var(--card-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.025);
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
 }
@@ -678,7 +850,6 @@ body.dark .ece-logo {
   border-radius: 50%;
   background: var(--card-bg);
   border: 1px solid var(--card-border);
-  backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -712,11 +883,10 @@ body.dark .ece-logo {
 
 .image-backdrop {
   position: absolute;
-  inset: -8px;
+  inset: -12px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--first-color), transparent 70%);
-  opacity: 0.34;
-  filter: blur(14px);
+  background: radial-gradient(circle, var(--first-color-glow) 0%, transparent 70%);
+  opacity: 0.65;
   z-index: 0;
 }
 
@@ -1253,7 +1423,6 @@ body.dark .skills-list span {
   font-size: 13.5px;
   font-weight: 500;
   cursor: pointer;
-  backdrop-filter: blur(10px);
   transition: all 0.22s ease;
 }
 
@@ -1576,7 +1745,6 @@ body.dark .skills-list span {
 /* ========================================================================= */
 footer {
   background: var(--card-bg);
-  backdrop-filter: blur(12px);
   border-top: 1px solid var(--card-border);
   padding-block: 42px 28px;
   margin-top: 50px;
@@ -1642,12 +1810,12 @@ footer {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background: var(--glass-bg-scrolled);
+  background: var(--lg-page-btn-bg);
   color: var(--first-color);
-  border: 1px solid var(--glass-border-outer);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  box-shadow: var(--glass-shadow), inset 0 1px 0 var(--glass-specular-top);
+  border: 1px solid var(--lg-outer-ring);
+  backdrop-filter: url(#lg-btn-filter);
+  -webkit-backdrop-filter: url(#lg-btn-filter);
+  box-shadow: var(--lg-shadow), inset 0 1.75px 1px var(--lg-border-top);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1708,9 +1876,7 @@ footer {
   display: none;
   align-items: center;
   justify-content: center;
-  background: rgba(6, 8, 14, 0.6);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(6, 8, 14, 0.72);
   z-index: 1000;
   padding: 18px;
 }
@@ -1856,9 +2022,10 @@ body.modal-open {
   }
 }
 
-/* --- 2. Tablettes Portrait et Menus Déportés (<= 940px) --- */
-@media (max-width: 940px) {
+/* --- 2. Tablettes Portrait et Menus Déportés (<= 1020px) --- */
+@media (max-width: 1020px) {
   .nav-menu-desktop,
+  .nav-links,
   .nav-button {
     display: none !important;
   }
@@ -1869,8 +2036,8 @@ body.modal-open {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border-outer);
+    background: var(--lg-page-btn-bg);
+    border: 1px solid var(--lg-outer-ring);
     box-shadow: inset 0 1px 0.5px var(--glass-specular-top), 0 2px 8px rgba(0, 0, 0, 0.04);
     font-size: 20px;
     cursor: pointer;
@@ -1879,7 +2046,7 @@ body.modal-open {
   }
   .nav-menu-btn:hover {
     color: var(--first-color);
-    background: var(--glass-pill-hover);
+    background: var(--lg-nav-btn-active);
     transform: translateY(-1px) scale(1.04);
   }
   .skills-grid,
@@ -2043,6 +2210,7 @@ body.modal-open {
     top: 8px;
     padding-inline: 8px;
   }
+  .liquid-navbar,
   .liquid-glass-nav {
     height: 52px;
     padding-inline: 14px;
@@ -2336,4 +2504,435 @@ body.modal-open {
   .nav-logo .nav-name {
     font-size: 15.5px;
   }
+}
+
+/* =========================================================================
+   CORRECTIFS PRIORITAIRES LIQUID GLASS (NAVBAR FIXE + DRAWER + MODALE + BOUTONS)
+   ========================================================================= */
+
+/* 1. NAVBAR STRICTEMENT FIXE SUR DESKTOP & MOBILE */
+#header.topbar-wrapper,
+#header.nav-wrapper {
+  position: fixed !important;
+  top: 16px !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  margin-top: 0 !important;
+  z-index: 900 !important;
+  pointer-events: none !important;
+  padding: 0 clamp(12px, 4vw, 32px) !important;
+  transition: top 0.28s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+#header.nav-wrapper.nav-scrolled {
+  top: 10px !important;
+}
+
+#liquidNavbar {
+  pointer-events: auto !important;
+  max-width: var(--max-width, 1140px);
+  margin: 0 auto;
+}
+
+/* 2. BOUTONS LIQUID GLASS À L'INTÉRIEUR DE LA NAVBAR (ZÉRO BLUR CSS, TRANSPARENCE CRISTALLINE + BISEAU SPÉCULAIRE 3D) */
+.nav-links a {
+  background: var(--lg-nav-btn-idle) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-radius: 9999px !important;
+  box-shadow:
+    inset 0 1.5px 0.8px rgba(255, 255, 255, 0.90),
+    inset 0 -1.2px 0.8px rgba(50, 67, 214, 0.18),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.62),
+    0 3px 9px -2px rgba(15, 23, 42, 0.06) !important;
+  transition: color 0.2s ease, transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+body.dark .nav-links a {
+  box-shadow:
+    inset 0 1.5px 0.8px rgba(255, 255, 255, 0.34),
+    inset 0 -1.2px 0.8px rgba(99, 120, 255, 0.26),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.16),
+    0 4px 10px -2px rgba(0, 0, 0, 0.35) !important;
+}
+
+.nav-links a:hover {
+  background: var(--lg-nav-btn-active) !important;
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 1.8px 1px #ffffff,
+    inset 0 -1.4px 1px rgba(50, 67, 214, 0.26),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.88),
+    0 5px 14px -2px rgba(30, 48, 110, 0.12) !important;
+}
+
+body.dark .nav-links a:hover {
+  box-shadow:
+    inset 0 1.8px 1px rgba(255, 255, 255, 0.48),
+    inset 0 -1.4px 1px rgba(99, 120, 255, 0.36),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.26),
+    0 5px 14px -2px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Le lien actif laisse voir la pilule Liquid Glass #navActivePill juste en dessous */
+.nav-links a.active,
+.nav-links a.active-link {
+  color: var(--first-color) !important;
+  font-weight: 700 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* Pilule active coulissante en Liquid Glass cristallin */
+.nav-active-pill,
+#navActivePill {
+  background: var(--lg-nav-btn-active) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow:
+    inset 0 1.8px 1px #ffffff,
+    inset 0 -1.5px 1px rgba(50, 67, 214, 0.26),
+    inset 0 0 0 1.2px rgba(255, 255, 255, 0.90),
+    0 6px 16px -3px rgba(20, 35, 90, 0.14) !important;
+}
+
+body.dark .nav-active-pill,
+body.dark #navActivePill {
+  box-shadow:
+    inset 0 1.8px 1px rgba(255, 255, 255, 0.48),
+    inset 0 -1.5px 1px rgba(99, 120, 255, 0.38),
+    inset 0 0 0 1.2px rgba(255, 255, 255, 0.26),
+    0 6px 16px -3px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Boutons d'action de la Navbar (Lune/Soleil & Menu Burger Mobile) en Liquid Glass */
+.theme-toggle.lg-nav-item-glass,
+.nav-menu-btn.lg-nav-item-glass {
+  background: var(--lg-nav-btn-active) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow:
+    inset 0 1.8px 1px var(--lg-border-top),
+    inset 0 -1.5px 1px var(--lg-border-bottom),
+    inset 0 0 0 1.2px var(--lg-outer-ring),
+    0 5px 14px -2px rgba(15, 23, 42, 0.10) !important;
+}
+
+/* Bouton "Mon CV" de la Navbar en Liquid Glass Saphir translucide */
+.btn-nav.lg-nav-item-glass {
+  background: var(--lg-blue-tint) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow:
+    inset 0 1.8px 1px rgba(255, 255, 255, 0.90),
+    inset 0 -1.5px 1.2px rgba(10, 20, 80, 0.52),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.48),
+    0 8px 20px -4px rgba(50, 67, 214, 0.38) !important;
+}
+
+/* 2. MENU MOBILE SOBRE + BOUTONS INTERNES EN LIQUID GLASS COMPACTS (SANS DÉBORDEMENT) */
+.nav-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(8, 12, 22, 0.52) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  z-index: 900 !important;
+  display: none;
+  opacity: 0;
+  pointer-events: none !important;
+  transition: opacity 0.28s ease !important;
+}
+
+.nav-overlay.is-active {
+  display: block !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+.mobile-nav-drawer,
+body.dark .mobile-nav-drawer,
+[data-theme="dark"] .mobile-nav-drawer {
+  position: fixed !important;
+  top: 0 !important;
+  right: -105% !important;
+  width: min(315px, 85vw) !important;
+  height: 100dvh !important;
+  max-height: 100dvh !important;
+  border-radius: 0 !important;
+  background: #f8fafc !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-left: 1px solid var(--card-border) !important;
+  box-shadow: -12px 0 40px rgba(0, 0, 0, 0.16) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  padding: 18px 18px !important;
+  z-index: 950 !important;
+  transform: none !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transition: right 0.32s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  overflow-y: auto !important;
+}
+
+body.dark .mobile-nav-drawer,
+[data-theme="dark"] .mobile-nav-drawer {
+  background: #0d111a !important;
+  border-left: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.mobile-nav-drawer.responsive,
+body.dark .mobile-nav-drawer.responsive {
+  right: 0 !important;
+}
+
+.drawer-header {
+  padding-bottom: 12px !important;
+}
+
+.drawer-menu-list {
+  list-style: none !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 7px !important;
+  margin-block: 10px !important;
+}
+
+/* Boutons Liquid Glass à l'intérieur du Menu Mobile */
+.drawer-menu-list .nav-link {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  font-size: 14.5px !important;
+  font-weight: 600 !important;
+  color: var(--text-main) !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(235, 241, 255, 0.65) 100%) !important;
+  padding: 9px 15px !important;
+  border-radius: 9999px !important;
+  box-shadow:
+    inset 0 1.75px 1px #ffffff,
+    inset 0 -1.5px 1px rgba(59, 75, 195, 0.18),
+    inset 0 0 0 1px rgba(59, 75, 195, 0.14),
+    0 4px 12px -2px rgba(15, 23, 42, 0.07) !important;
+  transition: all 0.2s ease !important;
+}
+
+body.dark .drawer-menu-list .nav-link {
+  background: linear-gradient(180deg, rgba(30, 41, 69, 0.72) 0%, rgba(17, 24, 43, 0.48) 100%) !important;
+  box-shadow:
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.28),
+    inset 0 -1.5px 1px rgba(97, 114, 255, 0.25),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.14),
+    0 4px 12px -2px rgba(0, 0, 0, 0.4) !important;
+}
+
+.drawer-menu-list .nav-link:hover,
+.drawer-menu-list .nav-link.active-link {
+  background: linear-gradient(180deg, #ffffff 0%, rgba(224, 233, 255, 0.88) 100%) !important;
+  color: var(--first-color) !important;
+  font-weight: 700 !important;
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 2px 1px #ffffff,
+    inset 0 -1.5px 1px rgba(59, 75, 195, 0.30),
+    inset 0 0 0 1.2px rgba(59, 75, 195, 0.32),
+    0 6px 16px -2px rgba(59, 75, 195, 0.16) !important;
+}
+
+body.dark .drawer-menu-list .nav-link:hover,
+body.dark .drawer-menu-list .nav-link.active-link {
+  background: linear-gradient(180deg, rgba(97, 114, 255, 0.34) 0%, rgba(59, 75, 195, 0.20) 100%) !important;
+  color: #ffffff !important;
+}
+
+.drawer-footer {
+  padding-top: 12px !important;
+  gap: 12px !important;
+}
+
+.drawer-footer .btn {
+  padding: 10px 18px !important;
+  font-size: 14px !important;
+  border-radius: 9999px !important;
+  background: var(--lg-blue-tint) !important;
+  color: #ffffff !important;
+  box-shadow:
+    inset 0 1.75px 1px rgba(255, 255, 255, 0.86),
+    inset 0 -1.5px 1.5px rgba(10, 20, 80, 0.55),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.42),
+    0 8px 20px -3px rgba(50, 67, 214, 0.38) !important;
+}
+
+.drawer-close-btn,
+.drawer-icon-link {
+  width: 38px !important;
+  height: 38px !important;
+  border-radius: 50% !important;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(235, 241, 255, 0.70) 100%) !important;
+  border: none !important;
+  box-shadow:
+    inset 0 1.75px 1px #ffffff,
+    inset 0 -1.5px 1px rgba(59, 75, 195, 0.20),
+    inset 0 0 0 1px rgba(59, 75, 195, 0.16),
+    0 4px 10px -2px rgba(15, 23, 42, 0.08) !important;
+}
+
+body.dark .drawer-close-btn,
+body.dark .drawer-icon-link {
+  background: linear-gradient(180deg, rgba(30, 41, 69, 0.78) 0%, rgba(17, 24, 43, 0.54) 100%) !important;
+  box-shadow:
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.30),
+    inset 0 -1.5px 1px rgba(97, 114, 255, 0.26),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.16),
+    0 4px 12px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* 3. MODALE PROJET (« VOIR L'ARCHITECTURE ») EN VRAI LIQUID GLASS TRANSPARENT */
+.pmodal {
+  background: rgba(15, 23, 42, 0.18) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+body.dark .pmodal {
+  background: rgba(4, 7, 14, 0.34) !important;
+}
+
+.pmodal__dialog {
+  background: var(--lg-modal-bg) !important;
+  backdrop-filter: url(#lg-panel-filter) !important;
+  -webkit-backdrop-filter: url(#lg-panel-filter) !important;
+  border-radius: 28px !important;
+  border: none !important;
+  box-shadow:
+    inset 0 2px 1px 0 var(--lg-border-top),
+    inset 0 -1.5px 1px 0 var(--lg-border-bottom),
+    inset 0 0 0 1px var(--lg-outer-ring),
+    0 24px 60px -12px rgba(15, 23, 42, 0.26) !important;
+  transform: translate3d(0, 0, 0);
+}
+
+.pmodal__text h2,
+.pmodal__body,
+.pmodal__body li,
+.pmodal__body h4,
+.pmodal__body strong {
+  text-shadow: var(--lg-text-crisp);
+}
+
+.pmodal__body {
+  color: var(--text-main) !important;
+}
+
+/* Éléments internes de la modale : Voile blanc différencié SANS double backdrop-filter */
+.pmodal__dialog .lg-btn,
+.pmodal__close,
+.modal-tags span {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: var(--lg-nav-btn-active) !important;
+  border: none !important;
+  border-radius: 9999px !important;
+  box-shadow:
+    inset 0 1.5px 1px var(--lg-border-top),
+    inset 0 -1.25px 1px var(--lg-border-bottom),
+    inset 0 0 0 1px var(--lg-outer-ring),
+    0 4px 10px rgba(15, 23, 42, 0.07) !important;
+}
+
+/* 4. PRIORITÉ ABSOLUE LIQUID GLASS SUR TOUS LES BOUTONS, TAGS, FILTRES & CTA DE LA PAGE */
+.badge-status.lg-btn,
+.icon.lg-btn,
+.role-badge.lg-btn,
+.entity-pill-logo.lg-btn,
+.tech-tags span.lg-btn,
+.pfe-badge.lg-btn,
+.skills-list span.lg-btn,
+.filter-btn.lg-btn,
+.project-category-tag.lg-btn,
+.project-mini-tags span.lg-btn,
+.project-cta.lg-btn,
+.contact-btn-box.lg-btn,
+.copy-email-btn.lg-btn,
+.btn-glass.lg-btn {
+  background: var(--lg-page-btn-bg) !important;
+  backdrop-filter: url(#lg-btn-filter) !important;
+  -webkit-backdrop-filter: url(#lg-btn-filter) !important;
+  border: none !important;
+  border-radius: 9999px !important;
+  box-shadow:
+    inset 0 1.75px 1px 0 var(--lg-border-top),
+    inset 0 -1.5px 1px 0 var(--lg-border-bottom),
+    inset 0 0 0 1px var(--lg-outer-ring),
+    0 6px 18px -4px rgba(15, 23, 42, 0.08) !important;
+  text-shadow: var(--lg-text-crisp);
+}
+
+.contact-btn-box.lg-btn {
+  border-radius: 20px !important;
+}
+
+.project-cta.lg-btn {
+  padding: 8px 16px !important;
+}
+
+.btn-primary.lg-btn,
+.filter-btn.lg-btn.active {
+  background: var(--lg-blue-tint) !important;
+  backdrop-filter: url(#lg-btn-filter) !important;
+  -webkit-backdrop-filter: url(#lg-btn-filter) !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 9999px !important;
+  text-shadow: 0 1px 2px rgba(10, 16, 60, 0.45) !important;
+  box-shadow:
+    inset 0 1.75px 1px rgba(255, 255, 255, 0.86),
+    inset 0 -1.5px 1.5px rgba(10, 20, 80, 0.55),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.42),
+    0 10px 24px -4px rgba(50, 67, 214, 0.4) !important;
+}
+
+/* Compensation du padding-top du Hero pour la Navbar fixe */
+@media (max-width: 1020px) {
+  #header.topbar-wrapper,
+  #header.nav-wrapper {
+    top: 10px !important;
+  }
+  .nav-menu-btn {
+    display: inline-flex !important;
+    background: var(--lg-nav-btn-active) !important;
+    box-shadow:
+      inset 0 1.75px 1px 0 rgba(255, 255, 255, 0.98),
+      inset 0 -1.5px 1px 0 rgba(50, 67, 214, 0.22),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.85),
+      0 5px 14px -2px rgba(15, 23, 42, 0.10) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  #header.topbar-wrapper,
+  #header.nav-wrapper {
+    top: 8px !important;
+    padding-inline: 8px !important;
+  }
+}
+
+/* Contraste cristallin des badges et boutons Liquid Glass au survol d'une carte projet */
+.project-box:hover .project-category-tag.lg-btn,
+.project-box:hover .project-mini-tags span.lg-btn,
+.project-box:hover .project-cta.lg-btn,
+.project-box:focus-visible .project-category-tag.lg-btn,
+.project-box:focus-visible .project-mini-tags span.lg-btn,
+.project-box:focus-visible .project-cta.lg-btn {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.28) 0%, rgba(255, 255, 255, 0.14) 100%) !important;
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(10, 16, 60, 0.45) !important;
+  box-shadow:
+    inset 0 1.5px 1px rgba(255, 255, 255, 0.75),
+    inset 0 -1px 1px rgba(10, 20, 80, 0.35),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.38),
+    0 6px 16px rgba(0, 0, 0, 0.18) !important;
 }
