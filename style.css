@@ -2790,57 +2790,79 @@ body.dark .drawer-icon-link {
     0 4px 12px rgba(0, 0, 0, 0.4) !important;
 }
 
-/* 3. MODALE PROJET (« VOIR L'ARCHITECTURE ») EN VRAI LIQUID GLASS TRANSPARENT */
+/* 3. MODALE PROJET (« VOIR L'ARCHITECTURE ») 100% OPAQUE & HAUTE LISIBILITÉ */
 .pmodal {
-  background: rgba(15, 23, 42, 0.18) !important;
+  position: fixed !important;
+  inset: 0 !important;
+  background: rgba(6, 10, 20, 0.72) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
+  z-index: 1000 !important;
 }
 
-body.dark .pmodal {
-  background: rgba(4, 7, 14, 0.34) !important;
+body.dark .pmodal,
+[data-theme="dark"] .pmodal {
+  background: rgba(2, 5, 12, 0.82) !important;
 }
 
 .pmodal__dialog {
-  background: var(--lg-modal-bg) !important;
-  backdrop-filter: url(#lg-panel-filter) !important;
-  -webkit-backdrop-filter: url(#lg-panel-filter) !important;
-  border-radius: 28px !important;
-  border: none !important;
-  box-shadow:
-    inset 0 2px 1px 0 var(--lg-border-top),
-    inset 0 -1.5px 1px 0 var(--lg-border-bottom),
-    inset 0 0 0 1px var(--lg-outer-ring),
-    0 24px 60px -12px rgba(15, 23, 42, 0.26) !important;
-  transform: translate3d(0, 0, 0);
-}
-
-.pmodal__text h2,
-.pmodal__body,
-.pmodal__body li,
-.pmodal__body h4,
-.pmodal__body strong {
-  text-shadow: var(--lg-text-crisp);
-}
-
-.pmodal__body {
+  background: #ffffff !important;
   color: var(--text-main) !important;
-}
-
-/* Éléments internes de la modale : Voile blanc différencié SANS double backdrop-filter */
-.pmodal__dialog .lg-btn,
-.pmodal__close,
-.modal-tags span {
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
-  background: var(--lg-nav-btn-active) !important;
-  border: none !important;
-  border-radius: 9999px !important;
-  box-shadow:
-    inset 0 1.5px 1px var(--lg-border-top),
-    inset 0 -1.25px 1px var(--lg-border-bottom),
-    inset 0 0 0 1px var(--lg-outer-ring),
-    0 4px 10px rgba(15, 23, 42, 0.07) !important;
+  border: 1px solid var(--card-border) !important;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35) !important;
+}
+
+body.dark .pmodal__dialog,
+[data-theme="dark"] .pmodal__dialog {
+  background: #111622 !important;
+  color: #f8fafc !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+}
+
+.pmodal__text h2 {
+  color: var(--text-main) !important;
+  text-shadow: none !important;
+}
+
+.pmodal__body,
+.pmodal__body li,
+.pmodal__body p {
+  color: var(--text-muted) !important;
+  text-shadow: none !important;
+}
+
+.pmodal__body h4,
+.pmodal__body strong {
+  color: var(--text-main) !important;
+  text-shadow: none !important;
+}
+
+.pmodal__close {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: var(--first-color-subtle) !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--card-border) !important;
+  border-radius: 50% !important;
+  box-shadow: none !important;
+}
+
+.pmodal__close:hover {
+  background: var(--first-color) !important;
+  color: #ffffff !important;
+}
+
+.modal-tags span,
+.pmodal__dialog .modal-tags span.lg-btn {
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  background: var(--first-color-subtle) !important;
+  color: var(--first-color) !important;
+  box-shadow: none !important;
+  padding: 5px 13px !important;
+  font-weight: 600 !important;
 }
 
 /* 4. PRIORITÉ ABSOLUE LIQUID GLASS SUR TOUS LES BOUTONS, TAGS, FILTRES & CTA DE LA PAGE */
