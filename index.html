@@ -13,13 +13,57 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=19">
   <link rel="shortcut icon" href="https://gabriel-tache.github.io/PF-Final/Capture%20d'%C3%A9cran%202025-03-05%20144338.png" type="image/x-icon">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
   <title>Gabriel Taché | Ingénieur Cybersécurité, Systèmes &amp; Réseaux</title>
 </head>
 <body>
+  <!-- MOTEUR OPTIQUE SVG LIQUID GLASS (V7 - DOSAGE ÉQUILIBRÉ HAUT/BAS) -->
+  <svg class="svg-optical-engine" aria-hidden="true">
+    <defs>
+      <!-- 1. Filtre Optique de la Navbar (Scale équilibré : R=24.0, G=32.0, B=40.0) -->
+      <filter id="lg-navbar-filter" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+        <feImage id="lg-navbar-map" result="normalMap" preserveAspectRatio="none" />
+        <feDisplacementMap id="lg-nav-disp-r" in="SourceGraphic" in2="normalMap" scale="24.0" xChannelSelector="R" yChannelSelector="G" result="dispR" />
+        <feColorMatrix in="dispR" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="chanR" />
+        <feDisplacementMap id="lg-nav-disp-g" in="SourceGraphic" in2="normalMap" scale="32.0" xChannelSelector="R" yChannelSelector="G" result="dispG" />
+        <feColorMatrix in="dispG" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="chanG" />
+        <feDisplacementMap id="lg-nav-disp-b" in="SourceGraphic" in2="normalMap" scale="40.0" xChannelSelector="R" yChannelSelector="G" result="dispB" />
+        <feColorMatrix in="dispB" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="chanB" />
+        <feComposite in="chanR" in2="chanG" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="rg" />
+        <feComposite in="rg" in2="chanB" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="refracted" />
+      </filter>
+
+      <!-- 2. Filtre Optique pour la Modale Architecture Projet (#project-modal) -->
+      <filter id="lg-panel-filter" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+        <feImage id="lg-panel-map" result="panelMap" preserveAspectRatio="none" />
+        <feDisplacementMap in="SourceGraphic" in2="panelMap" scale="21.0" xChannelSelector="R" yChannelSelector="G" result="pR" />
+        <feColorMatrix in="pR" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="pcR" />
+        <feDisplacementMap in="SourceGraphic" in2="panelMap" scale="28.0" xChannelSelector="R" yChannelSelector="G" result="pG" />
+        <feColorMatrix in="pG" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="pcG" />
+        <feDisplacementMap in="SourceGraphic" in2="panelMap" scale="35.0" xChannelSelector="R" yChannelSelector="G" result="pB" />
+        <feColorMatrix in="pB" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="pcB" />
+        <feComposite in="pcR" in2="pcG" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="pcRG" />
+        <feComposite in="pcRG" in2="pcB" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="panelRefracted" />
+      </filter>
+
+      <!-- 3. Filtre Optique pour tous les Boutons, Tags & Badges autonomes de la page -->
+      <filter id="lg-btn-filter" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
+        <feImage id="lg-btn-map" result="btnMap" preserveAspectRatio="none" />
+        <feDisplacementMap in="SourceGraphic" in2="btnMap" scale="18.0" xChannelSelector="R" yChannelSelector="G" result="bR" />
+        <feColorMatrix in="bR" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="cR" />
+        <feDisplacementMap in="SourceGraphic" in2="btnMap" scale="24.0" xChannelSelector="R" yChannelSelector="G" result="bG" />
+        <feColorMatrix in="bG" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="cG" />
+        <feDisplacementMap in="SourceGraphic" in2="btnMap" scale="30.0" xChannelSelector="R" yChannelSelector="G" result="bB" />
+        <feColorMatrix in="bB" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="cB" />
+        <feComposite in="cR" in2="cG" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="cRG" />
+        <feComposite in="cRG" in2="cB" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="btnRefracted" />
+      </filter>
+    </defs>
+  </svg>
+
   <!-- LUMIÈRES D'AMBIANCE HAUTE PERFORMANCE (ZÉRO OVERHEAD GPU) -->
   <div class="ambient-bg" aria-hidden="true"></div>
 
@@ -49,7 +93,7 @@
     </ul>
 
     <div class="drawer-footer">
-      <a href="https://gabriel-tache.github.io/Porte-Folio/CV-Cyber.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-full">
+      <a href="https://gabriel-tache.github.io/Porte-Folio/CV-Cyber.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-full lg-btn">
         Consulter mon CV <i class="uil uil-file-alt"></i>
       </a>
       <div class="drawer-socials">
@@ -62,38 +106,37 @@
   </aside>
 
   <div class="container">
-    <!-- NAVIGATION LIQUID GLASS (STYLE APPLE VISIONOS) -->
-    <header class="nav-wrapper" id="header">
-      <nav class="liquid-glass-nav" aria-label="Navigation principale">
+    <!-- NAVIGATION LIQUID GLASS (0PX BLUR OPTICAL ENGINE) -->
+    <header class="topbar-wrapper nav-wrapper" id="header">
+      <nav id="liquidNavbar" class="liquid-navbar lg-surface" aria-label="Navigation principale">
         <div class="nav-logo">
           <a href="#home" class="nav-name">Gabriel Taché<span>.</span></a>
         </div>
 
-        <!-- Menu Desktop : intégré horizontalement dans la capsule -->
-        <div class="nav-menu nav-menu-desktop">
-          <ul class="nav_menu_list">
-            <li class="nav_list"><a href="#home" class="nav-link active-link">Accueil</a></li>
-            <li class="nav_list"><a href="#experience" class="nav-link">Expériences</a></li>
-            <li class="nav_list"><a href="#formation" class="nav-link">Formations</a></li>
-            <li class="nav_list"><a href="#current-project" class="nav-link">PFE</a></li>
-            <li class="nav_list"><a href="#competences" class="nav-link">Compétences</a></li>
-            <li class="nav_list"><a href="#projects" class="nav-link">Projets</a></li>
-            <li class="nav_list"><a href="#contact" class="nav-link">Contact</a></li>
-          </ul>
+        <!-- Menu Desktop : capsule avec pilule active glissante -->
+        <div class="nav-links" id="navLinks">
+          <div id="navActivePill" class="nav-active-pill" aria-hidden="true"></div>
+          <a href="#home" class="nav-link active">Accueil</a>
+          <a href="#experience" class="nav-link">Expériences</a>
+          <a href="#formation" class="nav-link">Formations</a>
+          <a href="#current-project" class="nav-link">PFE</a>
+          <a href="#competences" class="nav-link">Compétences</a>
+          <a href="#projects" class="nav-link">Projets</a>
+          <a href="#contact" class="nav-link">Contact</a>
         </div>
 
         <div class="nav-actions">
-          <button class="theme-toggle toggle-switch" aria-label="Basculer le mode sombre" title="Changer de thème">
+          <button class="theme-toggle toggle-switch lg-nav-item-glass" aria-label="Basculer le mode sombre" title="Changer de thème">
             <i class="uil uil-moon"></i>
           </button>
 
           <div class="nav-button">
-            <a href="https://gabriel-tache.github.io/Porte-Folio/CV-Cyber.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-nav">
+            <a href="https://gabriel-tache.github.io/Porte-Folio/CV-Cyber.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-nav lg-nav-item-glass">
               Mon CV <i class="uil uil-file-alt"></i>
             </a>
           </div>
 
-          <button class="nav-menu-btn" onclick="toggleMobileMenu()" aria-label="Ouvrir le menu" aria-expanded="false" id="menu-toggle-btn">
+          <button class="nav-menu-btn lg-nav-item-glass" onclick="toggleMobileMenu()" aria-label="Ouvrir le menu" aria-expanded="false" id="menu-toggle-btn">
             <i class="uil uil-bars"></i>
           </button>
         </div>
@@ -104,7 +147,7 @@
       <!-- HERO SECTION -->
       <section class="featured-box" id="home">
         <div class="featured-text">
-          <div class="badge-status">
+          <div class="badge-status lg-btn">
             <span class="pulse-dot"></span> Cycle Ingénieur (ING3) — ECE Paris &bull; Ex-Thales LAS
           </div>
 
@@ -120,10 +163,10 @@
           </div>
 
           <div class="featured-text-btn">
-            <a href="https://gabriel-tache.github.io/Porte-Folio/CV-Cyber.pdf" target="_blank" rel="noopener" class="btn btn-primary">
+            <a href="https://gabriel-tache.github.io/Porte-Folio/CV-Cyber.pdf" target="_blank" rel="noopener" class="btn btn-primary lg-btn">
               Télécharger mon CV <i class="uil uil-file-download-alt"></i>
             </a>
-            <a href="#experience" class="btn btn-glass">
+            <a href="#experience" class="btn btn-glass lg-btn">
               Explorer mes responsabilités <i class="uil uil-arrow-down"></i>
             </a>
           </div>
@@ -131,16 +174,16 @@
           <!-- ICÔNES HERO -->
           <div class="social_icons">
             <a href="https://www.linkedin.com/in/gabriel-taché-77284b351" target="_blank" rel="noopener" class="icon-link" aria-label="LinkedIn">
-              <div class="icon"><i class="uil uil-linkedin-alt"></i></div>
+              <div class="icon lg-btn"><i class="uil uil-linkedin-alt"></i></div>
             </a>
             <a href="https://github.com/Gabriel-Tache" target="_blank" rel="noopener" class="icon-link" aria-label="GitHub">
-              <div class="icon"><i class="uil uil-github-alt"></i></div>
+              <div class="icon lg-btn"><i class="uil uil-github-alt"></i></div>
             </a>
             <a href="mailto:gabriel.tache.gt@gmail.com" class="icon-link" aria-label="Email">
-              <div class="icon"><i class="uil uil-envelope"></i></div>
+              <div class="icon lg-btn"><i class="uil uil-envelope"></i></div>
             </a>
             <a href="https://wa.me/33781884726" target="_blank" rel="noopener" class="icon-link" aria-label="WhatsApp">
-              <div class="icon"><i class="uil uil-whatsapp"></i></div>
+              <div class="icon lg-btn"><i class="uil uil-whatsapp"></i></div>
             </a>
           </div>
         </div>
@@ -155,19 +198,19 @@
 
       <!-- BANDEAU STATISTIQUES -->
       <section class="stats-strip" aria-label="Chiffres clés">
-        <div class="stat-card highlight-card">
+        <div class="stat-card highlight-card lg-btn">
           <span class="stat-number">ING3</span>
           <span class="stat-label">Cycle Ingénieur CTI — ECE Paris</span>
         </div>
-        <div class="stat-card highlight-card">
+        <div class="stat-card highlight-card lg-btn">
           <span class="stat-number">Thales LAS</span>
           <span class="stat-label">Ingénierie Cyber Défense (GM200)</span>
         </div>
-        <div class="stat-card highlight-card">
+        <div class="stat-card highlight-card lg-btn">
           <span class="stat-number">DevSecOps</span>
           <span class="stat-label">Audit Conteneurs &amp; Hardening</span>
         </div>
-        <div class="stat-card highlight-card">
+        <div class="stat-card highlight-card lg-btn">
           <span class="stat-number">7+</span>
           <span class="stat-label">Projets Cyber, Systèmes &amp; SaaS</span>
         </div>
@@ -188,7 +231,7 @@
               <div class="card-identity">
                 <div class="title-row">
                   <h3>Ingénieur Cybersécurité &amp; Bancs d'Intégration (Stage)</h3>
-                  <span class="role-badge">Cyberdéfense &amp; Systèmes Critiques</span>
+                  <span class="role-badge lg-btn">Cyberdéfense &amp; Systèmes Critiques</span>
                 </div>
                 <span class="entity-name">Thales LAS (Land and Air Systems) — Centre radar de Limours</span>
                 <span class="time-tag"><i class="uil uil-calendar-alt"></i> Avril 2026 - Août 2026 (5 mois)</span>
@@ -205,12 +248,12 @@
                 <li><strong>Durcissement (Hardening) &amp; Conformité Défense :</strong> Qualification technique des vulnérabilités (scoring CVSS), rédaction des dossiers de justification de sécurité, implémentation de politiques de durcissement système/réseau et validation stricte des correctifs selon les référentiels militaires.</li>
               </ul>
               <div class="tech-tags">
-                <span>Systèmes Radars GM200</span>
-                <span>Virtualisation Linux</span>
-                <span>Pentest Réseau &amp; Système</span>
-                <span>Hardening OS &amp; Réseau</span>
-                <span>Qualification CVSS</span>
-                <span>Maintien en Condition de Sécurité (MCS)</span>
+                <span class="lg-btn">Systèmes Radars GM200</span>
+                <span class="lg-btn">Virtualisation Linux</span>
+                <span class="lg-btn">Pentest Réseau &amp; Système</span>
+                <span class="lg-btn">Hardening OS &amp; Réseau</span>
+                <span class="lg-btn">Qualification CVSS</span>
+                <span class="lg-btn">Maintien en Condition de Sécurité (MCS)</span>
               </div>
             </div>
           </article>
@@ -221,7 +264,7 @@
               <div class="card-identity">
                 <div class="title-row">
                   <h3>Ambassadeur Technique &amp; Chargé de Promotion (CDD)</h3>
-                  <span class="role-badge">Communication &amp; Leadership</span>
+                  <span class="role-badge lg-btn">Communication &amp; Leadership</span>
                 </div>
                 <span class="entity-name">ECE Paris — Grande École d'Ingénieurs</span>
                 <span class="time-tag"><i class="uil uil-calendar-alt"></i> Janvier 2026 - Mars 2026 (3 mois)</span>
@@ -238,10 +281,10 @@
                 <li><strong>Ateliers pratiques &amp; Logistique événementielle :</strong> Organisation d'événements campus, vulgarisation d'architectures cyber/réseaux et démonstrations de projets techniques auprès des candidats et partenaires.</li>
               </ul>
               <div class="tech-tags">
-                <span>European Cyber Week</span>
-                <span>Communication Technique</span>
-                <span>Animation de Conférences</span>
-                <span>Gestion d'Événements</span>
+                <span class="lg-btn">European Cyber Week</span>
+                <span class="lg-btn">Communication Technique</span>
+                <span class="lg-btn">Animation de Conférences</span>
+                <span class="lg-btn">Gestion d'Événements</span>
               </div>
             </div>
           </article>
@@ -252,13 +295,13 @@
               <div class="card-identity">
                 <div class="title-row">
                   <h3>Assistant de Recherche Scientifique (Stage)</h3>
-                  <span class="role-badge">Instrumentation &amp; Rigueur Scientifique</span>
+                  <span class="role-badge lg-btn">Instrumentation &amp; Rigueur Scientifique</span>
                 </div>
                 <span class="entity-name">Synchrotron SOLEIL — Plateau de Saclay (Saint-Aubin)</span>
                 <span class="time-tag"><i class="uil uil-calendar-alt"></i> Stage Scientifique (2 mois)</span>
               </div>
               <div class="logo-wrapper">
-                <span class="entity-pill-logo"><i class="uil uil-atom"></i> SOLEIL</span>
+                <span class="entity-pill-logo lg-btn"><i class="uil uil-atom"></i> SOLEIL</span>
               </div>
             </div>
             <div class="card-body">
@@ -268,10 +311,10 @@
                 <li><strong>Exploitation de mesures &amp; Protocoles :</strong> Suivi des protocoles expérimentaux en environnement critique, acquisition de données physiques et vérification de la cohérence des relevés d'instrumentation.</li>
               </ul>
               <div class="tech-tags">
-                <span>Environnement Critique</span>
-                <span>Analyse de Données Physiques</span>
-                <span>Protocoles Expérimentaux</span>
-                <span>Rigueur Scientifique</span>
+                <span class="lg-btn">Environnement Critique</span>
+                <span class="lg-btn">Analyse de Données Physiques</span>
+                <span class="lg-btn">Protocoles Expérimentaux</span>
+                <span class="lg-btn">Rigueur Scientifique</span>
               </div>
             </div>
           </article>
@@ -293,7 +336,7 @@
               <div class="card-identity">
                 <div class="title-row">
                   <h3>Cycle Ingénieur (ING3) — Cybersécurité, Systèmes &amp; Réseaux</h3>
-                  <span class="role-badge">En cours — Diplôme Habilité CTI</span>
+                  <span class="role-badge lg-btn">En cours — Diplôme Habilité CTI</span>
                 </div>
                 <span class="entity-name">ECE Paris — École Centrale d'Électronique</span>
                 <span class="time-tag"><i class="uil uil-graduation-cap"></i> 2026 - Présent</span>
@@ -311,12 +354,12 @@
                 <li><strong>Sécurité Offensive &amp; Défensive :</strong> Audits d'infrastructures, hardening serveurs Linux/Windows, qualification de vulnérabilités et gestion d'incidents.</li>
               </ul>
               <div class="tech-tags">
-                <span>Diplôme d'Ingénieur CTI</span>
-                <span>Architecture Zero-Trust</span>
-                <span>DevSecOps</span>
-                <span>C &amp; ESP32-S3 Embarqué</span>
-                <span>EBIOS RM / ISO 27001 / NIS 2</span>
-                <span>Sécurité Offensive &amp; Hardening</span>
+                <span class="lg-btn">Diplôme d'Ingénieur CTI</span>
+                <span class="lg-btn">Architecture Zero-Trust</span>
+                <span class="lg-btn">DevSecOps</span>
+                <span class="lg-btn">C &amp; ESP32-S3 Embarqué</span>
+                <span class="lg-btn">EBIOS RM / ISO 27001 / NIS 2</span>
+                <span class="lg-btn">Sécurité Offensive &amp; Hardening</span>
               </div>
             </div>
           </article>
@@ -327,7 +370,7 @@
               <div class="card-identity">
                 <div class="title-row">
                   <h3>Bachelor Cybersécurité, Systèmes et Réseaux</h3>
-                  <span class="role-badge">Diplôme obtenu</span>
+                  <span class="role-badge lg-btn">Diplôme obtenu</span>
                 </div>
                 <span class="entity-name">ECE Paris — Cursus intensif en 3 ans</span>
                 <span class="time-tag"><i class="uil uil-award"></i> 2023 - 2026</span>
@@ -344,11 +387,11 @@
                 <li><strong>Audit Offensif &amp; Développement Sécurisé :</strong> Exploitation et remédiation de vulnérabilités applicatives (OWASP Top 10, Burp Suite), sécurisation SQL et automatisation Python/Bash.</li>
               </ul>
               <div class="tech-tags">
-                <span>Linux &amp; Windows Server</span>
-                <span>Active Directory &amp; GPO</span>
-                <span>Cisco Routing &amp; Switching</span>
-                <span>Pare-feux &amp; VLANs</span>
-                <span>Burp Suite &amp; OWASP</span>
+                <span class="lg-btn">Linux &amp; Windows Server</span>
+                <span class="lg-btn">Active Directory &amp; GPO</span>
+                <span class="lg-btn">Cisco Routing &amp; Switching</span>
+                <span class="lg-btn">Pare-feux &amp; VLANs</span>
+                <span class="lg-btn">Burp Suite &amp; OWASP</span>
               </div>
             </div>
           </article>
@@ -375,8 +418,8 @@
               </div>
             </div>
             <div class="pfe-badges-row">
-              <span class="pfe-badge">Rôle : Data Engineer &amp; Architecte Backend</span>
-              <span class="pfe-badge pfe-badge-outline">Pipeline DevSecOps</span>
+              <span class="pfe-badge lg-btn">Rôle : Data Engineer &amp; Architecte Backend</span>
+              <span class="pfe-badge pfe-badge-outline lg-btn">Pipeline DevSecOps</span>
             </div>
           </div>
 
@@ -421,17 +464,17 @@
             </div>
 
             <div class="pfe-footer">
-              <button class="btn btn-glass" id="pfe-toggle-btn" onclick="togglePFE()" aria-expanded="false" aria-controls="pfe-details">
+              <button class="btn btn-glass lg-btn" id="pfe-toggle-btn" onclick="togglePFE()" aria-expanded="false" aria-controls="pfe-details">
                 <span>Afficher mes responsabilités détaillées</span> <i class="uil uil-angle-down"></i>
               </button>
               <div class="tech-tags">
-                <span>Python / FastAPI</span>
-                <span>Redis (Caching)</span>
-                <span>PostgreSQL</span>
-                <span>Celery</span>
-                <span>Docker</span>
-                <span>Trivy &amp; Grype</span>
-                <span>React</span>
+                <span class="lg-btn">Python / FastAPI</span>
+                <span class="lg-btn">Redis (Caching)</span>
+                <span class="lg-btn">PostgreSQL</span>
+                <span class="lg-btn">Celery</span>
+                <span class="lg-btn">Docker</span>
+                <span class="lg-btn">Trivy &amp; Grype</span>
+                <span class="lg-btn">React</span>
               </div>
             </div>
           </div>
@@ -456,14 +499,14 @@
               </div>
             </div>
             <div class="skills-list">
-              <span>Pentest Réseau &amp; Web</span>
-              <span>Burp Suite</span>
-              <span>Nmap</span>
-              <span>Wireshark</span>
-              <span>OWASP Top 10</span>
-              <span>Qualification CVSS &amp; CVE</span>
-              <span>Trivy &amp; Grype</span>
-              <span>DVWA</span>
+              <span class="lg-btn">Pentest Réseau &amp; Web</span>
+              <span class="lg-btn">Burp Suite</span>
+              <span class="lg-btn">Nmap</span>
+              <span class="lg-btn">Wireshark</span>
+              <span class="lg-btn">OWASP Top 10</span>
+              <span class="lg-btn">Qualification CVSS &amp; CVE</span>
+              <span class="lg-btn">Trivy &amp; Grype</span>
+              <span class="lg-btn">DVWA</span>
             </div>
           </div>
 
@@ -476,13 +519,13 @@
               </div>
             </div>
             <div class="skills-list">
-              <span>Linux (Debian, Ubuntu, RHEL)</span>
-              <span>Windows Server</span>
-              <span>Active Directory &amp; GPO</span>
-              <span>Cisco Routing &amp; Switching</span>
-              <span>Pare-feux &amp; VLANs</span>
-              <span>Docker &amp; Virtualisation</span>
-              <span>Hardening SI</span>
+              <span class="lg-btn">Linux (Debian, Ubuntu, RHEL)</span>
+              <span class="lg-btn">Windows Server</span>
+              <span class="lg-btn">Active Directory &amp; GPO</span>
+              <span class="lg-btn">Cisco Routing &amp; Switching</span>
+              <span class="lg-btn">Pare-feux &amp; VLANs</span>
+              <span class="lg-btn">Docker &amp; Virtualisation</span>
+              <span class="lg-btn">Hardening SI</span>
             </div>
           </div>
 
@@ -495,13 +538,13 @@
               </div>
             </div>
             <div class="skills-list">
-              <span>Python (FastAPI, Pandas)</span>
-              <span>C / C++</span>
-              <span>ESP32-S3 &amp; PlatformIO</span>
-              <span>Proteus Simulation</span>
-              <span>Bash / Shell</span>
-              <span>PostgreSQL &amp; Redis</span>
-              <span>Git &amp; CI/CD</span>
+              <span class="lg-btn">Python (FastAPI, Pandas)</span>
+              <span class="lg-btn">C / C++</span>
+              <span class="lg-btn">ESP32-S3 &amp; PlatformIO</span>
+              <span class="lg-btn">Proteus Simulation</span>
+              <span class="lg-btn">Bash / Shell</span>
+              <span class="lg-btn">PostgreSQL &amp; Redis</span>
+              <span class="lg-btn">Git &amp; CI/CD</span>
             </div>
           </div>
 
@@ -514,12 +557,12 @@
               </div>
             </div>
             <div class="skills-list">
-              <span>EBIOS RM</span>
-              <span>ISO/IEC 27001</span>
-              <span>Directive NIS 2</span>
-              <span>Architecture Zero-Trust</span>
-              <span>Cryptographie Appliquée</span>
-              <span>Normes Cyber Défense</span>
+              <span class="lg-btn">EBIOS RM</span>
+              <span class="lg-btn">ISO/IEC 27001</span>
+              <span class="lg-btn">Directive NIS 2</span>
+              <span class="lg-btn">Architecture Zero-Trust</span>
+              <span class="lg-btn">Cryptographie Appliquée</span>
+              <span class="lg-btn">Normes Cyber Défense</span>
             </div>
           </div>
         </div>
@@ -535,25 +578,25 @@
 
         <!-- FILTRES DE PROJETS -->
         <div class="project-filters" role="tablist" aria-label="Filtrer les projets par domaine">
-          <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">Tous les projets</button>
-          <button class="filter-btn" data-filter="cyber" role="tab" aria-selected="false">Cybersécurité &amp; Réseau</button>
-          <button class="filter-btn" data-filter="data" role="tab" aria-selected="false">Data &amp; DevSecOps</button>
-          <button class="filter-btn" data-filter="web" role="tab" aria-selected="false">Développement Sécurisé</button>
+          <button class="filter-btn lg-btn active" data-filter="all" role="tab" aria-selected="true">Tous les projets</button>
+          <button class="filter-btn lg-btn" data-filter="cyber" role="tab" aria-selected="false">Cybersécurité &amp; Réseau</button>
+          <button class="filter-btn lg-btn" data-filter="data" role="tab" aria-selected="false">Data &amp; DevSecOps</button>
+          <button class="filter-btn lg-btn" data-filter="web" role="tab" aria-selected="false">Développement Sécurisé</button>
         </div>
 
         <div class="project-container">
           <!-- Projet 1 : Anti-DDoS -->
           <div class="project-box highlight-card" data-category="cyber" data-title="Solution SaaS de Détection &amp; Mitigation DDoS" tabindex="0" role="button" aria-label="Voir les détails du projet Solution SaaS de Détection DDoS">
             <div class="project-top-meta">
-              <span class="project-category-tag">Cyber &amp; Réseau</span>
+              <span class="project-category-tag lg-btn">Cyber &amp; Réseau</span>
               <div class="project-icon"><i class="uil uil-shield-exclamation"></i></div>
             </div>
             <h3>SaaS de Détection &amp; Mitigation DDoS</h3>
             <p class="project-summary">Analyse comportementale de trafic réseau en temps réel et déclenchement automatisé de règles de filtrage pare-feu.</p>
             <div class="project-mini-tags">
-              <span>Python</span><span>Inspection Paquets</span><span>Pare-feu</span>
+              <span class="lg-btn">Python</span><span class="lg-btn">Inspection Paquets</span><span class="lg-btn">Pare-feu</span>
             </div>
-            <span class="project-cta">Voir l'architecture <i class="uil uil-arrow-right"></i></span>
+            <span class="project-cta lg-btn">Voir l'architecture <i class="uil uil-arrow-right"></i></span>
             <template class="project-body">
               <p><strong>Contexte &amp; Objectif :</strong> Conception d'une plateforme capable d'identifier les anomalies volumétriques et protocolaires sur un flux réseau afin de bloquer automatiquement les tentatives de déni de service distribué (DDoS).</p>
               <h4>Responsabilités &amp; Réalisations techniques :</h4>
@@ -564,7 +607,7 @@
                 <li><strong>Supervision :</strong> Création d'un tableau de bord temps réel visualisant la bande passante, les alertes critiques et l'origine des flux bloqués.</li>
               </ul>
               <div class="modal-tags">
-                <span>Sécurité Réseau</span><span>Analyse de Flux</span><span>Python</span><span>Filtrage Pare-feu</span><span>Dashboard Temps Réel</span>
+                <span class="lg-btn">Sécurité Réseau</span><span class="lg-btn">Analyse de Flux</span><span class="lg-btn">Python</span><span class="lg-btn">Filtrage Pare-feu</span><span class="lg-btn">Dashboard Temps Réel</span>
               </div>
             </template>
           </div>
@@ -572,15 +615,15 @@
           <!-- Projet 2 : Laboratoire DVWA -->
           <div class="project-box highlight-card" data-category="cyber" data-title="Laboratoire d'Audit Offensif &amp; Remédiation (DVWA)" tabindex="0" role="button" aria-label="Voir les détails du projet Laboratoire Cyber et Pentest DVWA">
             <div class="project-top-meta">
-              <span class="project-category-tag">Pentest &amp; AppSec</span>
+              <span class="project-category-tag lg-btn">Pentest &amp; AppSec</span>
               <div class="project-icon"><i class="uil uil-bug"></i></div>
             </div>
             <h3>Laboratoire Pentest &amp; Remédiation Web</h3>
             <p class="project-summary">Exploitation méthodique des vulnérabilités du référentiel OWASP Top 10 et implémentation des correctifs en code.</p>
             <div class="project-mini-tags">
-              <span>Burp Suite</span><span>OWASP Top 10</span><span>Remédiation</span>
+              <span class="lg-btn">Burp Suite</span><span class="lg-btn">OWASP Top 10</span><span class="lg-btn">Remédiation</span>
             </div>
-            <span class="project-cta">Voir l'architecture <i class="uil uil-arrow-right"></i></span>
+            <span class="project-cta lg-btn">Voir l'architecture <i class="uil uil-arrow-right"></i></span>
             <template class="project-body">
               <p><strong>Contexte &amp; Objectif :</strong> Déploiement d'un banc d'essai offensif/défensif (Red Team / Blue Team) basé sur DVWA pour reproduire des chaînes d'exploitation critiques et concevoir les contre-mesures serveur associées.</p>
               <h4>Responsabilités &amp; Réalisations techniques :</h4>
@@ -590,7 +633,7 @@
                 <li><strong>Documentation d'audit :</strong> Rédaction de fiches de synthèse détaillant pour chaque faille le vecteur d'attaque, la preuve de concept (PoC) et le correctif validé.</li>
               </ul>
               <div class="modal-tags">
-                <span>Burp Suite</span><span>OWASP Top 10</span><span>SQLi / XSS / CSRF</span><span>Remédiation Code</span><span>Linux</span>
+                <span class="lg-btn">Burp Suite</span><span class="lg-btn">OWASP Top 10</span><span class="lg-btn">SQLi / XSS / CSRF</span><span class="lg-btn">Remédiation Code</span><span class="lg-btn">Linux</span>
               </div>
             </template>
           </div>
@@ -598,15 +641,15 @@
           <!-- Projet 3 : E-Commerce Sécurisé -->
           <div class="project-box highlight-card" data-category="web" data-title="Architecture E-Commerce Sécurisée (Security by Design)" tabindex="0" role="button" aria-label="Voir les détails du projet Site Web E-Commerce Sécurisé">
             <div class="project-top-meta">
-              <span class="project-category-tag">Web Sécurisé</span>
+              <span class="project-category-tag lg-btn">Web Sécurisé</span>
               <div class="project-icon"><i class="uil uil-shopping-bag"></i></div>
             </div>
             <h3>Plateforme E-Commerce Security by Design</h3>
             <p class="project-summary">Application transactionnelle complète intégrant gestion robuste des sessions, requêtes préparées et cloisonnement admin.</p>
             <div class="project-mini-tags">
-              <span>MVC</span><span>SQL Préparé</span><span>Auth &amp; Sessions</span>
+              <span class="lg-btn">MVC</span><span class="lg-btn">SQL Préparé</span><span class="lg-btn">Auth &amp; Sessions</span>
             </div>
-            <span class="project-cta">Voir l'architecture <i class="uil uil-arrow-right"></i></span>
+            <span class="project-cta lg-btn">Voir l'architecture <i class="uil uil-arrow-right"></i></span>
             <template class="project-body">
               <p><strong>Contexte &amp; Objectif :</strong> Concevoir une plateforme e-commerce complète (catalogue dynamique, panier persistant, tunnel de commande et back-office d'administration) en appliquant les principes de <em>Security by Design</em> dès la modélisation.</p>
               <h4>Responsabilités &amp; Réalisations techniques :</h4>
@@ -616,7 +659,7 @@
                 <li><strong>Protection contre les injections :</strong> Validation stricte des entrées côté serveur, paramétrage systématique des requêtes SQL et filtrage des téléversements de fichiers produits.</li>
               </ul>
               <div class="modal-tags">
-                <span>Architecture MVC</span><span>Sécurité Applicative</span><span>SQL Préparé</span><span>Gestion IAM</span><span>Back-Office</span>
+                <span class="lg-btn">Architecture MVC</span><span class="lg-btn">Sécurité Applicative</span><span class="lg-btn">SQL Préparé</span><span class="lg-btn">Gestion IAM</span><span class="lg-btn">Back-Office</span>
               </div>
             </template>
           </div>
@@ -624,15 +667,15 @@
           <!-- Projet 4 : Gestionnaire de Projets RBAC -->
           <div class="project-box highlight-card" data-category="web" data-title="Plateforme Collaborative &amp; Contrôle d'Accès (RBAC)" tabindex="0" role="button" aria-label="Voir les détails du projet Plateforme de Gestion de Projets">
             <div class="project-top-meta">
-              <span class="project-category-tag">IAM &amp; Web</span>
+              <span class="project-category-tag lg-btn">IAM &amp; Web</span>
               <div class="project-icon"><i class="uil uil-clipboard-notes"></i></div>
             </div>
             <h3>Gestionnaire de Projets &amp; Accès RBAC</h3>
             <p class="project-summary">Outil collaboratif multi-équipes avec contrôle d'accès granulaire basé sur les rôles et prévention des failles IDOR.</p>
             <div class="project-mini-tags">
-              <span>RBAC</span><span>Anti-IDOR</span><span>Transactions SQL</span>
+              <span class="lg-btn">RBAC</span><span class="lg-btn">Anti-IDOR</span><span class="lg-btn">Transactions SQL</span>
             </div>
-            <span class="project-cta">Voir l'architecture <i class="uil uil-arrow-right"></i></span>
+            <span class="project-cta lg-btn">Voir l'architecture <i class="uil uil-arrow-right"></i></span>
             <template class="project-body">
               <p><strong>Contexte &amp; Objectif :</strong> Développer un environnement de pilotage de projets permettant à plusieurs équipes de gérer leurs sprints et livrables tout en garantissant l'isolation stricte des données entre espaces de travail.</p>
               <h4>Responsabilités &amp; Réalisations techniques :</h4>
@@ -642,7 +685,7 @@
                 <li><strong>Intégrité transactionnelle :</strong> Gestion atomique des modifications en base de données et validation systématique des schémas de données entrants.</li>
               </ul>
               <div class="modal-tags">
-                <span>Contrôle d'Accès RBAC</span><span>Prévention IDOR</span><span>SQL</span><span>Application Collaborative</span>
+                <span class="lg-btn">Contrôle d'Accès RBAC</span><span class="lg-btn">Prévention IDOR</span><span class="lg-btn">SQL</span><span class="lg-btn">Application Collaborative</span>
               </div>
             </template>
           </div>
@@ -650,15 +693,15 @@
           <!-- Projet 5 : Scraping & DataViz -->
           <div class="project-box highlight-card" data-category="data" data-title="Pipeline ETL de Scraping &amp; Analyse de Données (Python)" tabindex="0" role="button" aria-label="Voir les détails du projet Scraping et DataViz Musicale">
             <div class="project-top-meta">
-              <span class="project-category-tag">Data Engineering</span>
+              <span class="project-category-tag lg-btn">Data Engineering</span>
               <div class="project-icon"><i class="uil uil-chart-line"></i></div>
             </div>
             <h3>Pipeline ETL &amp; DataViz Analytique</h3>
             <p class="project-summary">Automatisation de collecte web à grande échelle, normalisation sous Pandas et restitution analytique interactive.</p>
             <div class="project-mini-tags">
-              <span>Python</span><span>Pandas ETL</span><span>BeautifulSoup</span>
+              <span class="lg-btn">Python</span><span class="lg-btn">Pandas ETL</span><span class="lg-btn">BeautifulSoup</span>
             </div>
-            <span class="project-cta">Voir l'architecture <i class="uil uil-arrow-right"></i></span>
+            <span class="project-cta lg-btn">Voir l'architecture <i class="uil uil-arrow-right"></i></span>
             <template class="project-body">
               <p><strong>Contexte &amp; Objectif :</strong> Concevoir une chaîne de traitement automatisée (Extract, Transform, Load) capable de collecter des volumes importants de métadonnées musicales, de les normaliser et de générer des indicateurs visuels d'aide à la décision.</p>
               <h4>Responsabilités &amp; Réalisations techniques :</h4>
@@ -668,7 +711,7 @@
                 <li><strong>Restitution analytique :</strong> Conception d'un tableau de bord interactif permettant d'explorer les tendances par genre, popularité et période.</li>
               </ul>
               <div class="modal-tags">
-                <span>Python</span><span>Pandas (ETL)</span><span>BeautifulSoup</span><span>Automatisation</span><span>Data Visualization</span>
+                <span class="lg-btn">Python</span><span class="lg-btn">Pandas (ETL)</span><span class="lg-btn">BeautifulSoup</span><span class="lg-btn">Automatisation</span><span class="lg-btn">Data Visualization</span>
               </div>
             </template>
           </div>
@@ -676,15 +719,15 @@
           <!-- Projet 6 : Système de Bibliothèque -->
           <div class="project-box highlight-card" data-category="data" data-title="Système de Gestion Documentaire &amp; Suivi Temporel" tabindex="0" role="button" aria-label="Voir les détails du projet Système de Bibliothèque en Ligne">
             <div class="project-top-meta">
-              <span class="project-category-tag">Architecture BDD</span>
+              <span class="project-category-tag lg-btn">Architecture BDD</span>
               <div class="project-icon"><i class="uil uil-book-open"></i></div>
             </div>
             <h3>Système de Gestion &amp; Traçabilité</h3>
             <p class="project-summary">Application de gestion de catalogue, réservations concurrentes et suivi automatisé des états et échéances.</p>
             <div class="project-mini-tags">
-              <span>Modélisation SQL</span><span>Indexation</span><span>Back-Office</span>
+              <span class="lg-btn">Modélisation SQL</span><span class="lg-btn">Indexation</span><span class="lg-btn">Back-Office</span>
             </div>
-            <span class="project-cta">Voir l'architecture <i class="uil uil-arrow-right"></i></span>
+            <span class="project-cta lg-btn">Voir l'architecture <i class="uil uil-arrow-right"></i></span>
             <template class="project-body">
               <p><strong>Contexte &amp; Objectif :</strong> Développer un système d'information complet assurant la gestion d'inventaire, le suivi des flux d'emprunts et l'automatisation des alertes de dépassement d'échéance.</p>
               <h4>Responsabilités &amp; Réalisations techniques :</h4>
@@ -694,7 +737,7 @@
                 <li><strong>Espace d'administration &amp; Alertes :</strong> Tableau de bord de gestion des stocks, validation des retours et détection automatique des retards.</li>
               </ul>
               <div class="modal-tags">
-                <span>Modélisation SQL</span><span>Gestion de Flux</span><span>Backend</span><span>Interface Admin</span>
+                <span class="lg-btn">Modélisation SQL</span><span class="lg-btn">Gestion de Flux</span><span class="lg-btn">Backend</span><span class="lg-btn">Interface Admin</span>
               </div>
             </template>
           </div>
@@ -713,7 +756,7 @@
 
             <div class="contact-action-buttons">
               <!-- BOUTON EMAIL AVEC ACTION COPIE -->
-              <div class="contact-btn-box btn-email">
+              <div class="contact-btn-box btn-email lg-btn">
                 <a href="mailto:gabriel.tache.gt@gmail.com" class="contact-main-link" aria-label="Envoyer un email à gabriel.tache.gt@gmail.com">
                   <div class="contact-btn-icon"><i class="uil uil-envelope-alt"></i></div>
                   <div class="contact-btn-info">
@@ -721,13 +764,13 @@
                     <strong>gabriel.tache.gt@gmail.com</strong>
                   </div>
                 </a>
-                <button class="copy-email-btn" onclick="copyEmail()" aria-label="Copier l'adresse email" title="Copier l'adresse email">
+                <button class="copy-email-btn lg-btn" onclick="copyEmail()" aria-label="Copier l'adresse email" title="Copier l'adresse email">
                   <i class="uil uil-copy" id="copy-icon"></i>
                 </button>
               </div>
 
               <!-- BOUTON LINKEDIN -->
-              <a href="https://www.linkedin.com/in/gabriel-taché-77284b351" target="_blank" rel="noopener" class="contact-btn-box">
+              <a href="https://www.linkedin.com/in/gabriel-taché-77284b351" target="_blank" rel="noopener" class="contact-btn-box lg-btn">
                 <div class="contact-btn-icon"><i class="uil uil-linkedin-alt"></i></div>
                 <div class="contact-btn-info">
                   <span class="contact-btn-tag">Réseau professionnel</span>
@@ -737,7 +780,7 @@
               </a>
 
               <!-- BOUTON WHATSAPP -->
-              <a href="https://wa.me/33781884726" target="_blank" rel="noopener" class="contact-btn-box">
+              <a href="https://wa.me/33781884726" target="_blank" rel="noopener" class="contact-btn-box lg-btn">
                 <div class="contact-btn-icon"><i class="uil uil-whatsapp"></i></div>
                 <div class="contact-btn-info">
                   <span class="contact-btn-tag">Messagerie directe / Téléphone</span>
@@ -747,7 +790,7 @@
               </a>
 
               <!-- BOUTON GITHUB -->
-              <a href="https://github.com/Gabriel-Tache" target="_blank" rel="noopener" class="contact-btn-box">
+              <a href="https://github.com/Gabriel-Tache" target="_blank" rel="noopener" class="contact-btn-box lg-btn">
                 <div class="contact-btn-icon"><i class="uil uil-github-alt"></i></div>
                 <div class="contact-btn-info">
                   <span class="contact-btn-tag">Dépôts &amp; Projets Open-Source</span>
@@ -784,10 +827,10 @@
         </div>
 
         <div class="footer-social-icons">
-          <a href="mailto:gabriel.tache.gt@gmail.com" class="icon-link" aria-label="Email"><div class="icon"><i class="uil uil-envelope"></i></div></a>
-          <a href="https://www.linkedin.com/in/gabriel-taché-77284b351" target="_blank" rel="noopener" class="icon-link" aria-label="LinkedIn"><div class="icon"><i class="uil uil-linkedin-alt"></i></div></a>
-          <a href="https://github.com/Gabriel-Tache" target="_blank" rel="noopener" class="icon-link" aria-label="GitHub"><div class="icon"><i class="uil uil-github-alt"></i></div></a>
-          <a href="https://wa.me/33781884726" target="_blank" rel="noopener" class="icon-link" aria-label="WhatsApp"><div class="icon"><i class="uil uil-whatsapp"></i></div></a>
+          <a href="mailto:gabriel.tache.gt@gmail.com" class="icon-link" aria-label="Email"><div class="icon lg-btn"><i class="uil uil-envelope"></i></div></a>
+          <a href="https://www.linkedin.com/in/gabriel-taché-77284b351" target="_blank" rel="noopener" class="icon-link" aria-label="LinkedIn"><div class="icon lg-btn"><i class="uil uil-linkedin-alt"></i></div></a>
+          <a href="https://github.com/Gabriel-Tache" target="_blank" rel="noopener" class="icon-link" aria-label="GitHub"><div class="icon lg-btn"><i class="uil uil-github-alt"></i></div></a>
+          <a href="https://wa.me/33781884726" target="_blank" rel="noopener" class="icon-link" aria-label="WhatsApp"><div class="icon lg-btn"><i class="uil uil-whatsapp"></i></div></a>
         </div>
 
         <div class="bottom-footer">
@@ -798,7 +841,7 @@
   </div>
 
   <!-- BOUTON RETOUR EN HAUT -->
-  <button id="back-to-top" class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Retourner en haut de la page">
+  <button id="back-to-top" class="back-to-top lg-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Retourner en haut de la page">
     <i class="uil uil-arrow-up"></i>
   </button>
 
@@ -811,7 +854,7 @@
   <!-- MODAL PROJET -->
   <div id="project-modal" class="pmodal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="pmodal-title">
     <div class="pmodal__dialog" role="document">
-      <button class="pmodal__close" aria-label="Fermer la fiche projet">
+      <button class="pmodal__close lg-nav-item-glass" aria-label="Fermer la fiche projet">
         <i class="uil uil-times"></i>
       </button>
 
@@ -827,6 +870,7 @@
 
   <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
   <script src="https://unpkg.com/scrollreveal"></script>
-  <script src="script.js"></script>
+  <script src="script.js?v=19"></script>
+  <script src="liquid-glass.js?v=19"></script>
 </body>
 </html>
