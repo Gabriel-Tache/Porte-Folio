@@ -123,7 +123,7 @@ function closeMobileMenu() {
 
 // Sécurité supplémentaire : fermer le menu si la fenêtre repasse en mode desktop
 window.addEventListener("resize", () => {
-  if (window.innerWidth > 940) {
+  if (window.innerWidth > 1020) {
     closeMobileMenu();
   }
 });
@@ -214,15 +214,31 @@ function handleScroll() {
     const links = document.querySelectorAll(`a.nav-link[href*="${sectionId}"]:not(.toggle-switch)`);
     links.forEach(l => {
       if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+        const wasActive = l.classList.contains('active');
         l.classList.add('active-link');
+        l.classList.add('active');
+        if (!wasActive && l.parentElement && l.parentElement.id === 'navLinks' && window.updateNavbarActivePill) {
+          window.updateNavbarActivePill(l);
+        }
       } else {
         l.classList.remove('active-link');
+        l.classList.remove('active');
       }
     });
   });
 }
 
 window.addEventListener('scroll', handleScroll, { passive: true });
+
+// Support de position de scroll via paramètre d'URL (pour audits et tests visuels)
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.has('scroll')) {
+  const scrollTarget = parseInt(urlParams.get('scroll'), 10);
+  if (!isNaN(scrollTarget)) {
+    window.scrollTo(0, scrollTarget);
+    handleScroll();
+  }
+}
 
 // --- ANIMATIONS D'APPARITION (SCROLLREVEAL) ---
 if (window.ScrollReveal) {
@@ -270,6 +286,9 @@ if (window.ScrollReveal) {
     document.body.classList.add('modal-open');
     modal.setAttribute('aria-hidden', 'false');
     closeBtn.focus();
+    if (window.rebuildLiquidGlassMaps) {
+      requestAnimationFrame(window.rebuildLiquidGlassMaps);
+    }
   }
 
   function closeModal() {
