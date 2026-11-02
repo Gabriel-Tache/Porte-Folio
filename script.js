@@ -369,6 +369,23 @@ MOTEUR OPTIQUE LIQUID GLASS V8 — BASE V7 + MICRO-BISEAUX SUR BOUTONS DE NAVBAR
     if (!feImageEl || !dataUrl) return;
     feImageEl.setAttribute('href', dataUrl);
     feImageEl.setAttributeNS(XLINK_NS, 'xlink:href', dataUrl);
+    const parentFilter = feImageEl.parentElement;
+    if (parentFilter && parentFilter.tagName.toLowerCase() === 'filter') {
+      // Force Chromium/WebKit à invalider le cache GPU du filtre SVG
+      parentFilter.setAttribute('x', '0%');
+    }
+  }
+
+  function bindBackdropFiltersInline() {
+    if (navbarEl) {
+      navbarEl.style.webkitBackdropFilter = 'url(#lg-navbar-filter)';
+      navbarEl.style.backdropFilter = 'url(#lg-navbar-filter)';
+    }
+    document.querySelectorAll('.lg-btn').forEach(el => {
+      if (el.closest('.mobile-nav-drawer') || el.closest('.pmodal__dialog')) return;
+      el.style.webkitBackdropFilter = 'url(#lg-btn-filter)';
+      el.style.backdropFilter = 'url(#lg-btn-filter)';
+    });
   }
 
   function smootherstep(edge0, edge1, x) {
@@ -655,6 +672,7 @@ MOTEUR OPTIQUE LIQUID GLASS V8 — BASE V7 + MICRO-BISEAUX SUR BOUTONS DE NAVBAR
     if (panelMapEl) {
       setFeImageHref(panelMapEl, generateBalancedBezelMap(480, 480, 28, 16));
     }
+    bindBackdropFiltersInline();
   }
 
   window.rebuildLiquidGlassMaps = rebuildOpticalMaps;
@@ -732,17 +750,24 @@ MOTEUR OPTIQUE LIQUID GLASS V8 — BASE V7 + MICRO-BISEAUX SUR BOUTONS DE NAVBAR
     requestAnimationFrame(animateLight);
   }
 
-  const ro = new ResizeObserver(() => {
-    const current = navLinksContainer ? (navLinksContainer.querySelector('a.active') || navLinks[0]) : null;
-    if (current) updateActivePill(current);
+  function bootLiquidGlass() {
+    const active = navLinksContainer ? (navLinksContainer.querySelector('a.active') || navLinks[0]) : null;
+    if (active) updateActivePill(active);
     rebuildOpticalMaps();
+  }
+
+  const ro = new ResizeObserver(() => {
+    bootLiquidGlass();
   });
   ro.observe(navbarEl);
 
   requestAnimationFrame(() => {
-    const active = navLinksContainer ? (navLinksContainer.querySelector('a.active') || navLinks[0]) : null;
-    if (active) updateActivePill(active);
-    rebuildOpticalMaps();
+    bootLiquidGlass();
     animateLight();
   });
+
+  window.addEventListener('load', bootLiquidGlass);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(bootLiquidGlass);
+  }
 })();
