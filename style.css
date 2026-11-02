@@ -33,13 +33,13 @@ Design Système Apple Liquid Glass & Responsivité Multi-Écrans
   --glass-pill-active: rgba(255, 255, 255, 0.48);
   --glass-pill-active-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.85), 0 2px 8px rgba(0, 0, 0, 0.04);
 
-  /* Navbar ultra-nette (flou 0.18px) & boutons internes cristallins sans voile laiteux */
-  --lg-navbar-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
-  --lg-nav-btn-idle: linear-gradient(180deg, rgba(255, 255, 255, 0.20) 0%, rgba(255, 255, 255, 0.08) 100%);
-  --lg-nav-btn-active: linear-gradient(180deg, rgba(255, 255, 255, 0.42) 0%, rgba(240, 245, 255, 0.20) 100%);
-  --lg-page-btn-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0.18) 100%);
-  --lg-blue-tint: linear-gradient(135deg, rgba(50, 67, 214, 0.72) 0%, rgba(37, 56, 198, 0.58) 100%);
-  --lg-modal-bg: linear-gradient(165deg, rgba(255, 255, 255, 0.84) 0%, rgba(242, 246, 255, 0.72) 100%);
+  /* Navbar ultra-nette (Liquid Glass pur) & boutons internes cristallins sans voile laiteux */
+  --lg-navbar-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.10) 0%, rgba(255, 255, 255, 0.04) 100%);
+  --lg-nav-btn-idle: linear-gradient(180deg, rgba(255, 255, 255, 0.38) 0%, rgba(255, 255, 255, 0.22) 100%);
+  --lg-nav-btn-active: linear-gradient(180deg, rgba(255, 255, 255, 0.74) 0%, rgba(255, 255, 255, 0.50) 100%);
+  --lg-page-btn-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.36) 0%, rgba(255, 255, 255, 0.20) 100%);
+  --lg-blue-tint: linear-gradient(135deg, rgba(50, 67, 214, 0.78) 0%, rgba(37, 56, 198, 0.66) 100%);
+  --lg-modal-bg: #ffffff;
 
   --lg-border-top: rgba(255, 255, 255, 0.94);
   --lg-border-bottom: rgba(50, 67, 214, 0.20);
@@ -81,12 +81,12 @@ Design Système Apple Liquid Glass & Responsivité Multi-Écrans
   --glass-pill-active-shadow: inset 0 1px 0.5px rgba(255, 255, 255, 0.24), 0 2px 8px rgba(0, 0, 0, 0.25);
 
   /* Variables Moteur Optique Liquid Glass (Mode Sombre) */
-  --lg-navbar-bg: linear-gradient(180deg, rgba(18, 25, 45, 0.18) 0%, rgba(12, 17, 32, 0.10) 100%);
-  --lg-nav-btn-idle: linear-gradient(180deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.03) 100%);
-  --lg-nav-btn-active: linear-gradient(180deg, rgba(99, 120, 255, 0.24) 0%, rgba(59, 75, 195, 0.11) 100%);
-  --lg-page-btn-bg: linear-gradient(180deg, rgba(30, 41, 69, 0.40) 0%, rgba(17, 24, 43, 0.24) 100%);
-  --lg-blue-tint: linear-gradient(135deg, rgba(99, 120, 255, 0.72) 0%, rgba(67, 85, 224, 0.58) 100%);
-  --lg-modal-bg: linear-gradient(165deg, rgba(16, 23, 42, 0.86) 0%, rgba(11, 16, 30, 0.76) 100%);
+  --lg-navbar-bg: linear-gradient(180deg, rgba(18, 25, 45, 0.22) 0%, rgba(12, 17, 32, 0.12) 100%);
+  --lg-nav-btn-idle: linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 100%);
+  --lg-nav-btn-active: linear-gradient(180deg, rgba(255, 255, 255, 0.32) 0%, rgba(99, 120, 255, 0.20) 100%);
+  --lg-page-btn-bg: linear-gradient(180deg, rgba(30, 41, 69, 0.42) 0%, rgba(17, 24, 43, 0.26) 100%);
+  --lg-blue-tint: linear-gradient(135deg, rgba(99, 120, 255, 0.78) 0%, rgba(67, 85, 224, 0.66) 100%);
+  --lg-modal-bg: #111622;
 
   --lg-border-top: rgba(255, 255, 255, 0.38);
   --lg-border-bottom: rgba(99, 120, 255, 0.32);
@@ -225,19 +225,22 @@ body.dark .ambient-bg {
 
 .svg-optical-engine {
   position: fixed;
-  width: 0;
-  height: 0;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
   pointer-events: none;
   z-index: -1;
 }
 
-/* Surface principale de la Navbar (Liquid Glass avec micro-flou optique ultra-subtil 0.18px) */
+/* Surface principale de la Navbar (Liquid Glass C2 pur sans blur parasite) */
 .lg-surface,
 #liquidNavbar.lg-surface {
   position: relative;
   background: var(--lg-navbar-bg) !important;
-  backdrop-filter: blur(0.18px) url(#lg-navbar-filter) !important;
-  -webkit-backdrop-filter: blur(0.18px) url(#lg-navbar-filter) !important;
+  backdrop-filter: url(#lg-navbar-filter) !important;
+  -webkit-backdrop-filter: url(#lg-navbar-filter) !important;
   box-shadow:
     inset 0 1.75px 1px 0 var(--lg-border-top),
     inset 0 -1.5px 1px 0 var(--lg-border-bottom),
