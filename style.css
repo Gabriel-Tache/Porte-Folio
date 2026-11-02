@@ -280,6 +280,7 @@ body.dark .lg-surface::before,
   );
 }
 
+
 /* Boutons, Tags & Badges autonomes sur la page (0px Blur Refraction) */
 .lg-btn {
   position: relative;
@@ -2960,4 +2961,125 @@ body.dark .pmodal__dialog,
     inset 0 -1px 1px rgba(10, 20, 80, 0.35),
     inset 0 0 0 1px rgba(255, 255, 255, 0.38),
     0 6px 16px rgba(0, 0, 0, 0.18) !important;
+}
+
+/* =========================================================================
+   MOTEUR LIQUID GLASS ADAPTATIF V24 (SAFARI MACOS, IOS IPHONE, FIREFOX & MOBILE)
+   ========================================================================= */
+
+/* En mode adapté (Safari / iOS / Firefox / Mobile), la navbar reste 100% transparente
+   et nette au centre, et concentre la réfraction + compression miroir sur ses bords masqués */
+#liquidNavbar.lg-adapted-mode {
+  background: var(--lg-navbar-bg) !important;
+  backdrop-filter: saturate(140%) contrast(103%) !important;
+  -webkit-backdrop-filter: saturate(140%) contrast(103%) !important;
+  overflow: hidden !important;
+}
+
+/* Anneau de réfraction optique masqué UNIQUEMENT sur le biseau (14px bord + 6.5px boutons) */
+.lg-bezel-refraction-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+  -webkit-mask-image: var(--lg-bezel-mask);
+  mask-image: var(--lg-bezel-mask);
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  backdrop-filter: blur(3px) saturate(210%) contrast(125%) brightness(108%);
+  -webkit-backdrop-filter: blur(3px) saturate(210%) contrast(125%) brightness(108%);
+  transform: translate3d(0, 0, 0);
+}
+
+/* Le contenu miroir à l'intérieur de l'anneau de biseau subit une compression verticale
+   et une dispersion chromatique RVB qui simulent la loi de Snell sur Safari / iOS / Firefox */
+.lg-bezel-refraction-ring .lg-mirror-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  user-select: none;
+  transform-origin: 0 0;
+  will-change: transform;
+  filter: saturate(165%) contrast(115%);
+  -webkit-filter: saturate(165%) contrast(115%);
+}
+
+.lg-bezel-refraction-ring .lg-mirror-content * {
+  text-shadow:
+    -1.8px -1px 0 rgba(255, 55, 95, 0.42),
+    1.8px 1px 0 rgba(45, 140, 255, 0.48) !important;
+}
+
+/* Anneau caustique & prismatique calculé depuis les normales (nx, ny) */
+.lg-bezel-caustic-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 2;
+  background-image: var(--lg-caustic-map);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  mix-blend-mode: normal;
+}
+
+/* Adaptation automatique de tous les boutons .lg-btn de la page sur Safari, iOS et Firefox */
+body.lg-adapted-env .badge-status.lg-btn,
+body.lg-adapted-env .icon.lg-btn,
+body.lg-adapted-env .role-badge.lg-btn,
+body.lg-adapted-env .entity-pill-logo.lg-btn,
+body.lg-adapted-env .tech-tags span.lg-btn,
+body.lg-adapted-env .pfe-badge.lg-btn,
+body.lg-adapted-env .skills-list span.lg-btn,
+body.lg-adapted-env .filter-btn.lg-btn,
+body.lg-adapted-env .project-category-tag.lg-btn,
+body.lg-adapted-env .project-mini-tags span.lg-btn,
+body.lg-adapted-env .project-cta.lg-btn,
+body.lg-adapted-env .contact-btn-box.lg-btn,
+body.lg-adapted-env .copy-email-btn.lg-btn,
+body.lg-adapted-env .btn-glass.lg-btn,
+body.lg-adapted-env .back-to-top.lg-btn {
+  backdrop-filter: saturate(195%) contrast(110%) brightness(105%) blur(1.2px) !important;
+  -webkit-backdrop-filter: saturate(195%) contrast(110%) brightness(105%) blur(1.2px) !important;
+  box-shadow:
+    inset 0 2px 1px 0 var(--lg-border-top),
+    inset 0 -1.5px 1.2px 0 rgba(50, 67, 214, 0.28),
+    inset 0 0 0 1px var(--lg-outer-ring),
+    0 8px 20px -4px rgba(15, 23, 42, 0.10) !important;
+}
+
+body.lg-adapted-env .btn-primary.lg-btn,
+body.lg-adapted-env .filter-btn.lg-btn.active {
+  backdrop-filter: saturate(200%) contrast(112%) blur(1.2px) !important;
+  -webkit-backdrop-filter: saturate(200%) contrast(112%) blur(1.2px) !important;
+  box-shadow:
+    inset 0 2px 1.2px rgba(255, 255, 255, 0.92),
+    inset 0 -1.8px 1.5px rgba(10, 20, 80, 0.62),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.48),
+    0 10px 24px -4px rgba(50, 67, 214, 0.45) !important;
+}
+
+/* Prisme spéculaire périphérique sur tous les boutons .lg-btn en mode Safari / iOS / Firefox */
+body.lg-adapted-env .lg-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.88) 0%,
+    rgba(56, 189, 248, 0.32) 28%,
+    rgba(99, 102, 241, 0.22) 72%,
+    rgba(255, 255, 255, 0.72) 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
 }
