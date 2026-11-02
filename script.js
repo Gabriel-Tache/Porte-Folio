@@ -333,24 +333,35 @@ if (window.ScrollReveal) {
 
 /*
 ================================================================================
-MOTEUR OPTIQUE LIQUID GLASS V8 — BASE V7 + MICRO-BISEAUX SUR BOUTONS DE NAVBAR
-- Conserve intégralement le biseau extérieur V7 (14px Desktop / 10px Mobile)
-  et son couloir central plat de 40px.
-- Grave un micro-biseau optique C2 (6px-7px) sur le contour de CHAQUE bouton
-  interne de la navbar (.nav-links a, #navActivePill, .theme-toggle, .btn-nav,
-  .nav-menu-btn) avec intérieur du bouton 100% plat (zéro distorsion du texte,
-  zéro ligne parasite).
-- Masque d'occlusion dynamique temps réel au-dessus de `.profile-img`.
+MOTEUR OPTIQUE LIQUID GLASS HYBRIDE UNIVERSEL V24
+- Moteur 1 (Chromium Desktop) : Réfraction SVG native `<feDisplacementMap>`
+- Moteur 2 (Safari macOS, iOS iPhone/iPad, Firefox, Android Mobile) :
+  Lentille de biseau masquée `.lg-bezel-refraction-ring` + Compression Optique
+  de Snell + Dispersion Chromatique RVB + Shader Caustique Procédural.
 ================================================================================
 */
 (() => {
   'use strict';
 
   const OPTICS = {
-    bezelDesktop: 14,    // Biseau extérieur V7 verrouillé (14px -> couloir central de 40px)
-    bezelMobile: 10,     // Biseau extérieur mobile V7 verrouillé (10px)
+    bezelDesktop: 14,
+    bezelMobile: 10,
     photoFeatherPx: 20
   };
+
+  // Détection précise : Seul Chromium Desktop supporte de façon fiable `backdrop-filter: url(#svg-displacement)`
+  const ua = navigator.userAgent || '';
+  const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
+  const isFirefox = /firefox/i.test(ua);
+  const isMobileTouch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+  const urlParams = new URLSearchParams(window.location.search);
+  const forceAdapted = urlParams.get('adapted') === '1' || urlParams.get('mirror') === '1';
+  const useAdaptedLiquidGlass = forceAdapted || isIOS || isSafari || isFirefox || isMobileTouch;
+
+  if (useAdaptedLiquidGlass) {
+    document.body.classList.add('lg-adapted-env');
+  }
 
   const state = {
     mouseX: window.innerWidth * 0.5,
@@ -365,27 +376,14 @@ MOTEUR OPTIQUE LIQUID GLASS V8 — BASE V7 + MICRO-BISEAUX SUR BOUTONS DE NAVBAR
 
   const XLINK_NS = 'http://www.w3.org/1999/xlink';
 
-  function setFeImageHref(feImageEl, dataUrl) {
+  function setFeImageHref(feImageEl, dataUrl, w, h) {
     if (!feImageEl || !dataUrl) return;
+    if (w && h) {
+      feImageEl.setAttribute('width', String(w));
+      feImageEl.setAttribute('height', String(h));
+    }
     feImageEl.setAttribute('href', dataUrl);
     feImageEl.setAttributeNS(XLINK_NS, 'xlink:href', dataUrl);
-    const parentFilter = feImageEl.parentElement;
-    if (parentFilter && parentFilter.tagName.toLowerCase() === 'filter') {
-      // Force Chromium/WebKit à invalider le cache GPU du filtre SVG
-      parentFilter.setAttribute('x', '0%');
-    }
-  }
-
-  function bindBackdropFiltersInline() {
-    if (navbarEl) {
-      navbarEl.style.webkitBackdropFilter = 'url(#lg-navbar-filter)';
-      navbarEl.style.backdropFilter = 'url(#lg-navbar-filter)';
-    }
-    document.querySelectorAll('.lg-btn').forEach(el => {
-      if (el.closest('.mobile-nav-drawer') || el.closest('.pmodal__dialog')) return;
-      el.style.webkitBackdropFilter = 'url(#lg-btn-filter)';
-      el.style.backdropFilter = 'url(#lg-btn-filter)';
-    });
   }
 
   function smootherstep(edge0, edge1, x) {
@@ -402,11 +400,6 @@ MOTEUR OPTIQUE LIQUID GLASS V8 — BASE V7 + MICRO-BISEAUX SUR BOUTONS DE NAVBAR
     return outDist + inDist - r;
   }
 
-  /**
-   * Calcule le biseau optique équilibré V7 (pour le contour de la navbar, des boutons et de chaque sous-bouton) :
-   * - Zéro distorsion dès que inwardDist >= bezel (cœur 100% plat).
-   * - Courbe C2 sans aucune cassure.
-   */
   function evalBalancedOuterBezel(x, y, cx, cy, halfW, halfH, cornerRadius, bezelPx) {
     const r = Math.max(2, Math.min(cornerRadius, halfW - 1, halfH - 1));
     const bezel = Math.min(bezelPx, r * 0.80);
@@ -442,21 +435,79 @@ MOTEUR OPTIQUE LIQUID GLASS V8 — BASE V7 + MICRO-BISEAUX SUR BOUTONS DE NAVBAR
   const navLinksContainer = document.getElementById('navLinks');
   const activePillEl = document.getElementById('navActivePill');
   const profileImgEl = document.querySelector('.profile-img');
+  const mainWrapperEl = document.querySelector('main.wrapper');
 
   if (!navbarEl || !navMapEl) return;
 
   const navLinks = navLinksContainer ? Array.from(navLinksContainer.querySelectorAll('a')) : [];
 
+  // Canvases réutilisables (Normal Map SVG + Masque Biseau WebKit + Shader Caustique WebKit)
   const navCanvas = document.createElement('canvas');
   const navCtx = navCanvas.getContext('2d');
   let navImgData = null;
 
+  const maskCanvas = document.createElement('canvas');
+  const maskCtx = maskCanvas.getContext('2d');
+  let maskImgData = null;
+
+  const causticCanvas = document.createElement('canvas');
+  const causticCtx = causticCanvas.getContext('2d');
+  let causticImgData = null;
+
+  let refractionRingEl = null;
+  let causticRingEl = null;
+  let mirrorContentEl = null;
+
+  function setupAdaptedDOMLayersIfNeeded() {
+    if (!useAdaptedLiquidGlass || !navbarEl || refractionRingEl) return;
+
+    navbarEl.classList.add('lg-adapted-mode');
+
+    refractionRingEl = document.createElement('div');
+    refractionRingEl.className = 'lg-bezel-refraction-ring';
+    refractionRingEl.setAttribute('aria-hidden', 'true');
+
+    if (mainWrapperEl) {
+      mirrorContentEl = document.createElement('div');
+      mirrorContentEl.className = 'lg-mirror-content';
+
+      const clonedMain = mainWrapperEl.cloneNode(true);
+      clonedMain.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
+      clonedMain.querySelectorAll('[style*="visibility"], [style*="opacity"]').forEach(el => {
+        el.style.visibility = 'visible';
+        el.style.opacity = '1';
+        el.style.transform = 'none';
+      });
+
+      mirrorContentEl.appendChild(clonedMain);
+      refractionRingEl.appendChild(mirrorContentEl);
+    }
+
+    causticRingEl = document.createElement('div');
+    causticRingEl.className = 'lg-bezel-caustic-ring';
+    causticRingEl.setAttribute('aria-hidden', 'true');
+
+    navbarEl.insertBefore(causticRingEl, navbarEl.firstChild);
+    navbarEl.insertBefore(refractionRingEl, navbarEl.firstChild);
+    syncAdaptedMirrorPosition();
+  }
+
   /**
-   * Précalcule la Normal Map composite de la Navbar :
-   * 1. Biseau extérieur V7 (14px Desktop / 10px Mobile).
-   * 2. Micro-biseaux optiques (6px-7px) sur le contour exact de chaque bouton interne de la navbar
-   *    (.nav-links a, #navActivePill, .theme-toggle, .btn-nav, .nav-menu-btn).
+   * Synchronise la position du miroir comprimé à l'intérieur de l'anneau de biseau (14px)
+   * pour créer une vraie distorsion optique de bord sur Safari / iOS / Firefox !
    */
+  function syncAdaptedMirrorPosition() {
+    if (!useAdaptedLiquidGlass || !mirrorContentEl || !mainWrapperEl || !navbarEl) return;
+    const navRect = navbarEl.getBoundingClientRect();
+    const mainRect = mainWrapperEl.getBoundingClientRect();
+
+    // Décalage optique amplifié sur les bords pour courber le texte entrant dans la barre
+    const offsetX = mainRect.left - navRect.left;
+    const offsetY = (mainRect.top - navRect.top) - 6;
+    mirrorContentEl.style.width = `${mainRect.width}px`;
+    mirrorContentEl.style.transform = `translate3d(${offsetX.toFixed(1)}px, ${offsetY.toFixed(1)}px, 0) scaleY(0.74)`;
+  }
+
   function buildBaseNavbarNormals() {
     const navRect = navbarEl.getBoundingClientRect();
     const w = Math.max(120, Math.round(navRect.width || 1060));
@@ -472,10 +523,18 @@ MOTEUR OPTIQUE LIQUID GLASS V8 — BASE V7 + MICRO-BISEAUX SUR BOUTONS DE NAVBAR
       navCanvas.width = w;
       navCanvas.height = h;
       navImgData = navCtx.createImageData(w, h);
+
+      if (useAdaptedLiquidGlass) {
+        maskCanvas.width = w;
+        maskCanvas.height = h;
+        maskImgData = maskCtx.createImageData(w, h);
+
+        causticCanvas.width = w;
+        causticCanvas.height = h;
+        causticImgData = causticCtx.createImageData(w, h);
+      }
     }
 
-    // Collecte des boutons internes de la navbar :
-    // Rétablissement du vrai Liquid Glass optique sur le contour de chaque bouton (centre 100% plat)
     const subButtons = [];
     const addSubButton = (el, bezelPx, strength) => {
       if (!el) return;
@@ -496,11 +555,8 @@ MOTEUR OPTIQUE LIQUID GLASS V8 — BASE V7 + MICRO-BISEAUX SUR BOUTONS DE NAVBAR
       });
     };
 
-    // 1. Les 7 boutons de liens (.nav-links a)
     navLinks.forEach(link => addSubButton(link, 6.5, 0.58));
-    // 2. La pilule active coulissante (#navActivePill)
     addSubButton(activePillEl, 7.5, 0.78);
-    // 3. Les boutons d'action à droite (Lune/Soleil, Mon CV, Menu Burger mobile)
     navbarEl.querySelectorAll('.theme-toggle, .btn-nav, .nav-menu-btn').forEach(btn => {
       addSubButton(btn, 7.5, 0.82);
     });
@@ -526,7 +582,6 @@ MOTEUR OPTIQUE LIQUID GLASS V8 — BASE V7 + MICRO-BISEAUX SUR BOUTONS DE NAVBAR
         let nx = bezelVec.nx;
         let ny = bezelVec.ny;
 
-        // Micro-biseau optique sur le contour de chaque bouton interne de la navbar
         for (let i = 0; i < subButtons.length; i++) {
           const sb = subButtons[i];
           if (Math.abs(px - sb.cx) <= sb.halfW && Math.abs(py - sb.cy) <= sb.halfH) {
@@ -579,9 +634,12 @@ MOTEUR OPTIQUE LIQUID GLASS V8 — BASE V7 + MICRO-BISEAUX SUR BOUTONS DE NAVBAR
     state.wasOverlappingPhoto = hasPhotoOverlap;
 
     const data = navImgData.data;
+    const mData = useAdaptedLiquidGlass && maskImgData ? maskImgData.data : null;
+    const cData = useAdaptedLiquidGlass && causticImgData ? causticImgData.data : null;
     const normals = state.baseNavNormals;
     const innerR = Math.max(0, photoR - 2);
     const outerR = photoR + feather;
+    const isDark = document.body.classList.contains('dark');
 
     for (let y = 0; y < h; y++) {
       const py = y + 0.5;
@@ -598,6 +656,10 @@ MOTEUR OPTIQUE LIQUID GLASS V8 — BASE V7 + MICRO-BISEAUX SUR BOUTONS DE NAVBAR
           data[pIdx + 1] = 128;
           data[pIdx + 2] = 255;
           data[pIdx + 3] = 255;
+          if (mData) {
+            mData[pIdx] = 0; mData[pIdx + 1] = 0; mData[pIdx + 2] = 0; mData[pIdx + 3] = 0;
+            cData[pIdx] = 0; cData[pIdx + 1] = 0; cData[pIdx + 2] = 0; cData[pIdx + 3] = 0;
+          }
           continue;
         }
 
@@ -618,11 +680,45 @@ MOTEUR OPTIQUE LIQUID GLASS V8 — BASE V7 + MICRO-BISEAUX SUR BOUTONS DE NAVBAR
         data[pIdx + 1] = Math.max(0, Math.min(255, Math.round(128 + ny * 127)));
         data[pIdx + 2] = Math.max(0, Math.min(255, Math.round(128 + nz * 127)));
         data[pIdx + 3] = 255;
+
+        // Remplissage des textures du moteur adapté Safari / iOS / Firefox
+        if (mData && cData) {
+          const mag = Math.min(1, Math.hypot(nx, ny) * 1.35);
+          mData[pIdx] = 255;
+          mData[pIdx + 1] = 255;
+          mData[pIdx + 2] = 255;
+          mData[pIdx + 3] = Math.round(Math.pow(mag, 0.72) * 255);
+
+          // Calcul caustique & chromatique (prisme bleu/cyan en haut-gauche, indigo/ambre en bas-droite)
+          const lightDot = Math.max(0, (-nx * 0.55 - ny * 0.75 + nz * 0.35));
+          const spec = Math.pow(lightDot, 6) * 0.85;
+          const rimAlpha = Math.min(1, mag * (isDark ? 0.52 : 0.65) + spec * 0.5);
+
+          if (ny < 0) {
+            // Bord supérieur : reflet cristallin + frange cyan
+            cData[pIdx]     = Math.round(210 + 45 * spec);
+            cData[pIdx + 1] = Math.round(235 + 20 * spec);
+            cData[pIdx + 2] = 255;
+          } else {
+            // Bord inférieur : réfraction saphir/indigo + spéculaire
+            cData[pIdx]     = Math.round(95 + 140 * spec);
+            cData[pIdx + 1] = Math.round(115 + 125 * spec);
+            cData[pIdx + 2] = 255;
+          }
+          cData[pIdx + 3] = Math.round(rimAlpha * 255);
+        }
       }
     }
 
     navCtx.putImageData(navImgData, 0, 0);
-    setFeImageHref(navMapEl, navCanvas.toDataURL('image/png'));
+    setFeImageHref(navMapEl, navCanvas.toDataURL('image/png'), w, h);
+
+    if (useAdaptedLiquidGlass && maskImgData && causticImgData) {
+      maskCtx.putImageData(maskImgData, 0, 0);
+      causticCtx.putImageData(causticImgData, 0, 0);
+      navbarEl.style.setProperty('--lg-bezel-mask', `url(${maskCanvas.toDataURL('image/png')})`);
+      navbarEl.style.setProperty('--lg-caustic-map', `url(${causticCanvas.toDataURL('image/png')})`);
+    }
   }
 
   function generateBalancedBezelMap(width, height, cornerRadius, bezelPx) {
@@ -663,16 +759,19 @@ MOTEUR OPTIQUE LIQUID GLASS V8 — BASE V7 + MICRO-BISEAUX SUR BOUTONS DE NAVBAR
   }
 
   function rebuildOpticalMaps() {
+    setupAdaptedDOMLayersIfNeeded();
     buildBaseNavbarNormals();
     renderNavbarMapWithPhotoMask(true);
+    if (useAdaptedLiquidGlass) {
+      syncAdaptedMirrorPosition();
+    }
 
     if (btnMapEl) {
-      setFeImageHref(btnMapEl, generateBalancedBezelMap(200, 50, 25, 11));
+      setFeImageHref(btnMapEl, generateBalancedBezelMap(200, 50, 25, 11), 200, 50);
     }
     if (panelMapEl) {
-      setFeImageHref(panelMapEl, generateBalancedBezelMap(480, 480, 28, 16));
+      setFeImageHref(panelMapEl, generateBalancedBezelMap(480, 480, 28, 16), 480, 480);
     }
-    bindBackdropFiltersInline();
   }
 
   window.rebuildLiquidGlassMaps = rebuildOpticalMaps;
@@ -730,6 +829,7 @@ MOTEUR OPTIQUE LIQUID GLASS V8 — BASE V7 + MICRO-BISEAUX SUR BOUTONS DE NAVBAR
     if (!scrollTicking) {
       scrollTicking = true;
       requestAnimationFrame(() => {
+        if (useAdaptedLiquidGlass) syncAdaptedMirrorPosition();
         renderNavbarMapWithPhotoMask(false);
         scrollTicking = false;
       });
@@ -750,24 +850,25 @@ MOTEUR OPTIQUE LIQUID GLASS V8 — BASE V7 + MICRO-BISEAUX SUR BOUTONS DE NAVBAR
     requestAnimationFrame(animateLight);
   }
 
-  function bootLiquidGlass() {
+  const ro = new ResizeObserver(() => {
+    const current = navLinksContainer ? (navLinksContainer.querySelector('a.active') || navLinks[0]) : null;
+    if (current) updateActivePill(current);
+    rebuildOpticalMaps();
+  });
+  ro.observe(navbarEl);
+
+  function boot() {
     const active = navLinksContainer ? (navLinksContainer.querySelector('a.active') || navLinks[0]) : null;
     if (active) updateActivePill(active);
     rebuildOpticalMaps();
   }
 
-  const ro = new ResizeObserver(() => {
-    bootLiquidGlass();
-  });
-  ro.observe(navbarEl);
-
   requestAnimationFrame(() => {
-    bootLiquidGlass();
+    boot();
     animateLight();
   });
-
-  window.addEventListener('load', bootLiquidGlass);
+  window.addEventListener('load', boot);
   if (document.fonts && document.fonts.ready) {
-    document.fonts.ready.then(bootLiquidGlass);
+    document.fonts.ready.then(boot);
   }
 })();
