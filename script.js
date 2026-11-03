@@ -333,15 +333,13 @@ if (window.ScrollReveal) {
 
 /*
 ================================================================================
-MOTEUR OPTIQUE LIQUID GLASS V25 — UNIVERSEL (CHROME, EDGE, OPERA, SAFARI & MOBILE)
-- Chromium (Desktop, Android & DevTools Mobile) :
-  Filtre SVG `#lg-navbar-filter` avec adaptation automatique des échelles RVB
-  sur Mobile (12 / 15 / 18 et biseau 8px) pour ZÉRO divergence sur petit écran,
-  et (24 / 32 / 40 et biseau 14px) sur Desktop.
-- Safari (macOS & iOS iPhone/iPad) et Firefox :
-  Zéro clone DOM (aucune divergence possible), backdrop CoreAnimation +
-  Shader Canvas procédural `.lg-safari-rim-canvas` dessinant le ménisque optique
-  (14px bord + 6.5px boutons internes) et respectant l'occlusion `.profile-img`.
+MOTEUR OPTIQUE LIQUID GLASS V26 — CHROMIUM (DESKTOP + MOBILE) & VRAI SAFARI WEBKIT
+- Détection par `navigator.vendor` : Chrome, Edge, Opera et leur simulateur
+  Mobile DevTools restent 100% sur le filtre SVG `#lg-navbar-filter`.
+- Sur Mobile (`<= 1020px`), la Normal Map utilise uniquement le biseau extérieur
+  pur de la capsule (`8px`, échelles `12 / 15 / 18`) sans interférence des sous-boutons.
+- Suppression totale de `safariRimCanvas` (zéro halo bleu/gris peint, zéro trou
+  au-dessus de `.profile-img`).
 ================================================================================
 */
 (() => {
@@ -353,18 +351,22 @@ MOTEUR OPTIQUE LIQUID GLASS V25 — UNIVERSEL (CHROME, EDGE, OPERA, SAFARI & MOB
     photoFeatherPx: 20
   };
 
-  // Détection stricte du moteur de rendu :
-  // Chrome, Edge, Opera, Brave (Desktop, Android & DevTools Mobile) ont `window.chrome` (hors iOS)
+  // Détection exacte du moteur :
+  // Sur Chrome, Edge, Opera (y compris en mode iPhone dans l'inspecteur DevTools !),
+  // `navigator.vendor` est "Google Inc." et `window.chrome` existe.
+  // Sur un VRAI Safari macOS ou un VRAI iPhone iOS, `navigator.vendor` est "Apple Computer, Inc.".
   const ua = navigator.userAgent || '';
-  const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const vendor = navigator.vendor || '';
+  const isRealAppleWebKit = /Apple Computer/i.test(vendor) && (!window.chrome || /CriOS|FxiOS|EdgiOS/i.test(ua));
   const isFirefox = /firefox/i.test(ua);
-  const isChromiumEngine = !!window.chrome && !isIOS && !isFirefox;
   const urlParams = new URLSearchParams(window.location.search);
-  const forceSafari = urlParams.get('safari') === '1' || urlParams.get('adapted') === '1';
-  const isSafariOrFirefox = forceSafari || !isChromiumEngine;
+  const forceSafari = urlParams.get('safari') === '1';
+  const isSafariOrFirefox = forceSafari || isRealAppleWebKit || isFirefox;
 
   if (isSafariOrFirefox) {
     document.body.classList.add('lg-safari-engine');
+  } else {
+    document.body.classList.remove('lg-safari-engine');
   }
 
   const state = {
@@ -404,11 +406,6 @@ MOTEUR OPTIQUE LIQUID GLASS V25 — UNIVERSEL (CHROME, EDGE, OPERA, SAFARI & MOB
     return outDist + inDist - r;
   }
 
-  /**
-   * Calcule le biseau optique équilibré avec normale sortante (+dx/len, +dy/len) :
-   * - Zéro distorsion dès que inwardDist >= bezel (cœur 100% plat).
-   * - Courbe C2 sans aucune pliure ni divergence.
-   */
   function evalBalancedOuterBezel(x, y, cx, cy, halfW, halfH, cornerRadius, bezelPx) {
     const r = Math.max(2, Math.min(cornerRadius, halfW - 1, halfH - 1));
     const bezel = Math.min(bezelPx, r * 0.80);
@@ -450,33 +447,18 @@ MOTEUR OPTIQUE LIQUID GLASS V25 — UNIVERSEL (CHROME, EDGE, OPERA, SAFARI & MOB
 
   if (!navbarEl || !navMapEl) return;
 
+  // Nettoyage de sécurité si un ancien canvas Safari existait
+  navbarEl.querySelectorAll('.lg-safari-rim-canvas').forEach(el => el.remove());
+
   const navLinks = navLinksContainer ? Array.from(navLinksContainer.querySelectorAll('a')) : [];
 
   const navCanvas = document.createElement('canvas');
   const navCtx = navCanvas.getContext('2d');
   let navImgData = null;
 
-  // Canvas de ménisque optique direct pour Safari (macOS & iOS) et Firefox
-  let safariRimCanvas = null;
-  let safariRimCtx = null;
-  let safariRimImgData = null;
-
-  function ensureSafariRimCanvas() {
-    if (!isSafariOrFirefox || safariRimCanvas) return;
-    safariRimCanvas = document.createElement('canvas');
-    safariRimCanvas.className = 'lg-safari-rim-canvas';
-    safariRimCanvas.setAttribute('aria-hidden', 'true');
-    safariRimCtx = safariRimCanvas.getContext('2d');
-    navbarEl.insertBefore(safariRimCanvas, navbarEl.firstChild);
-  }
-
-  /**
-   * Adapte dynamiquement les échelles RVB du filtre SVG selon la taille de la navbar
-   * (Desktop vs Mobile) pour éviter toute divergence chromatique ou géométrique sur Mobile.
-   */
   function syncResponsiveFilterScales() {
     if (!dispREl || !dispGEl || !dispBEl) return;
-    const isMobileViewport = window.innerWidth <= 768;
+    const isMobileViewport = window.innerWidth <= 1020;
     if (isMobileViewport) {
       dispREl.setAttribute('scale', '12.0');
       dispGEl.setAttribute('scale', '15.0');
@@ -489,13 +471,12 @@ MOTEUR OPTIQUE LIQUID GLASS V25 — UNIVERSEL (CHROME, EDGE, OPERA, SAFARI & MOB
   }
 
   function buildBaseNavbarNormals() {
-    ensureSafariRimCanvas();
     syncResponsiveFilterScales();
 
     const navRect = navbarEl.getBoundingClientRect();
     const w = Math.max(120, Math.round(navRect.width || 1060));
     const h = Math.max(44, Math.round(navRect.height || 68));
-    const isCompactNav = h < 60 || window.innerWidth <= 768;
+    const isCompactNav = h < 60 || window.innerWidth <= 1020;
 
     state.navWidth = w;
     state.navHeight = h;
@@ -509,42 +490,34 @@ MOTEUR OPTIQUE LIQUID GLASS V25 — UNIVERSEL (CHROME, EDGE, OPERA, SAFARI & MOB
       navImgData = navCtx.createImageData(w, h);
     }
 
-    if (isSafariOrFirefox && safariRimCanvas && (safariRimCanvas.width !== w || safariRimCanvas.height !== h)) {
-      safariRimCanvas.width = w;
-      safariRimCanvas.height = h;
-      safariRimImgData = safariRimCtx.createImageData(w, h);
-    }
-
     const subButtons = [];
-    const addSubButton = (el, bezelPx, strength) => {
-      if (!el) return;
-      const style = window.getComputedStyle(el);
-      if (style.display === 'none' || style.visibility === 'hidden' || parseFloat(style.opacity) === 0) return;
-      const r = el.getBoundingClientRect();
-      if (r.width < 10 || r.height < 10) return;
-      const halfW = r.width * 0.5;
-      const halfH = r.height * 0.5;
-      subButtons.push({
-        cx: (r.left - navRect.left) + halfW,
-        cy: (r.top - navRect.top) + halfH,
-        halfW,
-        halfH,
-        radius: Math.min(halfW, halfH),
-        bezel: Math.min(bezelPx, halfH * 0.42),
-        strength
+    // Sur Desktop (> 1020px), on ajoute les micro-biseaux des boutons internes dans le couloir central
+    if (!isCompactNav) {
+      const addSubButton = (el, bezelPx, strength) => {
+        if (!el) return;
+        const style = window.getComputedStyle(el);
+        if (style.display === 'none' || style.visibility === 'hidden' || parseFloat(style.opacity) === 0) return;
+        const r = el.getBoundingClientRect();
+        if (r.width < 10 || r.height < 10) return;
+        const halfW = r.width * 0.5;
+        const halfH = r.height * 0.5;
+        subButtons.push({
+          cx: (r.left - navRect.left) + halfW,
+          cy: (r.top - navRect.top) + halfH,
+          halfW,
+          halfH,
+          radius: Math.min(halfW, halfH),
+          bezel: Math.min(bezelPx, halfH * 0.42),
+          strength
+        });
+      };
+
+      navLinks.forEach(link => addSubButton(link, 6.0, 0.48));
+      addSubButton(activePillEl, 7.0, 0.68);
+      navbarEl.querySelectorAll('.theme-toggle, .btn-nav').forEach(btn => {
+        addSubButton(btn, 6.5, 0.65);
       });
-    };
-
-    const btnBezel = isCompactNav ? 5.0 : 6.5;
-    const actionBezel = isCompactNav ? 5.5 : 7.5;
-    const btnStrength = isCompactNav ? 0.42 : 0.58;
-    const actionStrength = isCompactNav ? 0.55 : 0.80;
-
-    navLinks.forEach(link => addSubButton(link, btnBezel, btnStrength));
-    addSubButton(activePillEl, actionBezel, actionStrength);
-    navbarEl.querySelectorAll('.theme-toggle, .btn-nav, .nav-menu-btn').forEach(btn => {
-      addSubButton(btn, actionBezel, actionStrength);
-    });
+    }
 
     const halfW = w * 0.5;
     const halfH = h * 0.5;
@@ -567,13 +540,19 @@ MOTEUR OPTIQUE LIQUID GLASS V25 — UNIVERSEL (CHROME, EDGE, OPERA, SAFARI & MOB
         let nx = bezelVec.nx;
         let ny = bezelVec.ny;
 
-        for (let i = 0; i < subButtons.length; i++) {
-          const sb = subButtons[i];
-          if (Math.abs(px - sb.cx) <= sb.halfW && Math.abs(py - sb.cy) <= sb.halfH) {
-            const subVec = evalBalancedOuterBezel(px, py, sb.cx, sb.cy, sb.halfW, sb.halfH, sb.radius, sb.bezel);
-            if (subVec && (subVec.nx !== 0 || subVec.ny !== 0)) {
-              nx += subVec.nx * sb.strength;
-              ny += subVec.ny * sb.strength;
+        // Pondération douce : les micro-biseaux des boutons n'interfèrent jamais avec le biseau extérieur
+        const outerMag = Math.min(1, Math.hypot(nx, ny) * 1.4);
+        const innerWeight = 1 - outerMag;
+
+        if (innerWeight > 0.05) {
+          for (let i = 0; i < subButtons.length; i++) {
+            const sb = subButtons[i];
+            if (Math.abs(px - sb.cx) <= sb.halfW && Math.abs(py - sb.cy) <= sb.halfH) {
+              const subVec = evalBalancedOuterBezel(px, py, sb.cx, sb.cy, sb.halfW, sb.halfH, sb.radius, sb.bezel);
+              if (subVec && (subVec.nx !== 0 || subVec.ny !== 0)) {
+                nx += subVec.nx * sb.strength * innerWeight;
+                ny += subVec.ny * sb.strength * innerWeight;
+              }
             }
           }
         }
@@ -585,6 +564,8 @@ MOTEUR OPTIQUE LIQUID GLASS V25 — UNIVERSEL (CHROME, EDGE, OPERA, SAFARI & MOB
   }
 
   function renderNavbarMapWithPhotoMask(forceRender = false) {
+    if (isSafariOrFirefox) return; // Safari utilise le compositeur natif CSS ::after sans canvas
+
     if (!state.baseNavNormals || !navImgData) {
       buildBaseNavbarNormals();
     }
@@ -619,11 +600,9 @@ MOTEUR OPTIQUE LIQUID GLASS V25 — UNIVERSEL (CHROME, EDGE, OPERA, SAFARI & MOB
     state.wasOverlappingPhoto = hasPhotoOverlap;
 
     const data = navImgData.data;
-    const sData = isSafariOrFirefox && safariRimImgData ? safariRimImgData.data : null;
     const normals = state.baseNavNormals;
     const innerR = Math.max(0, photoR - 4);
     const outerR = photoR + feather;
-    const isDark = document.body.classList.contains('dark');
 
     for (let y = 0; y < h; y++) {
       const py = y + 0.5;
@@ -640,9 +619,6 @@ MOTEUR OPTIQUE LIQUID GLASS V25 — UNIVERSEL (CHROME, EDGE, OPERA, SAFARI & MOB
           data[pIdx + 1] = 128;
           data[pIdx + 2] = 255;
           data[pIdx + 3] = 255;
-          if (sData) {
-            sData[pIdx] = 0; sData[pIdx + 1] = 0; sData[pIdx + 2] = 0; sData[pIdx + 3] = 0;
-          }
           continue;
         }
 
@@ -663,40 +639,11 @@ MOTEUR OPTIQUE LIQUID GLASS V25 — UNIVERSEL (CHROME, EDGE, OPERA, SAFARI & MOB
         data[pIdx + 1] = Math.max(0, Math.min(255, Math.round(128 + ny * 127)));
         data[pIdx + 2] = Math.max(0, Math.min(255, Math.round(128 + nz * 127)));
         data[pIdx + 3] = 255;
-
-        // Rendu du ménisque optique & prisme de Fresnel pour Safari (macOS/iOS) et Firefox
-        if (sData) {
-          const mag = Math.min(1, Math.hypot(nx, ny) * 1.25);
-          if (mag < 0.02) {
-            sData[pIdx] = 0; sData[pIdx + 1] = 0; sData[pIdx + 2] = 0; sData[pIdx + 3] = 0;
-          } else {
-            // Anneau de réfraction interne + reflet spéculaire de bord
-            const lightTop = Math.max(0, -ny * 0.75 - nx * 0.35);
-            const lightBot = Math.max(0, ny * 0.75 + nx * 0.35);
-            const rimBand = Math.sin(mag * Math.PI); // Crête optique au cœur du biseau
-
-            if (isDark) {
-              sData[pIdx]     = Math.round(140 + 115 * lightTop);
-              sData[pIdx + 1] = Math.round(165 + 90 * lightTop);
-              sData[pIdx + 2] = 255;
-              sData[pIdx + 3] = Math.round(Math.min(1, rimBand * 0.32 + mag * 0.24) * 255);
-            } else {
-              sData[pIdx]     = Math.round(225 + 30 * lightTop - 35 * lightBot);
-              sData[pIdx + 1] = Math.round(236 + 19 * lightTop - 25 * lightBot);
-              sData[pIdx + 2] = 255;
-              sData[pIdx + 3] = Math.round(Math.min(1, rimBand * 0.42 + mag * 0.28) * 255);
-            }
-          }
-        }
       }
     }
 
     navCtx.putImageData(navImgData, 0, 0);
     setFeImageHref(navMapEl, navCanvas.toDataURL('image/png'), w, h);
-
-    if (isSafariOrFirefox && safariRimCtx && safariRimImgData) {
-      safariRimCtx.putImageData(safariRimImgData, 0, 0);
-    }
   }
 
   function generateBalancedBezelMap(width, height, cornerRadius, bezelPx) {
@@ -737,6 +684,7 @@ MOTEUR OPTIQUE LIQUID GLASS V25 — UNIVERSEL (CHROME, EDGE, OPERA, SAFARI & MOB
   }
 
   function rebuildOpticalMaps() {
+    if (isSafariOrFirefox) return;
     buildBaseNavbarNormals();
     renderNavbarMapWithPhotoMask(true);
 
@@ -762,7 +710,10 @@ MOTEUR OPTIQUE LIQUID GLASS V25 — UNIVERSEL (CHROME, EDGE, OPERA, SAFARI & MOB
     activePillEl.style.width = `${newWidth}px`;
     activePillEl.style.transform = `translate3d(${newX}px, 0, 0)`;
 
-    if (lastPillTarget === targetLink) return;
+    if (isSafariOrFirefox || lastPillTarget === targetLink) {
+      lastPillTarget = targetLink;
+      return;
+    }
     lastPillTarget = targetLink;
 
     if (pillAnimRaf) cancelAnimationFrame(pillAnimRaf);
@@ -798,15 +749,9 @@ MOTEUR OPTIQUE LIQUID GLASS V25 — UNIVERSEL (CHROME, EDGE, OPERA, SAFARI & MOB
     });
   }
 
-  // Mise à jour du ménisque Safari lors du changement de thème Clair / Sombre
-  document.querySelectorAll('.toggle-switch').forEach(sw => {
-    sw.addEventListener('click', () => {
-      requestAnimationFrame(() => renderNavbarMapWithPhotoMask(true));
-    });
-  });
-
   let scrollTicking = false;
   window.addEventListener('scroll', () => {
+    if (isSafariOrFirefox) return;
     if (!scrollTicking) {
       scrollTicking = true;
       requestAnimationFrame(() => {
