@@ -20,43 +20,43 @@
   <title>Gabriel Taché | Ingénieur Cybersécurité, Systèmes &amp; Réseaux</title>
 </head>
 <body>
-  <!-- MOTEUR OPTIQUE SVG LIQUID GLASS (V7 - DOSAGE ÉQUILIBRÉ HAUT/BAS) -->
+  <!-- MOTEUR OPTIQUE SVG LIQUID GLASS (PUISSANCE D'ORIGINE RESTAURÉE SUR DESKTOP) -->
   <svg class="svg-optical-engine" aria-hidden="true">
     <defs>
-      <!-- 1. Filtre Optique de la Navbar pour Chromium Desktop (R=24.0, G=32.0, B=40.0) -->
+      <!-- 1. Filtre Optique de la Navbar (45px center, 30% RVB dispersion : R=31.5, G=45.0, B=58.5) -->
       <filter id="lg-navbar-filter" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
         <feImage id="lg-navbar-map" result="normalMap" preserveAspectRatio="none" />
-        <feDisplacementMap id="lg-nav-disp-r" in="SourceGraphic" in2="normalMap" scale="24.0" xChannelSelector="R" yChannelSelector="G" result="dispR" />
+        <feDisplacementMap id="lg-nav-disp-r" in="SourceGraphic" in2="normalMap" scale="31.5" xChannelSelector="R" yChannelSelector="G" result="dispR" />
         <feColorMatrix in="dispR" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="chanR" />
-        <feDisplacementMap id="lg-nav-disp-g" in="SourceGraphic" in2="normalMap" scale="32.0" xChannelSelector="R" yChannelSelector="G" result="dispG" />
+        <feDisplacementMap id="lg-nav-disp-g" in="SourceGraphic" in2="normalMap" scale="45.0" xChannelSelector="R" yChannelSelector="G" result="dispG" />
         <feColorMatrix in="dispG" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="chanG" />
-        <feDisplacementMap id="lg-nav-disp-b" in="SourceGraphic" in2="normalMap" scale="40.0" xChannelSelector="R" yChannelSelector="G" result="dispB" />
+        <feDisplacementMap id="lg-nav-disp-b" in="SourceGraphic" in2="normalMap" scale="58.5" xChannelSelector="R" yChannelSelector="G" result="dispB" />
         <feColorMatrix in="dispB" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="chanB" />
         <feComposite in="chanR" in2="chanG" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="rg" />
         <feComposite in="rg" in2="chanB" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="refracted" />
       </filter>
 
-      <!-- 2. Filtre Optique pour la Modale Architecture Projet (#project-modal) -->
+      <!-- 2. Filtre Optique pour Panneaux -->
       <filter id="lg-panel-filter" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
         <feImage id="lg-panel-map" result="panelMap" preserveAspectRatio="none" />
-        <feDisplacementMap in="SourceGraphic" in2="panelMap" scale="21.0" xChannelSelector="R" yChannelSelector="G" result="pR" />
+        <feDisplacementMap in="SourceGraphic" in2="panelMap" scale="28.0" xChannelSelector="R" yChannelSelector="G" result="pR" />
         <feColorMatrix in="pR" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="pcR" />
-        <feDisplacementMap in="SourceGraphic" in2="panelMap" scale="28.0" xChannelSelector="R" yChannelSelector="G" result="pG" />
+        <feDisplacementMap in="SourceGraphic" in2="panelMap" scale="40.0" xChannelSelector="R" yChannelSelector="G" result="pG" />
         <feColorMatrix in="pG" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="pcG" />
-        <feDisplacementMap in="SourceGraphic" in2="panelMap" scale="35.0" xChannelSelector="R" yChannelSelector="G" result="pB" />
+        <feDisplacementMap in="SourceGraphic" in2="panelMap" scale="52.0" xChannelSelector="R" yChannelSelector="G" result="pB" />
         <feColorMatrix in="pB" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="pcB" />
         <feComposite in="pcR" in2="pcG" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="pcRG" />
         <feComposite in="pcRG" in2="pcB" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="panelRefracted" />
       </filter>
 
-      <!-- 3. Filtre Optique pour les Boutons autonomes sur Chromium Desktop -->
+      <!-- 3. Filtre Optique pour tous les Boutons, Tags & Badges autonomes (.lg-btn : R=24.6, G=35.1, B=45.6) -->
       <filter id="lg-btn-filter" x="0%" y="0%" width="100%" height="100%" color-interpolation-filters="sRGB">
         <feImage id="lg-btn-map" result="btnMap" preserveAspectRatio="none" />
-        <feDisplacementMap in="SourceGraphic" in2="btnMap" scale="18.0" xChannelSelector="R" yChannelSelector="G" result="bR" />
+        <feDisplacementMap id="lg-btn-disp-r" in="SourceGraphic" in2="btnMap" scale="24.6" xChannelSelector="R" yChannelSelector="G" result="bR" />
         <feColorMatrix in="bR" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="cR" />
-        <feDisplacementMap in="SourceGraphic" in2="btnMap" scale="24.0" xChannelSelector="R" yChannelSelector="G" result="bG" />
+        <feDisplacementMap id="lg-btn-disp-g" in="SourceGraphic" in2="btnMap" scale="35.1" xChannelSelector="R" yChannelSelector="G" result="bG" />
         <feColorMatrix in="bG" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="cG" />
-        <feDisplacementMap in="SourceGraphic" in2="btnMap" scale="30.0" xChannelSelector="R" yChannelSelector="G" result="bB" />
+        <feDisplacementMap id="lg-btn-disp-b" in="SourceGraphic" in2="btnMap" scale="45.6" xChannelSelector="R" yChannelSelector="G" result="bB" />
         <feColorMatrix in="bB" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="cB" />
         <feComposite in="cR" in2="cG" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="cRG" />
         <feComposite in="cRG" in2="cB" operator="arithmetic" k1="0" k2="1" k3="1" k4="0" result="btnRefracted" />
