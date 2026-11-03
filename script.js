@@ -333,15 +333,13 @@ if (window.ScrollReveal) {
 
 /*
 ================================================================================
-MOTEUR OPTIQUE LIQUID GLASS V27 — ZÉRO DIVERGENCE (DESKTOP/MOBILE) & SAFARI LENS
-1. `setFeImageHref` sans attributs width/height forcés -> auto-adaptation 100%x100%
-   sur tous les boutons `.lg-btn` et toutes les tailles d'écran.
-2. `evalMonotonicInwardBezel` : normale entrante `-(dx/len), -(dy/len)` avec loi
-   cubique monotone `t^3 * 0.34` -> zéro échantillonnage hors-cadre, zéro repliement,
-   zéro divergence sur Desktop et Mobile.
-3. Safari (macOS & iOS) : double lentille physique de bord (`.lg-safari-lens-top`
-   & `.lg-safari-lens-bottom`, 12px) comprimant (`scaleY(0.56)`) les éléments
-   qui entrent/sortent par les bords de la navbar, avec occlusion sur `.profile-img`.
+MOTEUR OPTIQUE LIQUID GLASS V28 — CHROMIUM DESKTOP SVG & FALLBACK FROSTED PROPRE
+- Chromium Desktop (> 1020px) : Réfraction SVG `#lg-navbar-filter` (24 / 32 / 40)
+  avec biseau convexe C2 (14px), micro-biseaux sur les boutons internes et
+  masque d'occlusion sur `.profile-img`.
+- Safari (macOS/iOS), Firefox & Mobile (<= 1020px) : Fallback Apple Frosted
+  Liquid Glass (`blur(16px) saturate(190%)`) 100% fluide, zéro clone DOM,
+  zéro divergence.
 ================================================================================
 */
 (() => {
@@ -349,7 +347,6 @@ MOTEUR OPTIQUE LIQUID GLASS V27 — ZÉRO DIVERGENCE (DESKTOP/MOBILE) & SAFARI L
 
   const OPTICS = {
     bezelDesktop: 14,
-    bezelMobile: 9,
     photoFeatherPx: 20
   };
 
@@ -361,11 +358,14 @@ MOTEUR OPTIQUE LIQUID GLASS V27 — ZÉRO DIVERGENCE (DESKTOP/MOBILE) & SAFARI L
   const forceSafari = urlParams.get('safari') === '1';
   const isSafariOrFirefox = forceSafari || isRealAppleWebKit || isFirefox;
 
-  if (isSafariOrFirefox) {
-    document.body.classList.add('lg-safari-engine');
-  } else {
-    document.body.classList.remove('lg-safari-engine');
+  function syncFallbackClass() {
+    if (isSafariOrFirefox || window.innerWidth <= 1020) {
+      document.body.classList.add('lg-safari-engine');
+    } else {
+      document.body.classList.remove('lg-safari-engine');
+    }
   }
+  syncFallbackClass();
 
   const state = {
     mouseX: window.innerWidth * 0.5,
@@ -380,11 +380,6 @@ MOTEUR OPTIQUE LIQUID GLASS V27 — ZÉRO DIVERGENCE (DESKTOP/MOBILE) & SAFARI L
 
   const XLINK_NS = 'http://www.w3.org/1999/xlink';
 
-  /**
-   * Ne JAMAIS fixer d'attributs `width` ou `height` en pixels sur `<feImage>` :
-   * sans eux, `preserveAspectRatio="none"` étire automatiquement la Normal Map
-   * à 100% x 100% de chaque élément filtré (navbar et tous les boutons .lg-btn).
-   */
   function setFeImageHref(feImageEl, dataUrl) {
     if (!feImageEl || !dataUrl) return;
     feImageEl.removeAttribute('width');
@@ -407,14 +402,7 @@ MOTEUR OPTIQUE LIQUID GLASS V27 — ZÉRO DIVERGENCE (DESKTOP/MOBILE) & SAFARI L
     return outDist + inDist - r;
   }
 
-  /**
-   * Biseau optique monotone entrant :
-   * - Vecteur dirigé vers l'intérieur `-(dx/len), -(dy/len)` : n'échantillonne JAMAIS
-   *   en dehors de la boîte [0, w] x [0, h] de la navbar (élimine 100% du clamping de bord).
-   * - Profil cubique `t^3 * 0.34` : garantit `d(y_sample)/dy > 0` partout (élimine 100%
-   *   des lignes de repliement/divergence internes).
-   */
-  function evalMonotonicInwardBezel(x, y, cx, cy, halfW, halfH, cornerRadius, bezelPx) {
+  function evalBalancedOuterBezel(x, y, cx, cy, halfW, halfH, cornerRadius, bezelPx) {
     const r = Math.max(2, Math.min(cornerRadius, halfW - 1, halfH - 1));
     const bezel = Math.min(bezelPx, r * 0.80);
     const dist = sdRoundedBoxCentered(x, y, cx, cy, halfW, halfH, r);
@@ -427,7 +415,7 @@ MOTEUR OPTIQUE LIQUID GLASS V27 — ZÉRO DIVERGENCE (DESKTOP/MOBILE) & SAFARI L
     }
 
     const t = 1 - (inwardDist / bezel);
-    const curve = (t * t * t) * 0.34;
+    const curve = Math.pow(smootherstep(0, 1, t), 1.35);
 
     const eps = 1.0;
     const dx = sdRoundedBoxCentered(x + eps, y, cx, cy, halfW, halfH, r) -
@@ -437,8 +425,8 @@ MOTEUR OPTIQUE LIQUID GLASS V27 — ZÉRO DIVERGENCE (DESKTOP/MOBILE) & SAFARI L
     const len = Math.hypot(dx, dy) || 1;
 
     return {
-      nx: -(dx / len) * curve * 0.92,
-      ny: -(dy / len) * curve * 0.82
+      nx: (dx / len) * curve * 0.90,
+      ny: (dy / len) * curve * 0.72
     };
   }
 
@@ -446,16 +434,13 @@ MOTEUR OPTIQUE LIQUID GLASS V27 — ZÉRO DIVERGENCE (DESKTOP/MOBILE) & SAFARI L
   const navMapEl = document.getElementById('lg-navbar-map');
   const panelMapEl = document.getElementById('lg-panel-map');
   const btnMapEl = document.getElementById('lg-btn-map');
-  const dispREl = document.getElementById('lg-nav-disp-r');
-  const dispGEl = document.getElementById('lg-nav-disp-g');
-  const dispBEl = document.getElementById('lg-nav-disp-b');
   const navLinksContainer = document.getElementById('navLinks');
   const activePillEl = document.getElementById('navActivePill');
   const profileImgEl = document.querySelector('.profile-img');
-  const mainWrapperEl = document.querySelector('main.wrapper');
 
   if (!navbarEl || !navMapEl) return;
 
+  // Nettoyage de tout ancien élément expérimental éventuel
   navbarEl.querySelectorAll('.lg-safari-rim-canvas, .lg-safari-lenses').forEach(el => el.remove());
 
   const navLinks = navLinksContainer ? Array.from(navLinksContainer.querySelectorAll('a')) : [];
@@ -464,119 +449,17 @@ MOTEUR OPTIQUE LIQUID GLASS V27 — ZÉRO DIVERGENCE (DESKTOP/MOBILE) & SAFARI L
   const navCtx = navCanvas.getContext('2d');
   let navImgData = null;
 
-  // --- MOTEUR LENTICULAIRE DE BORD POUR VRAI SAFARI (MACOS & IOS) ---
-  let safariLensesWrap = null;
-  let safariTopInner = null;
-  let safariBotInner = null;
-
-  function setupSafariEdgeLenses() {
-    if (!isSafariOrFirefox || !navbarEl || !mainWrapperEl || safariLensesWrap) return;
-
-    safariLensesWrap = document.createElement('div');
-    safariLensesWrap.className = 'lg-safari-lenses';
-    safariLensesWrap.setAttribute('aria-hidden', 'true');
-
-    const topStrip = document.createElement('div');
-    topStrip.className = 'lg-safari-lens-top';
-    safariTopInner = document.createElement('div');
-    safariTopInner.className = 'lg-safari-lens-inner';
-
-    const botStrip = document.createElement('div');
-    botStrip.className = 'lg-safari-lens-bottom';
-    safariBotInner = document.createElement('div');
-    safariBotInner.className = 'lg-safari-lens-inner';
-
-    const createCleanClone = () => {
-      const clone = mainWrapperEl.cloneNode(true);
-      clone.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
-      clone.querySelectorAll('[style*="visibility"], [style*="opacity"]').forEach(el => {
-        el.style.visibility = 'visible';
-        el.style.opacity = '1';
-        el.style.transform = 'none';
-      });
-      return clone;
-    };
-
-    safariTopInner.appendChild(createCleanClone());
-    safariBotInner.appendChild(createCleanClone());
-
-    topStrip.appendChild(safariTopInner);
-    botStrip.appendChild(safariBotInner);
-    safariLensesWrap.appendChild(topStrip);
-    safariLensesWrap.appendChild(botStrip);
-
-    navbarEl.insertBefore(safariLensesWrap, navbarEl.firstChild);
-    syncSafariEdgeLenses();
-  }
-
-  function syncSafariEdgeLenses() {
-    if (!isSafariOrFirefox || !safariLensesWrap || !safariTopInner || !safariBotInner || !mainWrapperEl) return;
-
-    const navRect = navbarEl.getBoundingClientRect();
-    const mainRect = mainWrapperEl.getBoundingClientRect();
-    const scaleY = 0.56; // Compression optique du biseau de verre (Loi de Snell)
-
-    const dx = mainRect.left - navRect.left;
-    // Alignement de la lentille haute sur y = 0 de la navbar
-    const topDy = (mainRect.top - navRect.top) * scaleY;
-    // Alignement de la lentille basse sur y = navRect.height de la navbar
-    const stripH = navRect.height <= 56 ? 9 : 12;
-    const botEdgeInMain = (navRect.bottom - mainRect.top);
-    const botDy = stripH - botEdgeInMain * scaleY;
-
-    safariTopInner.style.width = `${mainRect.width}px`;
-    safariBotInner.style.width = `${mainRect.width}px`;
-    safariTopInner.style.transform = `translate3d(${dx.toFixed(1)}px, ${topDy.toFixed(1)}px, 0) scaleY(${scaleY})`;
-    safariBotInner.style.transform = `translate3d(${dx.toFixed(1)}px, ${botDy.toFixed(1)}px, 0) scaleY(${scaleY})`;
-
-    // Occlusion douce sur la photo de profil `.profile-img` (sans toucher à la bordure de la navbar !)
-    if (profileImgEl) {
-      const pRect = profileImgEl.getBoundingClientRect();
-      const photoCx = (pRect.left + pRect.width * 0.5) - navRect.left;
-      const photoCy = (pRect.top + pRect.height * 0.5) - navRect.top;
-      const photoR = Math.max(pRect.width, pRect.height) * 0.5;
-      const closestX = Math.max(0, Math.min(navRect.width, photoCx));
-      const closestY = Math.max(0, Math.min(navRect.height, photoCy));
-      const overlaps = ((photoCx - closestX) ** 2 + (photoCy - closestY) ** 2) < (photoR + 18) ** 2;
-
-      if (overlaps) {
-        const maskGrad = `radial-gradient(circle at ${photoCx.toFixed(0)}px ${photoCy.toFixed(0)}px, transparent ${Math.round(photoR)}px, #000 ${Math.round(photoR + 18)}px)`;
-        safariLensesWrap.style.webkitMaskImage = maskGrad;
-        safariLensesWrap.style.maskImage = maskGrad;
-      } else {
-        safariLensesWrap.style.webkitMaskImage = 'none';
-        safariLensesWrap.style.maskImage = 'none';
-      }
-    }
-  }
-
-  function syncResponsiveFilterScales() {
-    if (!dispREl || !dispGEl || !dispBEl) return;
-    const isMobileViewport = window.innerWidth <= 1020;
-    if (isMobileViewport) {
-      dispREl.setAttribute('scale', '10.0');
-      dispGEl.setAttribute('scale', '12.0');
-      dispBEl.setAttribute('scale', '14.0');
-    } else {
-      dispREl.setAttribute('scale', '18.0');
-      dispGEl.setAttribute('scale', '21.0');
-      dispBEl.setAttribute('scale', '24.0');
-    }
+  function isUsingFrostedFallback() {
+    return isSafariOrFirefox || window.innerWidth <= 1020;
   }
 
   function buildBaseNavbarNormals() {
-    if (isSafariOrFirefox) {
-      setupSafariEdgeLenses();
-      syncSafariEdgeLenses();
-      return;
-    }
-
-    syncResponsiveFilterScales();
+    syncFallbackClass();
+    if (isUsingFrostedFallback()) return;
 
     const navRect = navbarEl.getBoundingClientRect();
     const w = Math.max(120, Math.round(navRect.width || 1060));
     const h = Math.max(44, Math.round(navRect.height || 68));
-    const isCompactNav = h < 60 || window.innerWidth <= 1020;
 
     state.navWidth = w;
     state.navHeight = h;
@@ -591,37 +474,35 @@ MOTEUR OPTIQUE LIQUID GLASS V27 — ZÉRO DIVERGENCE (DESKTOP/MOBILE) & SAFARI L
     }
 
     const subButtons = [];
-    if (!isCompactNav) {
-      const addSubButton = (el, bezelPx, strength) => {
-        if (!el) return;
-        const style = window.getComputedStyle(el);
-        if (style.display === 'none' || style.visibility === 'hidden' || parseFloat(style.opacity) === 0) return;
-        const r = el.getBoundingClientRect();
-        if (r.width < 10 || r.height < 10) return;
-        const halfW = r.width * 0.5;
-        const halfH = r.height * 0.5;
-        subButtons.push({
-          cx: (r.left - navRect.left) + halfW,
-          cy: (r.top - navRect.top) + halfH,
-          halfW,
-          halfH,
-          radius: Math.min(halfW, halfH),
-          bezel: Math.min(bezelPx, halfH * 0.42),
-          strength
-        });
-      };
-
-      navLinks.forEach(link => addSubButton(link, 6.0, 0.55));
-      addSubButton(activePillEl, 7.0, 0.75);
-      navbarEl.querySelectorAll('.theme-toggle, .btn-nav').forEach(btn => {
-        addSubButton(btn, 6.5, 0.72);
+    const addSubButton = (el, bezelPx, strength) => {
+      if (!el) return;
+      const style = window.getComputedStyle(el);
+      if (style.display === 'none' || style.visibility === 'hidden' || parseFloat(style.opacity) === 0) return;
+      const r = el.getBoundingClientRect();
+      if (r.width < 10 || r.height < 10) return;
+      const halfW = r.width * 0.5;
+      const halfH = r.height * 0.5;
+      subButtons.push({
+        cx: (r.left - navRect.left) + halfW,
+        cy: (r.top - navRect.top) + halfH,
+        halfW,
+        halfH,
+        radius: Math.min(halfW, halfH),
+        bezel: Math.min(bezelPx, halfH * 0.42),
+        strength
       });
-    }
+    };
+
+    navLinks.forEach(link => addSubButton(link, 6.5, 0.58));
+    addSubButton(activePillEl, 7.5, 0.78);
+    navbarEl.querySelectorAll('.theme-toggle, .btn-nav').forEach(btn => {
+      addSubButton(btn, 7.5, 0.80);
+    });
 
     const halfW = w * 0.5;
     const halfH = h * 0.5;
     const mainRadius = Math.min(halfW, halfH);
-    const bezel = isCompactNav ? OPTICS.bezelMobile : OPTICS.bezelDesktop;
+    const bezel = OPTICS.bezelDesktop;
 
     for (let y = 0; y < h; y++) {
       const py = y + 0.5;
@@ -629,7 +510,7 @@ MOTEUR OPTIQUE LIQUID GLASS V27 — ZÉRO DIVERGENCE (DESKTOP/MOBILE) & SAFARI L
         const px = x + 0.5;
         const vIdx = (y * w + x) * 2;
 
-        const bezelVec = evalMonotonicInwardBezel(px, py, halfW, halfH, halfW, halfH, mainRadius, bezel);
+        const bezelVec = evalBalancedOuterBezel(px, py, halfW, halfH, halfW, halfH, mainRadius, bezel);
         if (!bezelVec) {
           state.baseNavNormals[vIdx] = 0;
           state.baseNavNormals[vIdx + 1] = 0;
@@ -639,18 +520,13 @@ MOTEUR OPTIQUE LIQUID GLASS V27 — ZÉRO DIVERGENCE (DESKTOP/MOBILE) & SAFARI L
         let nx = bezelVec.nx;
         let ny = bezelVec.ny;
 
-        const outerMag = Math.min(1, Math.hypot(nx, ny) * 2.5);
-        const innerWeight = 1 - outerMag;
-
-        if (innerWeight > 0.05) {
-          for (let i = 0; i < subButtons.length; i++) {
-            const sb = subButtons[i];
-            if (Math.abs(px - sb.cx) <= sb.halfW && Math.abs(py - sb.cy) <= sb.halfH) {
-              const subVec = evalMonotonicInwardBezel(px, py, sb.cx, sb.cy, sb.halfW, sb.halfH, sb.radius, sb.bezel);
-              if (subVec && (subVec.nx !== 0 || subVec.ny !== 0)) {
-                nx += subVec.nx * sb.strength * innerWeight;
-                ny += subVec.ny * sb.strength * innerWeight;
-              }
+        for (let i = 0; i < subButtons.length; i++) {
+          const sb = subButtons[i];
+          if (Math.abs(px - sb.cx) <= sb.halfW && Math.abs(py - sb.cy) <= sb.halfH) {
+            const subVec = evalBalancedOuterBezel(px, py, sb.cx, sb.cy, sb.halfW, sb.halfH, sb.radius, sb.bezel);
+            if (subVec && (subVec.nx !== 0 || subVec.ny !== 0)) {
+              nx += subVec.nx * sb.strength;
+              ny += subVec.ny * sb.strength;
             }
           }
         }
@@ -662,10 +538,7 @@ MOTEUR OPTIQUE LIQUID GLASS V27 — ZÉRO DIVERGENCE (DESKTOP/MOBILE) & SAFARI L
   }
 
   function renderNavbarMapWithPhotoMask(forceRender = false) {
-    if (isSafariOrFirefox) {
-      syncSafariEdgeLenses();
-      return;
-    }
+    if (isUsingFrostedFallback()) return;
 
     if (!state.baseNavNormals || !navImgData) {
       buildBaseNavbarNormals();
@@ -765,7 +638,7 @@ MOTEUR OPTIQUE LIQUID GLASS V27 — ZÉRO DIVERGENCE (DESKTOP/MOBILE) & SAFARI L
       for (let x = 0; x < w; x++) {
         const px = x + 0.5;
         const idx = (y * w + x) * 4;
-        const bezelVec = evalMonotonicInwardBezel(px, py, halfW, halfH, halfW, halfH, cornerRadius, bezelPx);
+        const bezelVec = evalBalancedOuterBezel(px, py, halfW, halfH, halfW, halfH, cornerRadius, bezelPx);
 
         if (!bezelVec || (bezelVec.nx === 0 && bezelVec.ny === 0)) {
           data[idx] = 128; data[idx + 1] = 128; data[idx + 2] = 255; data[idx + 3] = 255;
@@ -785,19 +658,17 @@ MOTEUR OPTIQUE LIQUID GLASS V27 — ZÉRO DIVERGENCE (DESKTOP/MOBILE) & SAFARI L
   }
 
   function rebuildOpticalMaps() {
-    if (isSafariOrFirefox) {
-      setupSafariEdgeLenses();
-      syncSafariEdgeLenses();
-      return;
-    }
+    syncFallbackClass();
+    if (isUsingFrostedFallback()) return;
+
     buildBaseNavbarNormals();
     renderNavbarMapWithPhotoMask(true);
 
     if (btnMapEl) {
-      setFeImageHref(btnMapEl, generateBalancedBezelMap(200, 50, 25, 10));
+      setFeImageHref(btnMapEl, generateBalancedBezelMap(200, 50, 25, 11));
     }
     if (panelMapEl) {
-      setFeImageHref(panelMapEl, generateBalancedBezelMap(480, 480, 28, 14));
+      setFeImageHref(panelMapEl, generateBalancedBezelMap(480, 480, 28, 16));
     }
   }
 
@@ -814,7 +685,7 @@ MOTEUR OPTIQUE LIQUID GLASS V27 — ZÉRO DIVERGENCE (DESKTOP/MOBILE) & SAFARI L
     const newX = targetLink.offsetLeft - 4;
     activePillEl.style.width = `${newWidth}px`; activePillEl.style.transform = `translate3d(${newX}px, 0, 0)`;
 
-    if (isSafariOrFirefox || lastPillTarget === targetLink) {
+    if (isUsingFrostedFallback() || lastPillTarget === targetLink) {
       lastPillTarget = targetLink;
       return;
     }
@@ -855,10 +726,7 @@ MOTEUR OPTIQUE LIQUID GLASS V27 — ZÉRO DIVERGENCE (DESKTOP/MOBILE) & SAFARI L
 
   let scrollTicking = false;
   window.addEventListener('scroll', () => {
-    if (isSafariOrFirefox) {
-      syncSafariEdgeLenses();
-      return;
-    }
+    if (isUsingFrostedFallback()) return;
     if (!scrollTicking) {
       scrollTicking = true;
       requestAnimationFrame(() => {
@@ -882,6 +750,7 @@ MOTEUR OPTIQUE LIQUID GLASS V27 — ZÉRO DIVERGENCE (DESKTOP/MOBILE) & SAFARI L
   }
 
   const ro = new ResizeObserver(() => {
+    syncFallbackClass();
     const current = navLinksContainer ? (navLinksContainer.querySelector('a.active') || navLinks[0]) : null;
     if (current) updateActivePill(current);
     rebuildOpticalMaps();
@@ -889,6 +758,7 @@ MOTEUR OPTIQUE LIQUID GLASS V27 — ZÉRO DIVERGENCE (DESKTOP/MOBILE) & SAFARI L
   ro.observe(navbarEl);
 
   function boot() {
+    syncFallbackClass();
     const active = navLinksContainer ? (navLinksContainer.querySelector('a.active') || navLinks[0]) : null;
     if (active) updateActivePill(active);
     rebuildOpticalMaps();
