@@ -2974,11 +2974,10 @@ body.dark .nav-links a {
 }
 
 /* =========================================================================
-   MOTEUR LIQUID GLASS SAFARI (MACOS / IOS) & FIREFOX — 100% COMPOSITOR NATIF
+   MOTEUR LIQUID GLASS V27 — CHROMIUM SVG PUR & LENTILLES DE BORD SAFARI
    ========================================================================= */
 
-/* 1. Sur Chromium (Chrome, Edge, Opera Desktop, Android & Simulateur Mobile DevTools) :
-      Filtre SVG #lg-navbar-filter pur */
+/* 1. Sur Chromium (Desktop, Android & Simulateur Mobile DevTools) : Filtre SVG pur */
 .lg-surface,
 #liquidNavbar.lg-surface {
   position: relative;
@@ -2995,53 +2994,59 @@ body.dark .nav-links a {
 }
 
 /* 2. Sur Vrai Safari (macOS & iPhone iOS) et Firefox :
-      Cœur transparent cristallin + Anneau de ménisque optique ::after sur les 10px du bord */
+      Cœur transparent net + Lentilles physiques de réfraction sur les bords haut/bas (11px) */
 body.lg-safari-engine #liquidNavbar.lg-surface {
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.10) 100%) !important;
-  -webkit-backdrop-filter: blur(2.2px) saturate(190%) contrast(108%) brightness(103%) !important;
-  backdrop-filter: blur(2.2px) saturate(190%) contrast(108%) brightness(103%) !important;
+  background: var(--lg-navbar-bg) !important;
+  -webkit-backdrop-filter: saturate(180%) contrast(104%) !important;
+  backdrop-filter: saturate(180%) contrast(104%) !important;
 }
 
-body.dark.lg-safari-engine #liquidNavbar.lg-surface {
-  background: linear-gradient(180deg, rgba(18, 25, 45, 0.34) 0%, rgba(12, 17, 32, 0.20) 100%) !important;
-  -webkit-backdrop-filter: blur(2.4px) saturate(190%) contrast(110%) brightness(104%) !important;
-  backdrop-filter: blur(2.4px) saturate(190%) contrast(110%) brightness(104%) !important;
-}
-
-/* Ménisque optique de réfraction sur les 10px extérieurs de la navbar pour Safari & iOS */
-body.lg-safari-engine #liquidNavbar.lg-surface::after {
-  content: "";
+.lg-safari-lenses {
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  padding: 10px;
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.28) 0%,
-    rgba(59, 75, 195, 0.08) 50%,
-    rgba(255, 255, 255, 0.20) 100%
-  );
-  -webkit-backdrop-filter: blur(8px) saturate(240%) contrast(135%) brightness(110%);
-  backdrop-filter: blur(8px) saturate(240%) contrast(135%) brightness(110%);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
+  overflow: hidden;
   pointer-events: none;
   z-index: 1;
 }
 
-body.dark.lg-safari-engine #liquidNavbar.lg-surface::after {
-  background: linear-gradient(
-    180deg,
-    rgba(255, 255, 255, 0.16) 0%,
-    rgba(99, 120, 255, 0.12) 50%,
-    rgba(255, 255, 255, 0.10) 100%
-  );
+.lg-safari-lens-top,
+.lg-safari-lens-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 12px;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--bg-main);
+}
+
+.lg-safari-lens-top {
+  top: 0;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 55%, transparent 100%);
+}
+
+.lg-safari-lens-bottom {
+  bottom: 0;
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 55%, transparent 100%);
+  mask-image: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 55%, transparent 100%);
+}
+
+.lg-safari-lens-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  user-select: none;
+  transform-origin: 0 0;
+  will-change: transform;
 }
 
 @media (max-width: 768px) {
-  body.lg-safari-engine #liquidNavbar.lg-surface::after {
-    padding: 7px;
+  .lg-safari-lens-top,
+  .lg-safari-lens-bottom {
+    height: 9px;
   }
 }
 
@@ -3061,12 +3066,12 @@ body.lg-safari-engine .contact-btn-box.lg-btn,
 body.lg-safari-engine .copy-email-btn.lg-btn,
 body.lg-safari-engine .btn-glass.lg-btn,
 body.lg-safari-engine .back-to-top.lg-btn {
-  -webkit-backdrop-filter: blur(2px) saturate(190%) contrast(110%) brightness(104%) !important;
-  backdrop-filter: blur(2px) saturate(190%) contrast(110%) brightness(104%) !important;
+  -webkit-backdrop-filter: blur(1.5px) saturate(185%) contrast(108%) !important;
+  backdrop-filter: blur(1.5px) saturate(185%) contrast(108%) !important;
 }
 
 body.lg-safari-engine .btn-primary.lg-btn,
 body.lg-safari-engine .filter-btn.lg-btn.active {
-  -webkit-backdrop-filter: blur(2px) saturate(195%) contrast(112%) !important;
-  backdrop-filter: blur(2px) saturate(195%) contrast(112%) !important;
+  -webkit-backdrop-filter: blur(1.5px) saturate(190%) contrast(110%) !important;
+  backdrop-filter: blur(1.5px) saturate(190%) contrast(110%) !important;
 }
