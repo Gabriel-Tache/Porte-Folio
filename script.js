@@ -333,11 +333,15 @@ if (window.ScrollReveal) {
 
 /*
 ================================================================================
-MOTEUR OPTIQUE LIQUID GLASS HYBRIDE UNIVERSEL V24
-- Moteur 1 (Chromium Desktop) : Réfraction SVG native `<feDisplacementMap>`
-- Moteur 2 (Safari macOS, iOS iPhone/iPad, Firefox, Android Mobile) :
-  Lentille de biseau masquée `.lg-bezel-refraction-ring` + Compression Optique
-  de Snell + Dispersion Chromatique RVB + Shader Caustique Procédural.
+MOTEUR OPTIQUE LIQUID GLASS V25 — UNIVERSEL (CHROME, EDGE, OPERA, SAFARI & MOBILE)
+- Chromium (Desktop, Android & DevTools Mobile) :
+  Filtre SVG `#lg-navbar-filter` avec adaptation automatique des échelles RVB
+  sur Mobile (12 / 15 / 18 et biseau 8px) pour ZÉRO divergence sur petit écran,
+  et (24 / 32 / 40 et biseau 14px) sur Desktop.
+- Safari (macOS & iOS iPhone/iPad) et Firefox :
+  Zéro clone DOM (aucune divergence possible), backdrop CoreAnimation +
+  Shader Canvas procédural `.lg-safari-rim-canvas` dessinant le ménisque optique
+  (14px bord + 6.5px boutons internes) et respectant l'occlusion `.profile-img`.
 ================================================================================
 */
 (() => {
@@ -345,22 +349,22 @@ MOTEUR OPTIQUE LIQUID GLASS HYBRIDE UNIVERSEL V24
 
   const OPTICS = {
     bezelDesktop: 14,
-    bezelMobile: 10,
+    bezelMobile: 8,
     photoFeatherPx: 20
   };
 
-  // Détection précise : Seul Chromium Desktop supporte de façon fiable `backdrop-filter: url(#svg-displacement)`
+  // Détection stricte du moteur de rendu :
+  // Chrome, Edge, Opera, Brave (Desktop, Android & DevTools Mobile) ont `window.chrome` (hors iOS)
   const ua = navigator.userAgent || '';
   const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-  const isSafari = /^((?!chrome|android).)*safari/i.test(ua);
   const isFirefox = /firefox/i.test(ua);
-  const isMobileTouch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+  const isChromiumEngine = !!window.chrome && !isIOS && !isFirefox;
   const urlParams = new URLSearchParams(window.location.search);
-  const forceAdapted = urlParams.get('adapted') === '1' || urlParams.get('mirror') === '1';
-  const useAdaptedLiquidGlass = forceAdapted || isIOS || isSafari || isFirefox || isMobileTouch;
+  const forceSafari = urlParams.get('safari') === '1' || urlParams.get('adapted') === '1';
+  const isSafariOrFirefox = forceSafari || !isChromiumEngine;
 
-  if (useAdaptedLiquidGlass) {
-    document.body.classList.add('lg-adapted-env');
+  if (isSafariOrFirefox) {
+    document.body.classList.add('lg-safari-engine');
   }
 
   const state = {
@@ -400,6 +404,11 @@ MOTEUR OPTIQUE LIQUID GLASS HYBRIDE UNIVERSEL V24
     return outDist + inDist - r;
   }
 
+  /**
+   * Calcule le biseau optique équilibré avec normale sortante (+dx/len, +dy/len) :
+   * - Zéro distorsion dès que inwardDist >= bezel (cœur 100% plat).
+   * - Courbe C2 sans aucune pliure ni divergence.
+   */
   function evalBalancedOuterBezel(x, y, cx, cy, halfW, halfH, cornerRadius, bezelPx) {
     const r = Math.max(2, Math.min(cornerRadius, halfW - 1, halfH - 1));
     const bezel = Math.min(bezelPx, r * 0.80);
@@ -432,86 +441,61 @@ MOTEUR OPTIQUE LIQUID GLASS HYBRIDE UNIVERSEL V24
   const navMapEl = document.getElementById('lg-navbar-map');
   const panelMapEl = document.getElementById('lg-panel-map');
   const btnMapEl = document.getElementById('lg-btn-map');
+  const dispREl = document.getElementById('lg-nav-disp-r');
+  const dispGEl = document.getElementById('lg-nav-disp-g');
+  const dispBEl = document.getElementById('lg-nav-disp-b');
   const navLinksContainer = document.getElementById('navLinks');
   const activePillEl = document.getElementById('navActivePill');
   const profileImgEl = document.querySelector('.profile-img');
-  const mainWrapperEl = document.querySelector('main.wrapper');
 
   if (!navbarEl || !navMapEl) return;
 
   const navLinks = navLinksContainer ? Array.from(navLinksContainer.querySelectorAll('a')) : [];
 
-  // Canvases réutilisables (Normal Map SVG + Masque Biseau WebKit + Shader Caustique WebKit)
   const navCanvas = document.createElement('canvas');
   const navCtx = navCanvas.getContext('2d');
   let navImgData = null;
 
-  const maskCanvas = document.createElement('canvas');
-  const maskCtx = maskCanvas.getContext('2d');
-  let maskImgData = null;
+  // Canvas de ménisque optique direct pour Safari (macOS & iOS) et Firefox
+  let safariRimCanvas = null;
+  let safariRimCtx = null;
+  let safariRimImgData = null;
 
-  const causticCanvas = document.createElement('canvas');
-  const causticCtx = causticCanvas.getContext('2d');
-  let causticImgData = null;
-
-  let refractionRingEl = null;
-  let causticRingEl = null;
-  let mirrorContentEl = null;
-
-  function setupAdaptedDOMLayersIfNeeded() {
-    if (!useAdaptedLiquidGlass || !navbarEl || refractionRingEl) return;
-
-    navbarEl.classList.add('lg-adapted-mode');
-
-    refractionRingEl = document.createElement('div');
-    refractionRingEl.className = 'lg-bezel-refraction-ring';
-    refractionRingEl.setAttribute('aria-hidden', 'true');
-
-    if (mainWrapperEl) {
-      mirrorContentEl = document.createElement('div');
-      mirrorContentEl.className = 'lg-mirror-content';
-
-      const clonedMain = mainWrapperEl.cloneNode(true);
-      clonedMain.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
-      clonedMain.querySelectorAll('[style*="visibility"], [style*="opacity"]').forEach(el => {
-        el.style.visibility = 'visible';
-        el.style.opacity = '1';
-        el.style.transform = 'none';
-      });
-
-      mirrorContentEl.appendChild(clonedMain);
-      refractionRingEl.appendChild(mirrorContentEl);
-    }
-
-    causticRingEl = document.createElement('div');
-    causticRingEl.className = 'lg-bezel-caustic-ring';
-    causticRingEl.setAttribute('aria-hidden', 'true');
-
-    navbarEl.insertBefore(causticRingEl, navbarEl.firstChild);
-    navbarEl.insertBefore(refractionRingEl, navbarEl.firstChild);
-    syncAdaptedMirrorPosition();
+  function ensureSafariRimCanvas() {
+    if (!isSafariOrFirefox || safariRimCanvas) return;
+    safariRimCanvas = document.createElement('canvas');
+    safariRimCanvas.className = 'lg-safari-rim-canvas';
+    safariRimCanvas.setAttribute('aria-hidden', 'true');
+    safariRimCtx = safariRimCanvas.getContext('2d');
+    navbarEl.insertBefore(safariRimCanvas, navbarEl.firstChild);
   }
 
   /**
-   * Synchronise la position du miroir comprimé à l'intérieur de l'anneau de biseau (14px)
-   * pour créer une vraie distorsion optique de bord sur Safari / iOS / Firefox !
+   * Adapte dynamiquement les échelles RVB du filtre SVG selon la taille de la navbar
+   * (Desktop vs Mobile) pour éviter toute divergence chromatique ou géométrique sur Mobile.
    */
-  function syncAdaptedMirrorPosition() {
-    if (!useAdaptedLiquidGlass || !mirrorContentEl || !mainWrapperEl || !navbarEl) return;
-    const navRect = navbarEl.getBoundingClientRect();
-    const mainRect = mainWrapperEl.getBoundingClientRect();
-
-    // Décalage optique amplifié sur les bords pour courber le texte entrant dans la barre
-    const offsetX = mainRect.left - navRect.left;
-    const offsetY = (mainRect.top - navRect.top) - 6;
-    mirrorContentEl.style.width = `${mainRect.width}px`;
-    mirrorContentEl.style.transform = `translate3d(${offsetX.toFixed(1)}px, ${offsetY.toFixed(1)}px, 0) scaleY(0.74)`;
+  function syncResponsiveFilterScales() {
+    if (!dispREl || !dispGEl || !dispBEl) return;
+    const isMobileViewport = window.innerWidth <= 768;
+    if (isMobileViewport) {
+      dispREl.setAttribute('scale', '12.0');
+      dispGEl.setAttribute('scale', '15.0');
+      dispBEl.setAttribute('scale', '18.0');
+    } else {
+      dispREl.setAttribute('scale', '24.0');
+      dispGEl.setAttribute('scale', '32.0');
+      dispBEl.setAttribute('scale', '40.0');
+    }
   }
 
   function buildBaseNavbarNormals() {
+    ensureSafariRimCanvas();
+    syncResponsiveFilterScales();
+
     const navRect = navbarEl.getBoundingClientRect();
     const w = Math.max(120, Math.round(navRect.width || 1060));
     const h = Math.max(44, Math.round(navRect.height || 68));
+    const isCompactNav = h < 60 || window.innerWidth <= 768;
 
     state.navWidth = w;
     state.navHeight = h;
@@ -523,16 +507,12 @@ MOTEUR OPTIQUE LIQUID GLASS HYBRIDE UNIVERSEL V24
       navCanvas.width = w;
       navCanvas.height = h;
       navImgData = navCtx.createImageData(w, h);
+    }
 
-      if (useAdaptedLiquidGlass) {
-        maskCanvas.width = w;
-        maskCanvas.height = h;
-        maskImgData = maskCtx.createImageData(w, h);
-
-        causticCanvas.width = w;
-        causticCanvas.height = h;
-        causticImgData = causticCtx.createImageData(w, h);
-      }
+    if (isSafariOrFirefox && safariRimCanvas && (safariRimCanvas.width !== w || safariRimCanvas.height !== h)) {
+      safariRimCanvas.width = w;
+      safariRimCanvas.height = h;
+      safariRimImgData = safariRimCtx.createImageData(w, h);
     }
 
     const subButtons = [];
@@ -550,21 +530,26 @@ MOTEUR OPTIQUE LIQUID GLASS HYBRIDE UNIVERSEL V24
         halfW,
         halfH,
         radius: Math.min(halfW, halfH),
-        bezel: Math.min(bezelPx, halfH * 0.45),
+        bezel: Math.min(bezelPx, halfH * 0.42),
         strength
       });
     };
 
-    navLinks.forEach(link => addSubButton(link, 6.5, 0.58));
-    addSubButton(activePillEl, 7.5, 0.78);
+    const btnBezel = isCompactNav ? 5.0 : 6.5;
+    const actionBezel = isCompactNav ? 5.5 : 7.5;
+    const btnStrength = isCompactNav ? 0.42 : 0.58;
+    const actionStrength = isCompactNav ? 0.55 : 0.80;
+
+    navLinks.forEach(link => addSubButton(link, btnBezel, btnStrength));
+    addSubButton(activePillEl, actionBezel, actionStrength);
     navbarEl.querySelectorAll('.theme-toggle, .btn-nav, .nav-menu-btn').forEach(btn => {
-      addSubButton(btn, 7.5, 0.82);
+      addSubButton(btn, actionBezel, actionStrength);
     });
 
     const halfW = w * 0.5;
     const halfH = h * 0.5;
     const mainRadius = Math.min(halfW, halfH);
-    const bezel = h < 60 ? OPTICS.bezelMobile : OPTICS.bezelDesktop;
+    const bezel = isCompactNav ? OPTICS.bezelMobile : OPTICS.bezelDesktop;
 
     for (let y = 0; y < h; y++) {
       const py = y + 0.5;
@@ -634,10 +619,9 @@ MOTEUR OPTIQUE LIQUID GLASS HYBRIDE UNIVERSEL V24
     state.wasOverlappingPhoto = hasPhotoOverlap;
 
     const data = navImgData.data;
-    const mData = useAdaptedLiquidGlass && maskImgData ? maskImgData.data : null;
-    const cData = useAdaptedLiquidGlass && causticImgData ? causticImgData.data : null;
+    const sData = isSafariOrFirefox && safariRimImgData ? safariRimImgData.data : null;
     const normals = state.baseNavNormals;
-    const innerR = Math.max(0, photoR - 2);
+    const innerR = Math.max(0, photoR - 4);
     const outerR = photoR + feather;
     const isDark = document.body.classList.contains('dark');
 
@@ -656,9 +640,8 @@ MOTEUR OPTIQUE LIQUID GLASS HYBRIDE UNIVERSEL V24
           data[pIdx + 1] = 128;
           data[pIdx + 2] = 255;
           data[pIdx + 3] = 255;
-          if (mData) {
-            mData[pIdx] = 0; mData[pIdx + 1] = 0; mData[pIdx + 2] = 0; mData[pIdx + 3] = 0;
-            cData[pIdx] = 0; cData[pIdx + 1] = 0; cData[pIdx + 2] = 0; cData[pIdx + 3] = 0;
+          if (sData) {
+            sData[pIdx] = 0; sData[pIdx + 1] = 0; sData[pIdx + 2] = 0; sData[pIdx + 3] = 0;
           }
           continue;
         }
@@ -681,31 +664,29 @@ MOTEUR OPTIQUE LIQUID GLASS HYBRIDE UNIVERSEL V24
         data[pIdx + 2] = Math.max(0, Math.min(255, Math.round(128 + nz * 127)));
         data[pIdx + 3] = 255;
 
-        // Remplissage des textures du moteur adapté Safari / iOS / Firefox
-        if (mData && cData) {
-          const mag = Math.min(1, Math.hypot(nx, ny) * 1.35);
-          mData[pIdx] = 255;
-          mData[pIdx + 1] = 255;
-          mData[pIdx + 2] = 255;
-          mData[pIdx + 3] = Math.round(Math.pow(mag, 0.72) * 255);
-
-          // Calcul caustique & chromatique (prisme bleu/cyan en haut-gauche, indigo/ambre en bas-droite)
-          const lightDot = Math.max(0, (-nx * 0.55 - ny * 0.75 + nz * 0.35));
-          const spec = Math.pow(lightDot, 6) * 0.85;
-          const rimAlpha = Math.min(1, mag * (isDark ? 0.52 : 0.65) + spec * 0.5);
-
-          if (ny < 0) {
-            // Bord supérieur : reflet cristallin + frange cyan
-            cData[pIdx]     = Math.round(210 + 45 * spec);
-            cData[pIdx + 1] = Math.round(235 + 20 * spec);
-            cData[pIdx + 2] = 255;
+        // Rendu du ménisque optique & prisme de Fresnel pour Safari (macOS/iOS) et Firefox
+        if (sData) {
+          const mag = Math.min(1, Math.hypot(nx, ny) * 1.25);
+          if (mag < 0.02) {
+            sData[pIdx] = 0; sData[pIdx + 1] = 0; sData[pIdx + 2] = 0; sData[pIdx + 3] = 0;
           } else {
-            // Bord inférieur : réfraction saphir/indigo + spéculaire
-            cData[pIdx]     = Math.round(95 + 140 * spec);
-            cData[pIdx + 1] = Math.round(115 + 125 * spec);
-            cData[pIdx + 2] = 255;
+            // Anneau de réfraction interne + reflet spéculaire de bord
+            const lightTop = Math.max(0, -ny * 0.75 - nx * 0.35);
+            const lightBot = Math.max(0, ny * 0.75 + nx * 0.35);
+            const rimBand = Math.sin(mag * Math.PI); // Crête optique au cœur du biseau
+
+            if (isDark) {
+              sData[pIdx]     = Math.round(140 + 115 * lightTop);
+              sData[pIdx + 1] = Math.round(165 + 90 * lightTop);
+              sData[pIdx + 2] = 255;
+              sData[pIdx + 3] = Math.round(Math.min(1, rimBand * 0.32 + mag * 0.24) * 255);
+            } else {
+              sData[pIdx]     = Math.round(225 + 30 * lightTop - 35 * lightBot);
+              sData[pIdx + 1] = Math.round(236 + 19 * lightTop - 25 * lightBot);
+              sData[pIdx + 2] = 255;
+              sData[pIdx + 3] = Math.round(Math.min(1, rimBand * 0.42 + mag * 0.28) * 255);
+            }
           }
-          cData[pIdx + 3] = Math.round(rimAlpha * 255);
         }
       }
     }
@@ -713,11 +694,8 @@ MOTEUR OPTIQUE LIQUID GLASS HYBRIDE UNIVERSEL V24
     navCtx.putImageData(navImgData, 0, 0);
     setFeImageHref(navMapEl, navCanvas.toDataURL('image/png'), w, h);
 
-    if (useAdaptedLiquidGlass && maskImgData && causticImgData) {
-      maskCtx.putImageData(maskImgData, 0, 0);
-      causticCtx.putImageData(causticImgData, 0, 0);
-      navbarEl.style.setProperty('--lg-bezel-mask', `url(${maskCanvas.toDataURL('image/png')})`);
-      navbarEl.style.setProperty('--lg-caustic-map', `url(${causticCanvas.toDataURL('image/png')})`);
+    if (isSafariOrFirefox && safariRimCtx && safariRimImgData) {
+      safariRimCtx.putImageData(safariRimImgData, 0, 0);
     }
   }
 
@@ -759,12 +737,8 @@ MOTEUR OPTIQUE LIQUID GLASS HYBRIDE UNIVERSEL V24
   }
 
   function rebuildOpticalMaps() {
-    setupAdaptedDOMLayersIfNeeded();
     buildBaseNavbarNormals();
     renderNavbarMapWithPhotoMask(true);
-    if (useAdaptedLiquidGlass) {
-      syncAdaptedMirrorPosition();
-    }
 
     if (btnMapEl) {
       setFeImageHref(btnMapEl, generateBalancedBezelMap(200, 50, 25, 11), 200, 50);
@@ -824,12 +798,18 @@ MOTEUR OPTIQUE LIQUID GLASS HYBRIDE UNIVERSEL V24
     });
   }
 
+  // Mise à jour du ménisque Safari lors du changement de thème Clair / Sombre
+  document.querySelectorAll('.toggle-switch').forEach(sw => {
+    sw.addEventListener('click', () => {
+      requestAnimationFrame(() => renderNavbarMapWithPhotoMask(true));
+    });
+  });
+
   let scrollTicking = false;
   window.addEventListener('scroll', () => {
     if (!scrollTicking) {
       scrollTicking = true;
       requestAnimationFrame(() => {
-        if (useAdaptedLiquidGlass) syncAdaptedMirrorPosition();
         renderNavbarMapWithPhotoMask(false);
         scrollTicking = false;
       });
