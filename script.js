@@ -333,21 +333,21 @@ if (window.ScrollReveal) {
 
 /*
 ================================================================================
-MOTEUR OPTIQUE LIQUID GLASS V28 — CHROMIUM DESKTOP SVG & FALLBACK FROSTED PROPRE
-- Chromium Desktop (> 1020px) : Réfraction SVG `#lg-navbar-filter` (24 / 32 / 40)
-  avec biseau convexe C2 (14px), micro-biseaux sur les boutons internes et
-  masque d'occlusion sur `.profile-img`.
+MOTEUR OPTIQUE LIQUID GLASS V29 — PUISSANCE D'ORIGINE RESTAURÉE SUR DESKTOP
+- Chromium Desktop (> 1020px) : Réfraction SVG `#lg-navbar-filter` (31.5 / 45.0 / 58.5)
+  avec biseau généreux (18px, couloir 32px plat), vraie courbe smootherstep pleine
+  puissance, micro-biseaux renforcés sur les sous-boutons et masque photo préservé.
+  Boutons .lg-btn à pleine puissance (24.6 / 35.1 / 45.6 avec biseau 17px).
 - Safari (macOS/iOS), Firefox & Mobile (<= 1020px) : Fallback Apple Frosted
-  Liquid Glass (`blur(16px) saturate(190%)`) 100% fluide, zéro clone DOM,
-  zéro divergence.
+  Liquid Glass V28 rigoureusement INTACT (blur 16px saturate 190%, biseaux 3D).
 ================================================================================
 */
 (() => {
   'use strict';
 
   const OPTICS = {
-    bezelDesktop: 14,
-    photoFeatherPx: 20
+    bezelDesktop: 18,    // Biseau optique généreux (18px) avec couloir central plat de 32px
+    photoFeatherPx: 22
   };
 
   const ua = navigator.userAgent || '';
@@ -404,7 +404,7 @@ MOTEUR OPTIQUE LIQUID GLASS V28 — CHROMIUM DESKTOP SVG & FALLBACK FROSTED PROP
 
   function evalBalancedOuterBezel(x, y, cx, cy, halfW, halfH, cornerRadius, bezelPx) {
     const r = Math.max(2, Math.min(cornerRadius, halfW - 1, halfH - 1));
-    const bezel = Math.min(bezelPx, r * 0.80);
+    const bezel = Math.min(bezelPx, r * 0.86);
     const dist = sdRoundedBoxCentered(x, y, cx, cy, halfW, halfH, r);
 
     if (dist > 0.5) return null;
@@ -415,7 +415,7 @@ MOTEUR OPTIQUE LIQUID GLASS V28 — CHROMIUM DESKTOP SVG & FALLBACK FROSTED PROP
     }
 
     const t = 1 - (inwardDist / bezel);
-    const curve = Math.pow(smootherstep(0, 1, t), 1.35);
+    const curve = smootherstep(0, 1, t);
 
     const eps = 1.0;
     const dx = sdRoundedBoxCentered(x + eps, y, cx, cy, halfW, halfH, r) -
@@ -425,8 +425,8 @@ MOTEUR OPTIQUE LIQUID GLASS V28 — CHROMIUM DESKTOP SVG & FALLBACK FROSTED PROP
     const len = Math.hypot(dx, dy) || 1;
 
     return {
-      nx: (dx / len) * curve * 0.90,
-      ny: (dy / len) * curve * 0.72
+      nx: (dx / len) * curve * 0.94,
+      ny: (dy / len) * curve * 0.88
     };
   }
 
@@ -440,7 +440,6 @@ MOTEUR OPTIQUE LIQUID GLASS V28 — CHROMIUM DESKTOP SVG & FALLBACK FROSTED PROP
 
   if (!navbarEl || !navMapEl) return;
 
-  // Nettoyage de tout ancien élément expérimental éventuel
   navbarEl.querySelectorAll('.lg-safari-rim-canvas, .lg-safari-lenses').forEach(el => el.remove());
 
   const navLinks = navLinksContainer ? Array.from(navLinksContainer.querySelectorAll('a')) : [];
@@ -493,10 +492,10 @@ MOTEUR OPTIQUE LIQUID GLASS V28 — CHROMIUM DESKTOP SVG & FALLBACK FROSTED PROP
       });
     };
 
-    navLinks.forEach(link => addSubButton(link, 6.5, 0.58));
-    addSubButton(activePillEl, 7.5, 0.78);
+    navLinks.forEach(link => addSubButton(link, 7.5, 0.68));
+    addSubButton(activePillEl, 8.5, 0.88);
     navbarEl.querySelectorAll('.theme-toggle, .btn-nav').forEach(btn => {
-      addSubButton(btn, 7.5, 0.80);
+      addSubButton(btn, 8.5, 0.92);
     });
 
     const halfW = w * 0.5;
@@ -665,10 +664,10 @@ MOTEUR OPTIQUE LIQUID GLASS V28 — CHROMIUM DESKTOP SVG & FALLBACK FROSTED PROP
     renderNavbarMapWithPhotoMask(true);
 
     if (btnMapEl) {
-      setFeImageHref(btnMapEl, generateBalancedBezelMap(200, 50, 25, 11));
+      setFeImageHref(btnMapEl, generateBalancedBezelMap(200, 50, 25, 17));
     }
     if (panelMapEl) {
-      setFeImageHref(panelMapEl, generateBalancedBezelMap(480, 480, 28, 16));
+      setFeImageHref(panelMapEl, generateBalancedBezelMap(480, 480, 28, 24));
     }
   }
 
