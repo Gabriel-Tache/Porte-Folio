@@ -2974,10 +2974,10 @@ body.dark .nav-links a {
 }
 
 /* =========================================================================
-   MOTEUR LIQUID GLASS V27 — CHROMIUM SVG PUR & LENTILLES DE BORD SAFARI
+   MOTEUR LIQUID GLASS V28 — CHROMIUM DESKTOP SVG & FALLBACK APPLE FROSTED GLASS
    ========================================================================= */
 
-/* 1. Sur Chromium (Desktop, Android & Simulateur Mobile DevTools) : Filtre SVG pur */
+/* 1. Par défaut sur Chromium Desktop (> 1020px) : Réfraction SVG pure */
 .lg-surface,
 #liquidNavbar.lg-surface {
   position: relative;
@@ -2993,64 +2993,40 @@ body.dark .nav-links a {
   overflow: hidden;
 }
 
-/* 2. Sur Vrai Safari (macOS & iPhone iOS) et Firefox :
-      Cœur transparent net + Lentilles physiques de réfraction sur les bords haut/bas (11px) */
+/* 2. Fallback Apple Frosted Liquid Glass (Safari macOS/iOS, Firefox & Mobile) :
+      Flou optique soigné, saturation riche et double biseau spéculaire 3D */
 body.lg-safari-engine #liquidNavbar.lg-surface {
-  background: var(--lg-navbar-bg) !important;
-  -webkit-backdrop-filter: saturate(180%) contrast(104%) !important;
-  backdrop-filter: saturate(180%) contrast(104%) !important;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.58) 0%,
+    rgba(244, 247, 255, 0.36) 100%
+  ) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(190%) contrast(104%) !important;
+  backdrop-filter: blur(16px) saturate(190%) contrast(104%) !important;
+  box-shadow:
+    inset 0 1.75px 1px 0 rgba(255, 255, 255, 0.96),
+    inset 0 -1.5px 1px 0 rgba(50, 67, 214, 0.22),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.80),
+    0 14px 36px -6px rgba(15, 23, 42, 0.10),
+    0 2px 8px -2px rgba(50, 67, 214, 0.06) !important;
 }
 
-.lg-safari-lenses {
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 1;
+body.dark.lg-safari-engine #liquidNavbar.lg-surface {
+  background: linear-gradient(
+    180deg,
+    rgba(18, 25, 45, 0.66) 0%,
+    rgba(12, 17, 32, 0.48) 100%
+  ) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(190%) contrast(106%) !important;
+  backdrop-filter: blur(16px) saturate(190%) contrast(106%) !important;
+  box-shadow:
+    inset 0 1.75px 1px 0 rgba(255, 255, 255, 0.38),
+    inset 0 -1.5px 1px 0 rgba(99, 120, 255, 0.32),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+    0 16px 40px -6px rgba(0, 0, 0, 0.55) !important;
 }
 
-.lg-safari-lens-top,
-.lg-safari-lens-bottom {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 12px;
-  overflow: hidden;
-  pointer-events: none;
-  background: var(--bg-main);
-}
-
-.lg-safari-lens-top {
-  top: 0;
-  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 55%, transparent 100%);
-  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 55%, transparent 100%);
-}
-
-.lg-safari-lens-bottom {
-  bottom: 0;
-  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 55%, transparent 100%);
-  mask-image: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 55%, transparent 100%);
-}
-
-.lg-safari-lens-inner {
-  position: absolute;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  user-select: none;
-  transform-origin: 0 0;
-  will-change: transform;
-}
-
-@media (max-width: 768px) {
-  .lg-safari-lens-top,
-  .lg-safari-lens-bottom {
-    height: 9px;
-  }
-}
-
-/* 3. Boutons .lg-btn sur Vrai Safari (macOS & iPhone iOS) et Firefox */
+/* Boutons .lg-btn en mode Fallback (Safari, iOS, Firefox) */
 body.lg-safari-engine .badge-status.lg-btn,
 body.lg-safari-engine .icon.lg-btn,
 body.lg-safari-engine .role-badge.lg-btn,
@@ -3066,12 +3042,71 @@ body.lg-safari-engine .contact-btn-box.lg-btn,
 body.lg-safari-engine .copy-email-btn.lg-btn,
 body.lg-safari-engine .btn-glass.lg-btn,
 body.lg-safari-engine .back-to-top.lg-btn {
-  -webkit-backdrop-filter: blur(1.5px) saturate(185%) contrast(108%) !important;
-  backdrop-filter: blur(1.5px) saturate(185%) contrast(108%) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(180%) !important;
+  backdrop-filter: blur(10px) saturate(180%) !important;
 }
 
 body.lg-safari-engine .btn-primary.lg-btn,
 body.lg-safari-engine .filter-btn.lg-btn.active {
-  -webkit-backdrop-filter: blur(1.5px) saturate(190%) contrast(110%) !important;
-  backdrop-filter: blur(1.5px) saturate(190%) contrast(110%) !important;
+  -webkit-backdrop-filter: blur(10px) saturate(190%) !important;
+  backdrop-filter: blur(10px) saturate(190%) !important;
+}
+
+/* 3. Sur Mobile & Tablette (<= 1020px, tous navigateurs) :
+      Application automatique du Frosted Liquid Glass pour éliminer 100% de la divergence */
+@media (max-width: 1020px) {
+  #liquidNavbar.lg-surface {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.60) 0%,
+      rgba(244, 247, 255, 0.40) 100%
+    ) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(190%) contrast(104%) !important;
+    backdrop-filter: blur(16px) saturate(190%) contrast(104%) !important;
+    box-shadow:
+      inset 0 1.75px 1px 0 rgba(255, 255, 255, 0.96),
+      inset 0 -1.5px 1px 0 rgba(50, 67, 214, 0.22),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.80),
+      0 12px 30px -6px rgba(15, 23, 42, 0.12) !important;
+  }
+
+  body.dark #liquidNavbar.lg-surface {
+    background: linear-gradient(
+      180deg,
+      rgba(18, 25, 45, 0.68) 0%,
+      rgba(12, 17, 32, 0.50) 100%
+    ) !important;
+    -webkit-backdrop-filter: blur(16px) saturate(190%) contrast(106%) !important;
+    backdrop-filter: blur(16px) saturate(190%) contrast(106%) !important;
+    box-shadow:
+      inset 0 1.75px 1px 0 rgba(255, 255, 255, 0.38),
+      inset 0 -1.5px 1px 0 rgba(99, 120, 255, 0.32),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.18),
+      0 14px 34px -6px rgba(0, 0, 0, 0.55) !important;
+  }
+
+  .badge-status.lg-btn,
+  .icon.lg-btn,
+  .role-badge.lg-btn,
+  .entity-pill-logo.lg-btn,
+  .tech-tags span.lg-btn,
+  .pfe-badge.lg-btn,
+  .skills-list span.lg-btn,
+  .filter-btn.lg-btn,
+  .project-category-tag.lg-btn,
+  .project-mini-tags span.lg-btn,
+  .project-cta.lg-btn,
+  .contact-btn-box.lg-btn,
+  .copy-email-btn.lg-btn,
+  .btn-glass.lg-btn,
+  .back-to-top.lg-btn {
+    -webkit-backdrop-filter: blur(10px) saturate(180%) !important;
+    backdrop-filter: blur(10px) saturate(180%) !important;
+  }
+
+  .btn-primary.lg-btn,
+  .filter-btn.lg-btn.active {
+    -webkit-backdrop-filter: blur(10px) saturate(190%) !important;
+    backdrop-filter: blur(10px) saturate(190%) !important;
+  }
 }
